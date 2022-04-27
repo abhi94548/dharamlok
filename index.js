@@ -34,6 +34,6 @@ const routes = require('./routes/routes');
 app.use('/api', routes);
 
 
-app.listen(2900, () => {
-    console.log(`Server Started at ${2900}`)
+app.listen(3000, () => {
+    console.log(`Server Started at ${3000}`)
 })
