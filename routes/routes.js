@@ -138,8 +138,7 @@ router.post('/uploadpost',upload.single("file"), async (req, res) => {
     	jwt.verify(req.headers.token, 'bootspider', function(err, user){
         	if (err) throw err;
   	 		const imgUrl = `${req.file.filename}`;
-		        let post = new 
-                	res.send(imgUrl+"hello world");
+            res.send(imgUrl+"hello world");
 		});
     	}
 	catch (error) {
