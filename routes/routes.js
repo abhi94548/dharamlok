@@ -10,10 +10,6 @@ const router = express.Router();
 
 module.exports = router;
 
-router.get('/', (req, res) => {
-	res.send('hello')
-})
-
 //Sign Up
 router.post('/signup',
 	async (req, res) => {
