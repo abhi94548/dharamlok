@@ -3,6 +3,7 @@ require('dotenv').config();
 import express, { json, urlencoded } from 'express';
 import { connect, connection } from 'mongoose';
 import cors from "cors";
+import routes from './routes/routes';
 const mongoString = process.env.DATABASE_URL;
 
 connect(mongoString);
@@ -31,9 +32,6 @@ app.use(function(req, res, next) {
    res.header('Access-Control-Allow-Methods', 'DELETE, PUT, GET, POST');
    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 });
-
-
-import routes from './routes/routes';
 
 app.use('/api', routes);
 
