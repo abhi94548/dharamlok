@@ -1,14 +1,14 @@
-const userModel = require('../models/user').default;
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const express = require('express');
-const upload = require('../middleware/upload');
-const uploadVideo = require('../middleware/uploadVideo');
-const postModel = require('../models/postModel').default;
+import userModel, { findOne } from '../models/user';
+import { genSalt, hash, compare } from "bcryptjs";
+import { sign, verify } from "jsonwebtoken";
+import { Router } from 'express';
+import { single } from '../middleware/upload';
+import { single as _single } from '../middleware/uploadVideo';
+import postModel from '../models/postModel';
 
-const router = express.Router()
+const router = Router()
 
-module.exports = router;
+export default router;
 
 //Sign Up
 router.post('/signup',
@@ -21,7 +21,7 @@ router.post('/signup',
             	password,
 		userType
            } = req.body;
-	let user = await userModel.findOne({
+	let user = await findOne({
                 email
         });
 	if (user) {
@@ -36,14 +36,14 @@ router.post('/signup',
 		password,
 		userType
          })
-	const salt = await bcrypt.genSalt(10);
-        user.password = await bcrypt.hash(password, salt);
+	const salt = await genSalt(10);
+        user.password = await hash(password, salt);
         await user.save();
 	const payload = {
               id: user.id
             };
 
-         jwt.sign(
+         sign(
                 payload,
                 "bootspider", {
                     expiresIn: '10d'
@@ -76,17 +76,17 @@ router.post('/login',
             	email,
             	password
            } = req.body;
-	let user = await userModel.findOne({
+	let user = await findOne({
 		email
         });
 	if (user) {
-                const validPassword = await bcrypt.compare(password, user.password);
+                const validPassword = await compare(password, user.password);
 		if(validPassword){
                 	 const payload = {
                     		id: user.id
             		};
 
-         		jwt.sign(
+         		sign(
                 		payload,
                 		"bootspider", {
                     		expiresIn: '10d'
@@ -128,7 +128,7 @@ router.post('/login',
 
 //Get post
 router.post('/getmyposts', async (req, res) => {
-    jwt.verify(req.headers.token, 'bootspider', function(err, decode) {
+    verify(req.headers.token, 'bootspider', function(err, decode) {
       	if (err) throw err;
       	res.send(decode.id);
     });
@@ -137,9 +137,9 @@ router.post('/getmyposts', async (req, res) => {
 
 
 //Upload Photos
-router.post('/uploadphoto',upload.single("file"), async (req, res) => {
+router.post('/uploadphoto',single("file"), async (req, res) => {
     try{
-    	jwt.verify(req.headers.token, 'bootspider', function(err, user){
+    	verify(req.headers.token, 'bootspider', function(err, user){
         	if (err) throw err;
 			const imgUrl = `${req.file.filename}`;
             res.status(200).json({success : true,message: imgUrl})
@@ -151,9 +151,9 @@ router.post('/uploadphoto',upload.single("file"), async (req, res) => {
 })
 
 //Upload Photos
-router.post('/uploadvideo',uploadVideo.single("video"), async (req, res) => {
+router.post('/uploadvideo',_single("video"), async (req, res) => {
     try{
-    	jwt.verify(req.headers.token, 'bootspider', function(err, user){
+    	verify(req.headers.token, 'bootspider', function(err, user){
         	if (err) throw err;
 			const videoUrl = `${req.video.filename}`;
             res.status(200).json({success : true,message: videoUrl})
@@ -167,7 +167,7 @@ router.post('/uploadvideo',uploadVideo.single("video"), async (req, res) => {
 //Get by ID Method
 router.post('/uploadpost',async (req, res) => {
     try{
-    	jwt.verify(req.headers.token, 'bootspider', function(err, user){
+    	verify(req.headers.token, 'bootspider', function(err, user){
         	if (err) throw err;
 			let post = new postModel({
 				userId : user.id,
