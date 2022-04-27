@@ -155,7 +155,7 @@ router.post('/uploadvideo',uploadVideo.single("video"), async (req, res) => {
     try{
     	jwt.verify(req.headers.token, 'bootspider', function(err, user){
         	if (err) throw err;
-			const videoUrl = `${req.video.filename}`;
+			const videoUrl = `${req.file.filename}`;
             res.status(200).json({success : true,message: videoUrl})
 		});
     	}
