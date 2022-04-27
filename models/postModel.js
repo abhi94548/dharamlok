@@ -1,15 +1,19 @@
 const mongoose = require('mongoose');
 
 const postSchema = new mongoose.Schema({
+	userId : {
+		required: true,
+		type: String
+	},
 	description : {
 		required: false,
 		type: String
 	},
-	imageLink : {
+	imageUrl : {
 		required: false,
 		type: String,
 	},
-	videoLink : {
+	videoUrl : {
 		required: false,
 		type: String,
 	},

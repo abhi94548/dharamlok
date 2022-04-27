@@ -5,15 +5,15 @@ const storage = new GridFsStorage({
     url: "mongodb://localhost:27017/bootspider",
     options: { useNewUrlParser: true, useUnifiedTopology: true },
     file: (req, file) => {
-        const match = ["image/png", "image/jpeg"];
+        const match = ["video/mp4"];
 
         if (match.indexOf(file.mimetype) === -1) {
-            const filename = `${Date.now()}--${file.originalname}`;
+            const filename = `${Date.now()}-${file.originalname}`;
             return filename;
         }
 
         return {
-            bucketName: "photos",
+            bucketName: "video",
             filename: `${Date.now()}-${file.originalname}`,
         };
     },
