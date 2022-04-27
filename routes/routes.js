@@ -1,4 +1,5 @@
 const userModel = require('../models/user');
+const multer = require("multer");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const express = require('express');
