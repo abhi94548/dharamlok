@@ -152,7 +152,7 @@ router.post('/uploadphoto',upload.single("file"), async (req, res) => {
 				} else {
 				  res.json({
 					message: 'File uploaded successfully',
-					filename: `${req.file.filename} + -${file.originalname}`
+					filename: `${req.file.filename} + -${req.file.originalname}`
 				  });
 				}
 			});
