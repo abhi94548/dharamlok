@@ -141,7 +141,7 @@ router.post('/uploadphoto',upload.single("photo"), async (req, res) => {
     try{
     	jwt.verify(req.headers.token, 'bootspider', function(err, user){
         	if (err) throw err;
-			const imgUrl = `${req.file.filename}`;
+			const imgUrl = `${req.photo.filename}`;
             res.status(200).json({success : true,message: imgUrl})
 		});
     	}
@@ -155,7 +155,7 @@ router.post('/uploadvideo',uploadVideo.single("video"), async (req, res) => {
     try{
     	jwt.verify(req.headers.token, 'bootspider', function(err, user){
         	if (err) throw err;
-			const videoUrl = `${req.file.filename}`;
+			const videoUrl = `${req.video.filename}`;
             res.status(200).json({success : true,message: videoUrl})
 		});
     	}
