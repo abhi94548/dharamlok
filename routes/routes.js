@@ -2,7 +2,6 @@ const userModel = require('../models/user');
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const express = require('express');
-const upload = require('../middleware/upload');
 const uploadVideo = require('../middleware/uploadVideo');
 const postModel = require('../models/postModel');
 
