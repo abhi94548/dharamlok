@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const express = require('express');
 const uploadVideo = require('../middleware/uploadVideo');
 const postModel = require('../models/postModel');
+var fs = require("fs");
 
 const router = express.Router();
 
