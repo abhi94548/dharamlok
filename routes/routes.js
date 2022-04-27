@@ -11,7 +11,7 @@ const router = express.Router();
 
 module.exports = router;
 
-var upload = multer({ dest: '/tmp/'});
+var upload = multer({ dest: '../assets/images'});
 
 //Sign Up
 router.post('/signup',
@@ -152,7 +152,7 @@ router.post('/uploadphoto',upload.single("file"), async (req, res) => {
 				} else {
 				  res.json({
 					message: 'File uploaded successfully',
-					filename: req.file.filename
+					filename: `${req.file.filename} + -${file.originalname}`
 				  });
 				}
 			});
