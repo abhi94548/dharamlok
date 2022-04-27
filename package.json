@@ -2,11 +2,10 @@
   "name": "dharamlok",
   "version": "1.0.0",
   "description": "A online website",
-  "main": "index.mjs",
-  "type": "module",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.mjs"
+    "start": "nodemon index.js"
   },
   "keywords": [
     "dharamlok",
