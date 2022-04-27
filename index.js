@@ -1,14 +1,12 @@
 require('dotenv').config();
 
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require("cors");
+import express, { json, urlencoded } from 'express';
+import { connect, connection } from 'mongoose';
+import cors from "cors";
 const mongoString = process.env.DATABASE_URL;
 
-const cookieSession = require("cookie-session");
-
-mongoose.connect(mongoString);
-const database = mongoose.connection;
+connect(mongoString);
+const database = connection;
 
 database.on('error', (error) => {
     console.log(error)
@@ -19,9 +17,9 @@ database.once('connected', () => {
 })
 const app = express();
 
-app.use(express.json());
+app.use(json());
 
-app.use(express.urlencoded({ extended: true }));
+app.use(urlencoded({ extended: true }));
 
 app.use(cors({
     origin: '*',
@@ -35,7 +33,7 @@ app.use(function(req, res, next) {
 });
 
 
-const routes = require('./routes/routes');
+import routes from './routes/routes';
 
 app.use('/api', routes);
 
