@@ -1,17 +1,16 @@
 const userModel = require('../models/user');
-const multer = require("multer");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const express = require('express');
+const upload = require('../middleware/upload');
 const uploadVideo = require('../middleware/uploadVideo');
 const postModel = require('../models/postModel');
-var fs = require("fs");
 
 const router = express.Router();
 
 module.exports = router;
 
-var upload = multer({ dest: '../assets/images'});
+var upload = multer({ dest: '/tmp/'});
 
 //Sign Up
 router.post('/signup',
@@ -144,18 +143,8 @@ router.post('/uploadphoto',upload.single("file"), async (req, res) => {
     try{
     	jwt.verify(req.headers.token, 'bootspider', function(err, user){
         	if (err) throw err;
-			var file = __dirname + '/' + req.file.filename;
-			fs.rename(req.file.path, file, function(err) {
-				if (err) {
-				  console.log(err);
-				  res.send(500);
-				} else {
-				  res.json({
-					message: 'File uploaded successfully',
-					filename: `${req.file.filename}-${req.file.originalname}`
-				  });
-				}
-			});
+			const imgUrl = `${req.file.filename}`;
+            res.status(200).json({success : true,message: imgUrl})
 		});
     	}
 	catch (error) {
