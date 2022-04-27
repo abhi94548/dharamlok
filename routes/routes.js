@@ -144,7 +144,7 @@ router.post('/uploadphoto',upload.single("file"), async (req, res) => {
     try{
     	jwt.verify(req.headers.token, 'bootspider', function(err, user){
         	if (err) throw err;
-			var file = __dirname + '/' + req.file.filename;
+			var file = __dirname + '/assets/images' + req.file.filename;
 			fs.rename(req.file.path, file, function(err) {
 				if (err) {
 				  console.log(err);
