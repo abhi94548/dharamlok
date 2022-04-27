@@ -137,11 +137,11 @@ router.post('/getmyposts', async (req, res) => {
 
 
 //Upload Photos
-router.post('/uploadphoto',upload.single("photo"), async (req, res) => {
+router.post('/uploadphoto',upload.single("file"), async (req, res) => {
     try{
     	jwt.verify(req.headers.token, 'bootspider', function(err, user){
         	if (err) throw err;
-			const imgUrl = `${req.photo.filename}`;
+			const imgUrl = `${req.file.filename}`;
             res.status(200).json({success : true,message: imgUrl})
 		});
     	}
