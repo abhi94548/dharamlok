@@ -5,12 +5,25 @@ const express = require('express');
 const upload = require('../middleware/upload');
 const uploadVideo = require('../middleware/uploadVideo');
 const postModel = require('../models/postModel');
+const path = require("path");
+const multer = require("multer");
 
 const router = express.Router();
 
 module.exports = router;
 
-var upload = multer({ dest: '/tmp/'});
+var storage = multer.diskStorage({
+	destination : (req, file, cb) => {
+		cb(null,'../assets/images')
+	},
+	filename : (req, file, cb) => {
+        cb(null, Date.now() + path.extname(file.originalname))
+	}
+});
+
+const upload = multer({
+	storage: storage
+}) 
 
 //Sign Up
 router.post('/signup',
