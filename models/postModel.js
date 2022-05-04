@@ -21,6 +21,16 @@ const postSchema = new mongoose.Schema({
 		required: true,
 		type: String,
 	},
+	like : {
+		required: false,
+		type: Number,
+		default: 0
+	},
+	Comment : {
+		required: false,
+		type: Number,
+		default:0
+	},
 	createdAt:{
 		type: Date,
 		default: Date.now()

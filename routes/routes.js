@@ -47,8 +47,8 @@ router.post('/signup',
         	name,
        		phone,
         	email,
-		password,
-		userType
+			password,
+			userType
          })
 	const salt = await bcrypt.genSalt(10);
         user.password = await bcrypt.hash(password, salt);
@@ -200,8 +200,17 @@ router.post('/uploadpost',async (req, res) => {
 })
 
 //Update by ID Method
-router.patch('/update/:id', (req, res) => {
-    res.send('Update by ID API')
+router.post('/getmypost', (req, res) => {
+    try{
+    	jwt.verify(req.headers.token, 'bootspider', function(err, user){
+        	if (err) throw err;
+			const result = await postModel.find({userId : user.id});
+            res.status(200).json({success : true,message: result})
+		});
+    	}
+	catch (error) {
+        res.status(400).json({success : false,message: error.message})
+    }
 })
 
 //Delete by ID Method
