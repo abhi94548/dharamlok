@@ -200,9 +200,9 @@ router.post('/uploadpost',async (req, res) => {
 })
 
 //Update by ID Method
-router.post('/getmypost', async (req, res) => {
+router.post('/getmypost', (req, res) => {
     try{
-    	jwt.verify(req.headers.token, 'bootspider', function(err, user){
+    	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
         	if (err) throw err;
 			const result = await postModel.find({userId : user.id});
             res.status(200).json({success : true,message: result})
