@@ -200,7 +200,7 @@ router.post('/uploadpost',async (req, res) => {
 })
 
 //Update by ID Method
-router.post('/getmypost', (req, res) => {
+router.post('/getmypost', async (req, res) => {
     try{
     	jwt.verify(req.headers.token, 'bootspider', function(err, user){
         	if (err) throw err;
