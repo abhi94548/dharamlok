@@ -259,7 +259,7 @@ router.post('/viewpost', (req, res) => {
         	if (err) throw err;
 			let id = req.body.postId
 			const post = await postModel.find({_id : id});
-			const comment = await commentModel.find({_id : id});
+			const comment = await commentModel.find({postId : id});
 			res.status(200).json({success : true, post: post , comment : comment})
 		});
     	}
