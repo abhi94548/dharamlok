@@ -242,7 +242,7 @@ router.post('/likepost', (req, res) => {
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
         	if (err) throw err;
 			let id = req.body.postId
-			postModel.findOneAndUpdate({_id : id }, {$inc : {like : 1}}, {new : true}, function(err, response){
+			postModel.findOneAndUpdate({_id : id }, {$inc : {like : 1}}, function(err, response){
 				if (err) throw err;
 				else res.status(200).json({success : true, message: 'Success'})
 			});
