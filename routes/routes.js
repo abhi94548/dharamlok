@@ -268,6 +268,24 @@ router.post('/viewpost', (req, res) => {
     }
 })
 
+router.post('/mostliked', (req, res) => {
+    try{
+    	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+        	if (err) throw err;
+			const post = await postModel.find()
+            .sort(function(a,b) {
+                if (a.like > b.like) return -1
+                if (a.like < b.like) return 1
+                return 0
+            });
+			res.status(200).json({success : true, post: post })
+		});
+    	}
+	catch (error) {
+        res.status(400).json({success : false,message: error.message})
+    }
+})
+
 //Delete by ID Method
 router.delete('/delete/:id', (req, res) => {
     res.send('Delete by ID API')
