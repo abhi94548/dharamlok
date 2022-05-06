@@ -253,6 +253,21 @@ router.post('/likepost', (req, res) => {
     }
 })
 
+router.post('/viewpost', (req, res) => {
+    try{
+    	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+        	if (err) throw err;
+			let id = req.body.postId
+			const post = await postModel.find({_id : id});
+			const comment = await commentModel.find({_id : id});
+			res.status(200).json({success : true, post: post , comment : comment})
+		});
+    	}
+	catch (error) {
+        res.status(400).json({success : false,message: error.message})
+    }
+})
+
 //Delete by ID Method
 router.delete('/delete/:id', (req, res) => {
     res.send('Delete by ID API')
