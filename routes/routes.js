@@ -239,7 +239,7 @@ router.post('/likepost', (req, res) => {
         	if (err) throw err;
 			postModel.findOneAndUpdate({_id :req.id}, {$inc : {'likes' : 1}}, {new : true}, function(err, response){
 				if (err) throw err;
-				else res.status(200).json({success : true,message: "Success"})
+				else res.status(200).json({success : true,message: response})
 			});
 		});
     	}
