@@ -201,7 +201,7 @@ router.post('/uploadpost',async (req, res) => {
 })
 
 //Update by ID Method
-router.post('/getmypost', (req, res) => {
+router.get('/getmypost', (req, res) => {
     try{
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
         	if (err) throw err;
@@ -268,7 +268,7 @@ router.post('/viewpost', (req, res) => {
     }
 })
 
-router.post('/mostliked', (req, res) => {
+router.get('/mostliked', (req, res) => {
     try{
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
         	if (err) throw err;
