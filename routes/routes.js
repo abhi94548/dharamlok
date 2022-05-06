@@ -214,7 +214,7 @@ router.post('/getmypost', (req, res) => {
     }
 })
 
-router.post('/postcomment', (req, res) => {
+router.post('/commentpost', (req, res) => {
     try{
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
         	if (err) throw err;
