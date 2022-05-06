@@ -240,7 +240,7 @@ router.post('/likepost', (req, res) => {
 			let id = req.id
 			postModel.findOneAndUpdate({_id : id }, {$inc : {like : 1}}, {new : true}, function(err, response){
 				if (err) throw err;
-				else res.status(200).json({success : true,message: id})
+				else res.status(200).json({success : true, message: 'id of' + id})
 			});
 		});
     	}
