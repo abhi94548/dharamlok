@@ -4,8 +4,9 @@ const jwt = require("jsonwebtoken");
 const express = require('express');
 const uploadVideo = require('../middleware/uploadVideo');
 const postModel = require('../models/postModel');
-const path = require("path");
+const comment = require('../models/commentModel');
 const multer = require("multer");
+const commentModel = require('../models/commentModel');
 
 const router = express.Router();
 
@@ -206,6 +207,40 @@ router.post('/getmypost', (req, res) => {
         	if (err) throw err;
 			const result = await postModel.find({userId : user.id});
             res.status(200).json({success : true,message: result})
+		});
+    	}
+	catch (error) {
+        res.status(400).json({success : false,message: error.message})
+    }
+})
+
+router.post('/postcomment', (req, res) => {
+    try{
+    	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+        	if (err) throw err;
+			let comment = new commentModel({
+				userId : user.id,
+				postId : req.body.postId,
+				comment : req.body.comment,
+			})
+			comment.save();
+            res.status(200).json({success : true,message: result})
+		});
+    	}
+	catch (error) {
+        res.status(400).json({success : false,message: error.message})
+    }
+})
+
+
+router.post('/likepost', (req, res) => {
+    try{
+    	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+        	if (err) throw err;
+			postModel.findOneAndUpdate({_id :req.id}, {$inc : {'likes' : 1}}, {new : true}, function(err, response){
+				if (err) throw err;
+				else res.status(200).json({success : true,message: "Success"})
+			});
 		});
     	}
 	catch (error) {
