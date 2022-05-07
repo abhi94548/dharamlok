@@ -10,12 +10,14 @@ const postSchema = new mongoose.Schema({
 		type: String
 	},
 	imageUrl : {
-		required: false,
+		required: true,
 		type: String,
+		default:''
 	},
 	videoUrl : {
-		required: false,
+		required: true,
 		type: String,
+		default:''
 	},
 	postType : {
 		required: true,
