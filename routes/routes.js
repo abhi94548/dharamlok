@@ -7,6 +7,7 @@ const postModel = require('../models/postModel');
 const comment = require('../models/commentModel');
 const multer = require("multer");
 const commentModel = require('../models/commentModel');
+const path = require('path');
 
 const router = express.Router();
 
