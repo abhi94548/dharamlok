@@ -188,8 +188,8 @@ router.post('/uploadpost',async (req, res) => {
 			let post = new postModel({
 				userId : user.id,
 				description : req.body.description,
-				imageLink : req.body.imageUrl,
-				videoUrl : req.body.videoUrl,
+				imageLink : 'http://54.221.98.136:3000/view/'+req.body.imageUrl,
+				videoUrl : 'http://54.221.98.136:3000/view/'+req.body.videoUrl,
 				postType : req.body.postType
 			})
 			post.save();

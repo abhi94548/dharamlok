@@ -36,7 +36,7 @@ const routes = require('./routes/routes');
 
 app.use('/api', routes);
 
-app.use('/viewImage',express.static('assets/'))
+app.use('/view',express.static('assets/'))
 
 app.listen(3000, () => {
     console.log(`Server Started at ${3000}`)
