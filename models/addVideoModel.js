@@ -11,7 +11,7 @@ const addVideoSchema = new mongoose.Schema({
 	},
 	videoUrl : {
 		required: false,
-		type: Number,
+		type: String,
 	},
 },{collection : 'Videos'})
 

@@ -11,7 +11,7 @@ const addPhotoSchema = new mongoose.Schema({
 	},
 	imageUrl : {
 		required: false,
-		type: Number,
+		type: String,
 	},
 },{collection : 'Photos'})
 

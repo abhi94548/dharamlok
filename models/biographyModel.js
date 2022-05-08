@@ -11,7 +11,7 @@ const biographySchema = new mongoose.Schema({
 	},
 	profileImageUrl : {
 		required: false,
-		type: Number,
+		type: String,
 	},
 },{collection : 'biography'})
 
