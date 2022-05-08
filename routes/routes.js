@@ -150,6 +150,20 @@ router.get('/userdetails',(req, res) => {
     try{
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
         	if (err) throw err;
+			let userDetail = await userModel.find({_id : req.body.id}).select("name").select("email").select("phone");
+            res.status(200).json({success : true,message: userDetail})
+		});
+    	}
+	catch (error) {
+        res.status(400).json({success : false,message: error.message})
+    }
+})
+
+
+router.get('/mydetails',(req, res) => {
+    try{
+    	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+        	if (err) throw err;
 			let userDetail = await userModel.find({_id : user.id}).select("name").select("email").select("phone");
             res.status(200).json({success : true,message: userDetail})
 		});
@@ -229,7 +243,8 @@ router.get('/getallpost', (req, res) => {
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
         	if (err) throw err;
 			var result = await postModel.find({}).sort([['createdAt', -1]]);
-			res.status(200).json({success : true,message: result})   
+			var isLiked = await postModel.find({postId : result[31]._id});
+			res.status(200).json({success : true,message: isLiked})   
 		});
     	}
 	catch (error) {
