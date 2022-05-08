@@ -276,6 +276,20 @@ router.post('/commentpost', (req, res) => {
 })
 
 
+router.get('/getcomment', (req, res) => {
+    try{
+    	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+        	if (err) throw err;
+			const comments = await commentModel.find({postId : req.body.postId}).sort([['createdAt', -1]]);
+			res.status(200).json({success : true,message: comments})
+		});
+    	}
+	catch (error) {
+        res.status(400).json({success : false,message: error.message})
+    }
+})
+
+
 router.post('/likepost', (req, res) => {
     try{
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){

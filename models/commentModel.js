@@ -13,6 +13,10 @@ const commentSchema = new mongoose.Schema({
 		required: true,
 		type: String,
 	},
+	createdAt:{
+		type: Date,
+		default: Date.now()
+	},
 },{collection : 'comments'})
 
 module.exports = mongoose.model('comments',commentSchema)
