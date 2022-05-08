@@ -7,6 +7,9 @@ const postModel = require('../models/postModel');
 const comment = require('../models/commentModel');
 const multer = require("multer");
 const commentModel = require('../models/commentModel');
+const biographyModel = require('../models/biographyModel');
+const addPhotoModel = require('../models/addPhotoModel');
+const addVideoModel = require('../models/addVideoModel');
 const path = require('path');
 
 const router = express.Router();
@@ -206,7 +209,7 @@ router.get('/getmypost', (req, res) => {
     try{
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
         	if (err) throw err;
-			const result = await postModel.find({userId : user.id});
+			const result = await postModel.find({userId : user.id}).sort([['createdAt', -1]]);
             res.status(200).json({success : true,message: result})
 		});
     	}
@@ -275,6 +278,61 @@ router.get('/mostliked', (req, res) => {
         	if (err) throw err;
 			const post = await postModel.find({}).sort([['like', -1]]).limit(10);
 			res.status(200).json({success : true, post: post })
+		});
+    	}
+	catch (error) {
+        res.status(400).json({success : false,message: error.message})
+    }
+})
+
+
+router.post('/updatebiography', (req, res) => {
+    try{
+    	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+        	if (err) throw err;
+			let biography = new biographyModel({
+				userId : user.id,
+				description : req.body.description,
+				profileImageUrl : req.body.profileImageUrl,
+			})
+			biography.save();
+			res.status(200).json({success : true, message: 'Biography updated successfully' })
+		});
+    	}
+	catch (error) {
+        res.status(400).json({success : false,message: error.message})
+    }
+})
+
+router.post('/addphoto', (req, res) => {
+    try{
+    	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+        	if (err) throw err;
+			let addPhoto = new addPhotoModel({
+				userId : user.id,
+				title : req.body.title,
+				imageUrl : req.body.imageUrl,
+			})
+			addPhoto.save();
+			res.status(200).json({success : true, message: 'Photo added successfully'})
+		});
+    	}
+	catch (error) {
+        res.status(400).json({success : false,message: error.message})
+    }
+})
+
+router.get('/addvideo', (req, res) => {
+    try{
+    	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+        	if (err) throw err;
+			let addVideo = new addVideoModel({
+				userId : user.id,
+				title : req.body.title,
+				videoUrl : req.body.imageUrl,
+			})
+			addVideo.save();
+			res.status(200).json({success : true, message: 'Video added successfully'})
 		});
     	}
 	catch (error) {
