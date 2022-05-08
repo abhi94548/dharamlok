@@ -232,8 +232,13 @@ router.get('/getallpost', (req, res) => {
 			const result = await postModel.find({}).sort([['createdAt', -1]]);
 			for(let i = 0; i < result.length; i++ ){
 				isLiked = await likeModal.find({postId : result[i]._id}).limit(1);
-				if(isLiked[0].userId == user.id){
-					result[i]['isLiked'] = true;
+				if(isLiked != null){
+					if(isLiked[0].userId == user.id){
+						result[i]['isLiked'] = true;
+					}
+					else{
+						result[i]['isLiked'] = false;
+					}
 				}
 				else{
 					result[i]['isLiked'] = false;
