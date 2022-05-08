@@ -149,7 +149,7 @@ router.get('/userdetails',(req, res) => {
     try{
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
         	if (err) throw err;
-			let userDetail = await userModel.find({_id : user.id}).select("name");
+			let userDetail = await userModel.find({_id : user.id}).select("name").select("email").select("phone");
             res.status(200).json({success : true,message: userDetail})
 		});
     	}
