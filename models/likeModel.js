@@ -9,10 +9,6 @@ const likeSchema = new mongoose.Schema({
 		required: true,
 		type: String
 	},
-	like : {
-		required: false,
-		type: Number,
-	},
 },{collection : 'likes'})
 
 module.exports = mongoose.model('likes',likeSchema)

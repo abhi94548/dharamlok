@@ -10,6 +10,7 @@ const commentModel = require('../models/commentModel');
 const biographyModel = require('../models/biographyModel');
 const addPhotoModel = require('../models/addPhotoModel');
 const addVideoModel = require('../models/addVideoModel');
+const likeModal = require('../models/likeModel');
 const path = require('path');
 
 const router = express.Router();
@@ -209,12 +210,34 @@ router.post('/uploadpost',async (req, res) => {
     }
 })
 
-//Update by ID Method
 router.get('/getmypost', (req, res) => {
     try{
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
         	if (err) throw err;
 			const result = await postModel.find({userId : user.id}).sort([['createdAt', -1]]);
+            res.status(200).json({success : true,message: result})
+		});
+    	}
+	catch (error) {
+        res.status(400).json({success : false,message: error.message})
+    }
+})
+
+
+router.get('/getallpost', (req, res) => {
+    try{
+    	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+        	if (err) throw err;
+			const result = await postModel.find({}).sort([['createdAt', -1]]);
+			result.forEach(element => {
+				var isLiked = await likeModal.find({postId : element._id});
+				if(isLiked.userId == user.id){
+					element['isLiked'] = true;
+				}
+				if(isLiked.userId == user.id){
+					element['isLiked'] = false;
+				}
+			});
             res.status(200).json({success : true,message: result})
 		});
     	}
@@ -253,7 +276,12 @@ router.post('/likepost', (req, res) => {
 			let id = req.body.postId
 			postModel.findOneAndUpdate({_id : id }, {$inc : {like : 1}}, function(err, response){
 				if (err) throw err;
-				else res.status(200).json({success : true, message: 'Success'})
+				let like = new likeModal({
+					userId : user.id,
+					postId : id,
+				})
+				like.save(); 
+				res.status(200).json({success : true, message: 'Success'})
 			});
 		});
     	}
