@@ -239,7 +239,7 @@ router.get('/getallpost', (req, res) => {
 					result[i]['isLiked'] = false;
 				}
 			}
-			res.status(200).json({success : true,message: result[0]})   
+			res.status(200).json({success : true,message: result[0]._id})   
 		});
     	}
 	catch (error) {
