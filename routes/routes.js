@@ -297,6 +297,25 @@ router.post('/likepost', (req, res) => {
     }
 })
 
+router.delete('/unlikepost', (req, res) => {
+    try{
+    	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+        	if (err) throw err;
+			let id = req.body.postId
+			postModel.findOneAndUpdate({_id : id }, {$inc : {like : -1}}, function(err, response){
+				if (err) throw err;
+				likeModal.findByIdAndDelete({_id : id } , function(errorDelete, response){
+					if (errorDelete) throw errorDelete;
+					else res.status(200).json({success : true, message: 'post unliked'})
+				});
+			});
+		});
+    	}
+	catch (error) {
+        res.status(400).json({success : false,message: error.message})
+    }
+})
+
 router.post('/viewpost', (req, res) => {
     try{
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
