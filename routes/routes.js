@@ -144,13 +144,18 @@ router.post('/login',
 })
 
 
-
-//Get post
-router.post('/getmyposts', async (req, res) => {
-    jwt.verify(req.headers.token, 'bootspider', function(err, decode) {
-      	if (err) throw err;
-      	res.send(decode.id);
-    });
+//Get User Details
+router.get('/mydetails',(req, res) => {
+    try{
+    	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+        	if (err) throw err;
+			const result = await userModel.find({_id : user.id});
+            res.status(200).json({success : true,message: result})
+		});
+    	}
+	catch (error) {
+        res.status(400).json({success : false,message: error.message})
+    }
 })
 
 
@@ -322,7 +327,7 @@ router.post('/addphoto', (req, res) => {
     }
 })
 
-router.get('/addvideo', (req, res) => {
+router.post('/addvideo', (req, res) => {
     try{
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
         	if (err) throw err;
