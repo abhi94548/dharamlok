@@ -243,7 +243,7 @@ router.get('/getallpost', (req, res) => {
     try{
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
         	if (err) throw err;
-			var result = await postModel.find({}).sort([['createdAt', -1]]);
+			var result = await postModel.find({}).sort([['createdAt', '1']]);
 			res.status(200).json({success : true,message: isLiked})   
 		});
     	}
