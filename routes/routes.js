@@ -230,20 +230,21 @@ router.get('/getallpost', (req, res) => {
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
         	if (err) throw err;
 			const result = await postModel.find({}).sort([['createdAt', -1]]);
-			for(let i = 0; i < result.length; i++ ){
-				isLiked = await likeModal.find({postId : result[i]._id}).limit(1);
-				if(isLiked.length != 0){
-					if(isLiked[0].userId == user.id){
-						result[i]['isLiked'] = true;
-					}
-					else{
-						result[i]['isLiked'] = false;
-					}
-				}
-				else{
-					result[i].isLiked = true;
-				}
-			}
+			// for(let i = 0; i < result.length; i++ ){
+			// 	isLiked = await likeModal.find({postId : result[i]._id}).limit(1);
+			// 	if(isLiked.length != 0){
+			// 		if(isLiked[0].userId == user.id){
+			// 			result[i]['isLiked'] = true;
+			// 		}
+			// 		else{
+			// 			result[i]['isLiked'] = false;
+			// 		}
+			// 	}
+			// 	else{
+			// 		result[i].isLiked = true;
+			// 	}
+			// }
+			result[0].isLiked = true;
 			res.status(200).json({success : true,message: result})   
 		});
     	}
