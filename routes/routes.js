@@ -241,7 +241,7 @@ router.get('/getallpost', (req, res) => {
 					}
 				}
 				else{
-					result[i].push({'isLiked':true});
+					result[i].isLiked = true;
 				}
 			}
 			res.status(200).json({success : true,message: result})   
