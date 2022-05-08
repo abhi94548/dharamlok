@@ -235,7 +235,7 @@ router.get('/getallpost', (req, res) => {
 				if(isLiked.userId == user.id){
 					result[i]['isLiked'] = true;
 				}
-				if(isLiked.userId == user.id){
+				else{
 					result[i]['isLiked'] = false;
 				}
 			}
