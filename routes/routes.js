@@ -150,7 +150,7 @@ router.get('/userdetails',(req, res) => {
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
         	if (err) throw err;
 			const result = await userModel.find({_id : user.id});
-			delete result['password'];
+			delete result.password;
             res.status(200).json({success : true,message: result})
 		});
     	}
