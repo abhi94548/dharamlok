@@ -364,7 +364,7 @@ router.post('/updatebiography', (req, res) => {
         	if (err) throw err;
 			const previousBiography = await biographyModel.find({userId : user.id});
 			updatedParameter = req.body.updatedParameter;
-			if(previousBiography !=  null){
+			if(previousBiography ==  null){
 				if(updatedParameter == 0){
 					biography = biographyModel.findOneAndUpdate({_id : previousBiography._id } , {description : req.body.description},{
 						new: true
