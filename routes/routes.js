@@ -362,40 +362,40 @@ router.post('/updatebiography', (req, res) => {
     try{
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
         	if (err) throw err;
-			// biographyModel.deleteMany({userId : user.id } , function(errorDelete, response){
-			// 	if (errorDelete) throw errorDelete;
-			// 	else res.status(200).json({success : true, message: 'post unliked'})
-			// });
-			let previousBiography = await biographyModel.find({userId : user.id});
-			updatedParameter = req.body.updatedParameter;
-			if(previousBiography){
-				if(updatedParameter == 0){
-					biography = biographyModel.findOneAndUpdate({userId : user.id} ,{ $set : {description : req.body.description}},{
-						new: true,
-					});
-				}
-				else if(updatedParameter == 1){
-					biography = biographyModel.findByIdAndUpdate({_id : previousBiography._id} ,{profileImageUrl : req.body.profileImageUrl},{
-						new: true
-					});
-				}
-				else if(updatedParameter == 2){
-					biography = biographyModel.findOneAndUpdate({userId : user.id} , {coverImageUrl : req.body.coverImageUrl},{
-						new: true
-					});
-				}
+			biographyModel.deleteMany({userId : user.id } , function(errorDelete, response){
+				if (errorDelete) throw errorDelete;
+				else res.status(200).json({success : true, message: 'post unliked'})
+			});
+			// let previousBiography = await biographyModel.find({userId : user.id});
+			// updatedParameter = req.body.updatedParameter;
+			// if(previousBiography){
+			// 	if(updatedParameter == 0){
+			// 		biography = biographyModel.findOneAndUpdate({userId : user.id} ,{ $set : {description : req.body.description}},{
+			// 			new: true,
+			// 		});
+			// 	}
+			// 	else if(updatedParameter == 1){
+			// 		biography = biographyModel.findByIdAndUpdate({_id : previousBiography._id} ,{profileImageUrl : req.body.profileImageUrl},{
+			// 			new: true
+			// 		});
+			// 	}
+			// 	else if(updatedParameter == 2){
+			// 		biography = biographyModel.findOneAndUpdate({userId : user.id} , {coverImageUrl : req.body.coverImageUrl},{
+			// 			new: true
+			// 		});
+			// 	}
 				
-			}
-			else{
-				biography = new biographyModel({
-					userId : user.id,
-					description : req.body.description ?? '',
-					profileImageUrl : req.body.profileImageUrl ?? '',
-					coverImageUrl : req.body.coverImageUrl ?? '',
-				})
-				biography.save();
-			}
-			res.status(200).json({success : true, message: biography })
+			// }
+			// else{
+			// 	biography = new biographyModel({
+			// 		userId : user.id,
+			// 		description : req.body.description ?? '',
+			// 		profileImageUrl : req.body.profileImageUrl ?? '',
+			// 		coverImageUrl : req.body.coverImageUrl ?? '',
+			// 	})
+			// 	biography.save();
+			// }
+			// res.status(200).json({success : true, message: biography })
 		});
     	}
 	catch (error) {
