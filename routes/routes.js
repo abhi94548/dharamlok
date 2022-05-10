@@ -11,6 +11,8 @@ const biographyModel = require('../models/biographyModel');
 const addPhotoModel = require('../models/addPhotoModel');
 const addVideoModel = require('../models/addVideoModel');
 const likeModal = require('../models/likeModel');
+const eventModel = require('../models/eventModel');
+const addServiceModel = require('../models/addServiceModel');
 const path = require('path');
 const e = require('cors');
 
@@ -362,10 +364,6 @@ router.post('/updatebiography', (req, res) => {
     try{
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
         	if (err) throw err;
-			// biographyModel.deleteMany({userId : user.id } , function(errorDelete, response){
-			// 	if (errorDelete) throw errorDelete;
-			// 	else res.status(200).json({success : true, message: 'post unliked'})
-			// });
 			let previousBiography = await biographyModel.findOne({userId : user.id});
 			updatedParameter = req.body.updatedParameter;
 			if(previousBiography){
@@ -474,6 +472,76 @@ router.get('/mybiography', (req, res) => {
         	if (err) throw err;
 			const biography = await biographyModel.find({userId : user.id});
 			res.status(200).json({success : true, message: biography})
+		});
+    	}
+	catch (error) {
+        res.status(400).json({success : false,message: error.message})
+    }
+})
+
+
+router.post('/addevent', (req, res) => {
+    try{
+    	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+        	if (err) throw err;
+			let event = new eventModel({
+				userId : user.id,
+				title : req.body.title,
+				description : req.body.description,
+				place : req.body.place,
+				type: req.body.type,
+				bannerImageUrl : req.body.bannerImageUrl,
+				relatedImageUrl : req.body.relatedImageUrl,
+			})
+			event.save();
+			res.status(200).json({success : true,message: event})
+		});
+    	}
+	catch (error) {
+        res.status(400).json({success : false,message: error.message})
+    }
+})
+
+router.post('/addservice', (req, res) => {
+    try{
+    	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+        	if (err) throw err;
+			let service = new addServiceModel({
+				userId : user.id,
+				services : req.body.services,
+				type : req.body.type,
+				place : req.body.place,
+				price: req.body.price,
+				imageUrl : req.body.imageUrl,
+			})
+			service.save();
+			res.status(200).json({success : true,message: event})
+		});
+    	}
+	catch (error) {
+        res.status(400).json({success : false,message: error.message})
+    }
+})
+
+router.get('/myevents', (req, res) => {
+    try{
+    	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+        	if (err) throw err;
+			const event = await eventModel.find({userId : user.id});
+			res.status(200).json({success : true, message: event})
+		});
+    	}
+	catch (error) {
+        res.status(400).json({success : false,message: error.message})
+    }
+})
+
+router.get('/myservice', (req, res) => {
+    try{
+    	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+        	if (err) throw err;
+			const service = await addServiceModel.find({userId : user.id});
+			res.status(200).json({success : true, message: service})
 		});
     	}
 	catch (error) {
