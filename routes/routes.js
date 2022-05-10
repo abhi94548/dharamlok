@@ -357,27 +357,40 @@ router.get('/mostliked', (req, res) => {
     }
 })
 
-router.post('/updateprofileimage', (req, res) => {
+router.post('/updatebiography', (req, res) => {
 	let biography;
     try{
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
         	if (err) throw err;
 			const previousBiography = await biographyModel.find({userId : user.id});
-			if(previousBiography){
-				biography = biographyModel.findOneAndUpdate({_id : previousBiography._id } , {profileImageUrl : req.body.profileImageUrl},{
-					new: true
-				});
+			if(previousBiography !=  null){
+				if(updatedParameter == 0){
+					biography = biographyModel.findOneAndUpdate({_id : previousBiography._id } , {description : req.body.description},{
+						new: true
+					});
+				}
+				else if(updatedParameter == 1){
+					biography = biographyModel.findOneAndUpdate({_id : previousBiography._id } , {profileImageUrl : req.body.profileImageUrl},{
+						new: true
+					});
+				}
+				else if(updatedParameter == 1){
+					biography = biographyModel.findOneAndUpdate({_id : previousBiography._id } , {coverImageUrl : req.body.coverImageUrl},{
+						new: true
+					});
+				}
+				
 			}
 			else{
 				biography = new biographyModel({
 					userId : user.id,
-					description : '',
+					description : req.body.description,
 					profileImageUrl : req.body.profileImageUrl,
-					coverImageUrl : '',
+					coverImageUrl : req.body.coverImageUrl,
 				})
 				biography.save();
 			}
-			res.status(200).json({success : true, message: previousBiography._id })
+			res.status(200).json({success : true, message: previousBiography })
 		});
     	}
 	catch (error) {
