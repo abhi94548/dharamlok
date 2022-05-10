@@ -318,11 +318,11 @@ router.post('/likepost', (req, res) => {
 						postId : id,
 					})
 					like.save(); 
-					res.status(200).json({success : true, message: like})
+					res.status(200).json({success : true, message: 'Success'})
 				});	
 			}
 		    else{
-				res.status(200).json({success : true, message: 'Already added'})
+				res.status(400).json({success : false, message: 'Already added'})
 			}
 		});
     	}
