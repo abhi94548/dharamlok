@@ -27,4 +27,4 @@ const serviceSchema = new mongoose.Schema({
 	},
 },{collection : 'services'})
 
-module.exports = mongoose.model('services',commentSchema)
+module.exports = mongoose.model('services',serviceSchema)

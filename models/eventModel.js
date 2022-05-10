@@ -35,4 +35,4 @@ const eventSchema = new mongoose.Schema({
 	},
 },{collection : 'events'})
 
-module.exports = mongoose.model('events',commentSchema)
+module.exports = mongoose.model('events',eventSchema)

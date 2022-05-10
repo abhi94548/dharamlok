@@ -35,4 +35,4 @@ const productSchema = new mongoose.Schema({
 	},
 },{collection : 'products'})
 
-module.exports = mongoose.model('products',commentSchema)
+module.exports = mongoose.model('products',productSchema)
