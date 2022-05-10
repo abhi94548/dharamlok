@@ -308,9 +308,10 @@ router.post('/likepost', (req, res) => {
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
         	if (err) throw err;
 			let id = req.body.postId
+			let like;
 			postModel.findOneAndUpdate({_id : id }, {$inc : {like : 1}}, function(err, response){
 				if (err) throw err;
-				let like = new likeModal({
+				like = new likeModal({
 					userId : user.id,
 					postId : id,
 				})
