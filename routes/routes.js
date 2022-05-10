@@ -362,7 +362,10 @@ router.post('/updatebiography', (req, res) => {
     try{
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
         	if (err) throw err;
-			biographyModel.deleteMany({userId : user.id})
+			biographyModel.deleteMany({userId : user.id } , function(errorDelete, response){
+				if (errorDelete) throw errorDelete;
+				else res.status(200).json({success : true, message: 'post unliked'})
+			});
 			// const previousBiography = await biographyModel.find({userId : user.id});
 			// updatedParameter = req.body.updatedParameter;
 			// if(previousBiography ==  null){
