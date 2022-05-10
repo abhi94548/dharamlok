@@ -247,7 +247,7 @@ router.get('/getallpost', (req, res) => {
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
         	if (err) throw err;
 			var result = await postModel.find({}).sort([['createdAt', 1]]);
-			res.status(200).json({success : true,message: result})   
+			res.status(200).json({success : true,message: typeof result})   
 		});
     	}
 	catch (error) {
