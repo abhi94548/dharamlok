@@ -357,28 +357,27 @@ router.get('/mostliked', (req, res) => {
     }
 })
 
-
-router.post('/updatebiography', (req, res) => {
+router.post('/updateprofileimage', (req, res) => {
+	let biography;
     try{
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
         	if (err) throw err;
 			const previousBiography = await biographyModel.find({userId : user.id});
 			if(previousBiography){
-				biographyModel.findByIdAndDelete({_id : previousBiography[0]._id } , function(errorDelete, response){
-					if (errorDelete) throw errorDelete;
-					else res.status(200).json({success : true, message: 'post unliked'})
+				biography = biographyModel.findOneAndUpdate({_id : previousBiography[0]._id } , {profileImageUrl : req.body.profileImageUrl},{
+					new: true
 				});
 			}
 			else{
-				let biography = new biographyModel({
+				biography = new biographyModel({
 					userId : user.id,
-					description : req.body.description,
+					description : '',
 					profileImageUrl : req.body.profileImageUrl,
-					coverImageUrl : req.body.coverImageUrl,
+					coverImageUrl : '',
 				})
 				biography.save();
 			}
-			res.status(200).json({success : true, message: 'Biography updated successfully' })
+			res.status(200).json({success : true, message: biography })
 		});
     	}
 	catch (error) {
