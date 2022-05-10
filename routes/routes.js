@@ -245,11 +245,11 @@ router.get('/getmypost', (req, res) => {
 router.get('/getallpost', (req, res) => {
     try{
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
-			var isLiked;
         	if (err) throw err;
+			var isLiked;
 			var result = await postModel.find({}).sort([['createdAt', 1]]);
 			for (var j = 0; j < result.length; j++){
-				isLiked = await likeModal.find({postId : result[j]._id});
+				isLiked = await likeModal.find({userId : user.id});
 			  }
 			res.status(200).json({success : true,message: isLiked})   
 		});
