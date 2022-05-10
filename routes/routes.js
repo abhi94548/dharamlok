@@ -362,37 +362,37 @@ router.post('/updatebiography', (req, res) => {
     try{
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
         	if (err) throw err;
-			biographyModel.deleteMany({userId : user.id})
-			// const previousBiography = await biographyModel.find({userId : user.id});
-			// updatedParameter = req.body.updatedParameter;
-			// if(previousBiography ==  null){
-			// 	if(updatedParameter == 0){
-			// 		biography = biographyModel.updateOne({userId : user.id} , {description : req.body.description},{
-			// 			new: false
-			// 		});
-			// 	}
-			// 	else if(updatedParameter == 1){
-			// 		biography = biographyModel.findOneAndUpdate({userId : user.id}  , {profileImageUrl : req.body.profileImageUrl},{
-			// 			new: false
-			// 		});
-			// 	}
-			// 	else if(updatedParameter == 2){
-			// 		biography = biographyModel.findOneAndUpdate({userId : user.id} , {coverImageUrl : req.body.coverImageUrl},{
-			// 			new: false
-			// 		});
-			// 	}
+			//biographyModel.deleteMany({userId : user.id})
+			const previousBiography = await biographyModel.find({userId : user.id});
+			updatedParameter = req.body.updatedParameter;
+			if(previousBiography ==  null){
+				if(updatedParameter == 0){
+					biography = biographyModel.updateOne({userId : user.id} , {description : req.body.description},{
+						new: false
+					});
+				}
+				else if(updatedParameter == 1){
+					biography = biographyModel.findOneAndUpdate({userId : user.id}  , {profileImageUrl : req.body.profileImageUrl},{
+						new: false
+					});
+				}
+				else if(updatedParameter == 2){
+					biography = biographyModel.findOneAndUpdate({userId : user.id} , {coverImageUrl : req.body.coverImageUrl},{
+						new: false
+					});
+				}
 				
-			// }
-			// else{
-			// 	biography = new biographyModel({
-			// 		userId : user.id,
-			// 		description : req.body.description ?? '',
-			// 		profileImageUrl : req.body.profileImageUrl ?? '',
-			// 		coverImageUrl : req.body.coverImageUrl ?? '',
-			// 	})
-			// 	biography.save();
-			// }
-			// res.status(200).json({success : true, message: biography })
+			}
+			else{
+				biography = new biographyModel({
+					userId : user.id,
+					description : req.body.description ?? '',
+					profileImageUrl : req.body.profileImageUrl ?? '',
+					coverImageUrl : req.body.coverImageUrl ?? '',
+				})
+				biography.save();
+			}
+			res.status(200).json({success : true, message: biography })
 		});
     	}
 	catch (error) {
