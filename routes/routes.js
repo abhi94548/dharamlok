@@ -367,8 +367,8 @@ router.post('/updatebiography', (req, res) => {
 			updatedParameter = req.body.updatedParameter;
 			if(previousBiography ==  null){
 				if(updatedParameter == 0){
-					biography = biographyModel.updateOne({userId : user.id} , {description : req.body.description},{
-						new: false
+					biography = biographyModel.findByIdAndUpdate({_id : previousBiography._id} , {description : req.body.description},{
+						new: true
 					});
 				}
 				else if(updatedParameter == 1){
