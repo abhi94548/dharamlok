@@ -367,17 +367,17 @@ router.post('/updatebiography', (req, res) => {
 			if(previousBiography ==  null){
 				if(updatedParameter == 0){
 					biography = biographyModel.findOneAndUpdate({_id : previousBiography._id } , {description : req.body.description},{
-						new: true
+						new: false
 					});
 				}
 				else if(updatedParameter == 1){
 					biography = biographyModel.findOneAndUpdate({_id : previousBiography._id } , {profileImageUrl : req.body.profileImageUrl},{
-						new: true
+						new: false
 					});
 				}
-				else if(updatedParameter == 1){
+				else if(updatedParameter == 2){
 					biography = biographyModel.findOneAndUpdate({_id : previousBiography._id } , {coverImageUrl : req.body.coverImageUrl},{
-						new: true
+						new: false
 					});
 				}
 				
