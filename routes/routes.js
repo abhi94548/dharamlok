@@ -468,8 +468,8 @@ router.get('/mybiography', (req, res) => {
     try{
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
         	if (err) throw err;
-			const videos = await biographyModel.find({userId : user.id});
-			res.status(200).json({success : true, message: videos})
+			const biography = await biographyModel.find({userId : user.id});
+			res.status(200).json({success : true, message: biography})
 		});
     	}
 	catch (error) {
