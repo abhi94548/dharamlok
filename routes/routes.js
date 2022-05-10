@@ -363,6 +363,7 @@ router.post('/updatebiography', (req, res) => {
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
         	if (err) throw err;
 			const previousBiography = await biographyModel.find({userId : user.id});
+			updatedParameter = req.body.updatedParameter;
 			if(previousBiography !=  null){
 				if(updatedParameter == 0){
 					biography = biographyModel.findOneAndUpdate({_id : previousBiography._id } , {description : req.body.description},{
