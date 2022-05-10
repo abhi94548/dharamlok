@@ -315,7 +315,7 @@ router.post('/likepost', (req, res) => {
 					postId : id,
 				})
 				like.save(); 
-				res.status(200).json({success : true, message: 'Success'})
+				res.status(200).json({success : true, message: like})
 			});
 		});
     	}
