@@ -370,7 +370,7 @@ router.post('/updatebiography', (req, res) => {
 			updatedParameter = req.body.updatedParameter;
 			if(previousBiography ==  null){
 				if(updatedParameter == 0){
-					biography = biographyModel.updateOne({_id : previousBiography._id, userId : user.id} , $set = {description : req.body.description},{
+					biography = biographyModel.updateOne({_id : ObjectId(previousBiography._id), userId : user.id} , $set = {description : req.body.description},{
 						new: true
 					});
 				}
