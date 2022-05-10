@@ -366,9 +366,9 @@ router.post('/updatebiography', (req, res) => {
 			// 	if (errorDelete) throw errorDelete;
 			// 	else res.status(200).json({success : true, message: 'post unliked'})
 			// });
-			let previousBiography = await biographyModel.find({userId : user.id});
+			let previousBiography = await biographyModel.findOne({userId : user.id});
 			updatedParameter = req.body.updatedParameter;
-			if(previousBiography.length == 0){
+			if(previousBiography){
 				if(updatedParameter == 0){
 					biography = biographyModel.findOneAndUpdate({userId : user.id} ,{ $set : {description : req.body.description}},{
 						new: true,
