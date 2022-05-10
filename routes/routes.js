@@ -364,7 +364,7 @@ router.post('/updateprofileimage', (req, res) => {
         	if (err) throw err;
 			const previousBiography = await biographyModel.find({userId : user.id});
 			if(previousBiography){
-				biography = biographyModel.findOneAndUpdate({_id : previousBiography[0]._id } , {profileImageUrl : req.body.profileImageUrl},{
+				biography = biographyModel.findOneAndUpdate({_id : previousBiography._id } , {profileImageUrl : req.body.profileImageUrl},{
 					new: true
 				});
 			}
