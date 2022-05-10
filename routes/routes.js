@@ -309,15 +309,21 @@ router.post('/likepost', (req, res) => {
         	if (err) throw err;
 			let id = req.body.postId
 			let like;
-			postModel.findOneAndUpdate({_id : id }, {$inc : {like : 1}}, function(err, response){
-				if (err) throw err;
-				like = new likeModal({
-					userId : user.id,
-					postId : id,
-				})
-				like.save(); 
-				res.status(200).json({success : true, message: like})
-			});
+			var isLiked = likeModal.findOne({userId: user.id, postId : id});
+            if(!isLiked){
+				postModel.findOneAndUpdate({_id : id }, {$inc : {like : 1}}, function(err, response){
+					if (err) throw err;
+					like = new likeModal({
+						userId : user.id,
+						postId : id,
+					})
+					like.save(); 
+					res.status(200).json({success : true, message: like})
+				});	
+			}
+		    else{
+				res.status(200).json({success : true, message: 'Already added'})
+			}
 		});
     	}
 	catch (error) {
