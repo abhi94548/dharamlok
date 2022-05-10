@@ -372,13 +372,13 @@ router.post('/updatebiography', (req, res) => {
 					});
 				}
 				else if(updatedParameter == 1){
-					biography = biographyModel.findOneAndUpdate({userId : user.id}  , {profileImageUrl : req.body.profileImageUrl},{
-						new: false
+					biography = biographyModel.findByIdAndUpdate({_id : previousBiography._id} ,{profileImageUrl : req.body.profileImageUrl},{
+						new: true
 					});
 				}
 				else if(updatedParameter == 2){
 					biography = biographyModel.findOneAndUpdate({userId : user.id} , {coverImageUrl : req.body.coverImageUrl},{
-						new: false
+						new: true
 					});
 				}
 				
