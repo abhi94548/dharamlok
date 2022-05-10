@@ -248,10 +248,18 @@ router.get('/getallpost', (req, res) => {
         	if (err) throw err;
 			var isLiked;
 			var result = await postModel.find({}).sort([['createdAt', 1]]);
-			for (var j = 0; j < result.length; j++){
-				isLiked = await likeModal.find({userId : user.id});
+			var userLikedPosts = await likeModal.find({userId : user.id});
+			for (var i = 0; i < userLikedPosts.length; i++){
+				for (var j = 0; j < result.length; j++){
+					if(userLikedPosts[i].postId == result[j].postId){
+						result[j].isLiked = true
+					}
+					else{
+						result[j].isLiked = false
+					}
+				}
 			  }
-			res.status(200).json({success : true,message: isLiked})   
+			res.status(200).json({success : true,message: result})   
 		});
     	}
 	catch (error) {
