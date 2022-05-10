@@ -251,7 +251,7 @@ router.get('/getallpost', (req, res) => {
 			var userLikedPosts = await likeModal.find({userId : user.id});
 			for (var i = 0; i < userLikedPosts.length; i++){
 				for (var j = 0; j < result.length; j++){
-					if(userLikedPosts[i].postId == result[j].postId){
+					if(userLikedPosts[i].postId == result[j]._id){
 						result[j].isLiked = true
 						isLiked++;
 					}
