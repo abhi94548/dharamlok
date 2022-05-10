@@ -147,7 +147,7 @@ router.post('/login',
 
 
 //Get User Details
-router.get('/userdetails',(req, res) => {
+router.post('/userdetails',(req, res) => {
     try{
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
         	if (err) throw err;
@@ -275,7 +275,7 @@ router.post('/commentpost', (req, res) => {
 })
 
 
-router.get('/getcomment', (req, res) => {
+router.post('/getcomment', (req, res) => {
     try{
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
         	if (err) throw err;
@@ -362,12 +362,22 @@ router.post('/updatebiography', (req, res) => {
     try{
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
         	if (err) throw err;
-			let biography = new biographyModel({
-				userId : user.id,
-				description : req.body.description,
-				profileImageUrl : req.body.profileImageUrl,
-			})
-			biography.save();
+			const previousBiography = await biographyModel.find({userId : user.id});
+			if(previousBiography){
+				biographyModel.findByIdAndDelete({_id : previousBiography[0]._id } , function(errorDelete, response){
+					if (errorDelete) throw errorDelete;
+					else res.status(200).json({success : true, message: 'post unliked'})
+				});
+			}
+			else{
+				let biography = new biographyModel({
+					userId : user.id,
+					description : req.body.description,
+					profileImageUrl : req.body.profileImageUrl,
+					coverImageUrl : req.body.coverImageUrl,
+				})
+				biography.save();
+			}
 			res.status(200).json({success : true, message: 'Biography updated successfully' })
 		});
     	}
@@ -411,6 +421,52 @@ router.post('/addvideo', (req, res) => {
         res.status(400).json({success : false,message: error.message})
     }
 })
+
+
+router.get('/myphotos', (req, res) => {
+    try{
+    	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+        	if (err) throw err;
+			const images = await addPhotoModel.find({userId : user.id}).sort([['createdAt', -1]]);
+			res.status(200).json({success : true, message: images})
+		});
+    	}
+	catch (error) {
+        res.status(400).json({success : false,message: error.message})
+    }
+})
+
+
+router.get('/myvideos', (req, res) => {
+    try{
+    	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+        	if (err) throw err;
+			const videos = await addVideoModel.find({userId : user.id}).sort([['createdAt', -1]]);
+			res.status(200).json({success : true, message: videos})
+		});
+    	}
+	catch (error) {
+        res.status(400).json({success : false,message: error.message})
+    }
+})
+
+
+router.get('/mybiography', (req, res) => {
+    try{
+    	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+        	if (err) throw err;
+			const videos = await biographyModel.find({userId : user.id});
+			res.status(200).json({success : true, message: videos})
+		});
+    	}
+	catch (error) {
+        res.status(400).json({success : false,message: error.message})
+    }
+})
+
+
+
+
 
 //Delete by ID Method
 router.delete('/delete/:id', (req, res) => {

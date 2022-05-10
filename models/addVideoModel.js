@@ -13,6 +13,10 @@ const addVideoSchema = new mongoose.Schema({
 		required: false,
 		type: String,
 	},
+	createdAt:{
+		type: Date,
+		default: Date.now()
+	},
 },{collection : 'Videos'})
 
 module.exports = mongoose.model('Videos',addVideoSchema)

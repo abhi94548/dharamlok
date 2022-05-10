@@ -13,6 +13,14 @@ const biographySchema = new mongoose.Schema({
 		required: false,
 		type: String,
 	},
+	coverImageUrl : {
+		required: false,
+		type: String,
+	},
+	createdAt:{
+		type: Date,
+		default: Date.now()
+	},
 },{collection : 'biography'})
 
 module.exports = mongoose.model('biography',biographySchema)

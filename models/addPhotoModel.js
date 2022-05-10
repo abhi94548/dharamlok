@@ -13,6 +13,10 @@ const addPhotoSchema = new mongoose.Schema({
 		required: false,
 		type: String,
 	},
+	createdAt:{
+		type: Date,
+		default: Date.now()
+	},
 },{collection : 'Photos'})
 
 module.exports = mongoose.model('Photos',addPhotoSchema)
