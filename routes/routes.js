@@ -322,7 +322,7 @@ router.post('/likepost', (req, res) => {
 				});	
 			}
 		    else{
-				res.status(200).json({success : true, message: isLiked})
+				res.status(200).json({success : true, message: 'Already added'})
 			}
 		});
     	}
