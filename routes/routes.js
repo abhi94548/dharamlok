@@ -13,6 +13,7 @@ const addVideoModel = require('../models/addVideoModel');
 const likeModal = require('../models/likeModel');
 const eventModel = require('../models/eventModel');
 const addServiceModel = require('../models/addServiceModel');
+const productModel = require('../models/productModel');
 const path = require('path');
 const e = require('cors');
 
@@ -542,6 +543,30 @@ router.get('/myservice', (req, res) => {
         	if (err) throw err;
 			const service = await addServiceModel.find({userId : user.id});
 			res.status(200).json({success : true, message: service})
+		});
+    	}
+	catch (error) {
+        res.status(400).json({success : false,message: error.message})
+    }
+})
+
+
+router.post('/addproduct', (req, res) => {
+    try{
+    	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+        	if (err) throw err;
+			let product = new productModel({
+				userId : user.id,
+				title : req.body.title,
+				type : req.body.type,
+				description : req.body.description,
+				price: req.body.price,
+				imageUrl : req.body.imageUrl,
+				pricePerUnit : req.body.pricePerUnit,
+				category: req.body.category,
+			})
+			service.save();
+			res.status(200).json({success : true,message: product})
 		});
     	}
 	catch (error) {
