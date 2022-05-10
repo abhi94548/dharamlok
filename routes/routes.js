@@ -245,9 +245,13 @@ router.get('/getmypost', (req, res) => {
 router.get('/getallpost', (req, res) => {
     try{
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+			var id;
         	if (err) throw err;
 			var result = await postModel.find({}).sort([['createdAt', 1]]);
-			res.status(200).json({success : true,message: typeof result})   
+			for (var j = 0; j < result.length; j++){
+				id = result[j]._id;
+			  }
+			res.status(200).json({success : true,message: id})   
 		});
     	}
 	catch (error) {
