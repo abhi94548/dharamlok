@@ -395,7 +395,7 @@ router.post('/updatebiography', (req, res) => {
 				})
 				biography.save();
 			}
-			res.status(200).json({success : true, message: "biography updated successfully" })
+			res.status(200).json({success : true, message: "biography updated successfully"+previousBiography })
 		});
     	}
 	catch (error) {
