@@ -368,11 +368,10 @@ router.post('/updatebiography', (req, res) => {
 			// });
 			let previousBiography = await biographyModel.find({userId : user.id});
 			updatedParameter = req.body.updatedParameter;
-			if(previousBiography.length != 0){
+			if(previousBiography){
 				if(updatedParameter == 0){
 					biography = biographyModel.findOneAndUpdate({userId : user.id} ,{ $set : {description : req.body.description}},{
 						new: true,
-						upsert: true
 					});
 				}
 				else if(updatedParameter == 1){
