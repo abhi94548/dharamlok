@@ -583,7 +583,7 @@ router.post('/addproduct', (req, res) => {
 				pricePerUnit : req.body.pricePerUnit,
 				category: req.body.category,
 			})
-			service.save();
+			product.save();
 			res.status(200).json({success : true,message: product})
 		});
     	}
