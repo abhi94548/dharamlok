@@ -516,6 +516,21 @@ router.post('/getphoto', (req, res) => {
     }
 })
 
+router.post('/getvideo', (req, res) => {
+    try{
+    	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+        	if (err) res.status(400).json({success : false,message: err.message});
+			else{
+				const videoDetails = await addVideoModel.findOne({_id : req.body.id});
+				res.status(200).json({success : true, message: videoDetails})
+			}
+		});
+    	}
+	catch (error) {
+        res.status(400).json({success : false,message: error.message})
+    }
+})
+
 router.get('/myvideos', (req, res) => {
     try{
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
