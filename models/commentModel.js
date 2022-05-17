@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const moment = require('moment');
+const mongooseDateFormat = require('mongoose-date-format');
 
 const commentSchema = new mongoose.Schema({
 	userId : {
@@ -19,5 +19,8 @@ const commentSchema = new mongoose.Schema({
 		default: moment(Date.now()).format('MM/DD/YYYY')
 	},
 },{collection : 'comments'})
+
+
+commentSchema.plugin(mongooseDateFormat)
 
 module.exports = mongoose.model('comments',commentSchema)
