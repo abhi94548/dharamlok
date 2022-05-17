@@ -521,8 +521,8 @@ router.get('/mybiography', (req, res) => {
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
         	if (err) res.status(400).json({success : false,message: err.message});
 			else{
-				const biography = await biographyModel.find({userId : user.id}).limit(1);
-				res.status(200).json({success : true, message: biography.toString})
+				const biography = await biographyModel.findOne({userId : user.id}).limit(1);
+				res.status(200).json({success : true, message: biography})
 			}
 		});
     	}
