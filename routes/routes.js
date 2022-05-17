@@ -153,9 +153,11 @@ router.post('/login',
 router.post('/userdetails',(req, res) => {
     try{
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
-        	if (err) throw err;
-			let userDetail = await userModel.find({_id : req.body.id}).select("name").select("email").select("phone");
-            res.status(200).json({success : true,message: userDetail})
+        	if (err) res.status(400).json({success : false,message: err.message});
+			else{
+				let userDetail = await userModel.find({_id : req.body.id}).select("name").select("email").select("phone");
+				res.status(200).json({success : true,message: userDetail})
+			}
 		});
     	}
 	catch (error) {
@@ -167,9 +169,11 @@ router.post('/userdetails',(req, res) => {
 router.get('/mydetails',(req, res) => {
     try{
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
-        	if (err) throw err;
-			let userDetail = await userModel.find({_id : user.id}).select("name").select("email").select("phone");
-            res.status(200).json({success : true,message: userDetail})
+        	if (err) res.status(400).json({success : false,message: err.message});
+			else{
+				let userDetail = await userModel.find({_id : user.id}).select("name").select("email").select("phone");
+				res.status(200).json({success : true,message: userDetail})
+			}
 		});
     	}
 	catch (error) {
@@ -183,9 +187,11 @@ router.get('/mydetails',(req, res) => {
 router.post('/uploadphoto',upload.single("file"), async (req, res) => {
     try{
     	jwt.verify(req.headers.token, 'bootspider', function(err, user){
-        	if (err) throw err;
-			const imgUrl = `${req.file.filename}`;
-            res.status(200).json({success : true,message: imgUrl})
+        	if (err) res.status(400).json({success : false,message: err.message});
+			else{
+				const imgUrl = `${req.file.filename}`;
+				res.status(200).json({success : true,message: imgUrl})
+			}
 		});
     	}
 	catch (error) {
@@ -197,9 +203,11 @@ router.post('/uploadphoto',upload.single("file"), async (req, res) => {
 router.post('/uploadvideo',uploadVideo.single("video"), async (req, res) => {
     try{
     	jwt.verify(req.headers.token, 'bootspider', function(err, user){
-        	if (err) throw err;
-			const videoUrl = `${req.file.filename}`;
-            res.status(200).json({success : true,message: videoUrl})
+        	if (err) res.status(400).json({success : false,message: err.message});
+			else{
+				const videoUrl = `${req.file.filename}`;
+				res.status(200).json({success : true,message: videoUrl})
+			}
 		});
     	}
 	catch (error) {
@@ -211,16 +219,18 @@ router.post('/uploadvideo',uploadVideo.single("video"), async (req, res) => {
 router.post('/uploadpost',async (req, res) => {
     try{
     	jwt.verify(req.headers.token, 'bootspider', function(err, user){
-        	if (err) throw err;
-			let post = new postModel({
-				userId : user.id,
-				description : req.body.description,
-				imageLink : 'http://54.221.98.136:3000/view/'+req.body.imageUrl,
-				videoUrl : 'http://54.221.98.136:3000/view/'+req.body.videoUrl,
-				postType : req.body.postType
-			})
-			post.save();
-            res.status(200).json({success : true,message: "Post uploaded successfully"})
+        	if (err) res.status(400).json({success : false,message: err.message});
+			else{
+				let post = new postModel({
+					userId : user.id,
+					description : req.body.description,
+					imageLink : 'http://54.221.98.136:3000/view/'+req.body.imageUrl,
+					videoUrl : 'http://54.221.98.136:3000/view/'+req.body.videoUrl,
+					postType : req.body.postType
+				})
+				post.save();
+				res.status(200).json({success : true,message: "Post uploaded successfully"})
+		    }
 		});
     	}
 	catch (error) {
@@ -231,9 +241,11 @@ router.post('/uploadpost',async (req, res) => {
 router.get('/getmypost', (req, res) => {
     try{
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
-        	if (err) throw err;
-			const result = await postModel.find({userId : user.id}).sort([['createdAt', -1]]);
-            res.status(200).json({success : true,message: result})
+        	if (err) res.status(400).json({success : false,message: err.message});
+			else{
+				const result = await postModel.find({userId : user.id}).sort([['createdAt', -1]]);
+				res.status(200).json({success : true,message: result})
+			}
 		});
     	}
 	catch (error) {
@@ -245,20 +257,22 @@ router.get('/getmypost', (req, res) => {
 router.get('/getallpost', (req, res) => {
     try{
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
-        	if (err) throw err;
-			var result = await postModel.find({}).sort([['createdAt', -1]]);
-			var userLikedPosts = await likeModal.find({userId : user.id});
-			for (var i = 0; i < userLikedPosts.length; i++){
-				for (var j = 0; j < result.length; j++){
-					if(userLikedPosts[i].postId == result[j]._id){
-						result[j].isLiked = true
-					}
-					else{
-						result[j].isLiked = false
+        	if (err) res.status(400).json({success : false,message: err.message});
+			else{
+				var result = await postModel.find({}).sort([['createdAt', -1]]);
+				var userLikedPosts = await likeModal.find({userId : user.id});
+				for (var i = 0; i < userLikedPosts.length; i++){
+					for (var j = 0; j < result.length; j++){
+						if(userLikedPosts[i].postId == result[j]._id){
+							result[j].isLiked = true
+						}
+						else{
+							result[j].isLiked = false
+						}
 					}
 				}
-			  }
-			res.status(200).json({success : true,message: result})   
+				res.status(200).json({success : true,message: result}) 
+			}  
 		});
     	}
 	catch (error) {
@@ -269,18 +283,20 @@ router.get('/getallpost', (req, res) => {
 router.post('/commentpost', (req, res) => {
     try{
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
-        	if (err) throw err;
-			let comment = new commentModel({
-				userId : user.id,
-				postId : req.body.postId,
-				comment : req.body.comment,
-			})
-			comment.save();
-			let id = req.body.postId
-			postModel.findOneAndUpdate({_id : id }, {$inc : {comment : 1}}, {new : true}, function(error, response){
-				if (error) throw error;
-				else res.status(200).json({success : true,message: comment})
-			});
+        	if (err) res.status(400).json({success : false,message: err.message});
+			else{
+				let comment = new commentModel({
+					userId : user.id,
+					postId : req.body.postId,
+					comment : req.body.comment,
+				})
+				comment.save();
+				let id = req.body.postId
+				postModel.findOneAndUpdate({_id : id }, {$inc : {comment : 1}}, {new : true}, function(error, response){
+					if (error) throw error;
+					else res.status(200).json({success : true,message: comment})
+				});
+		    }
 		});
     	}
 	catch (error) {
@@ -386,37 +402,39 @@ router.post('/updatebiography', (req, res) => {
 	let biography;
     try{
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
-        	if (err) throw err;
-			let previousBiography = await biographyModel.findOne({userId : user.id});
-			updatedParameter = req.body.updatedParameter;
-			if(previousBiography){
-				if(updatedParameter == 0){
-					biography = await biographyModel.findOneAndUpdate({userId : user.id} ,{description : req.body.description},{
-						new: true,
-					});
+        	if (err) res.status(400).json({success : false,message: err.message});
+            else{
+				let previousBiography = await biographyModel.findOne({userId : user.id});
+				updatedParameter = req.body.updatedParameter;
+				if(previousBiography){
+					if(updatedParameter == 0){
+						biography = await biographyModel.findOneAndUpdate({userId : user.id} ,{description : req.body.description},{
+							new: true,
+						});
+					}
+					else if(updatedParameter == 1){
+						biography =  await biographyModel.findOneAndUpdate({userId : user.id} ,{profileImageUrl : req.body.profileImageUrl},{
+							new: true
+						});
+					}
+					else if(updatedParameter == 2){
+						biography =  await biographyModel.findOneAndUpdate({userId : user.id}, {coverImageUrl : req.body.coverImageUrl},{
+							new: true
+						});
+					}
+					
 				}
-				else if(updatedParameter == 1){
-					biography =  await biographyModel.findOneAndUpdate({userId : user.id} ,{profileImageUrl : req.body.profileImageUrl},{
-						new: true
-					});
+				else{
+					biography = new biographyModel({
+						userId : user.id,
+						description : req.body.description ?? '',
+						profileImageUrl : req.body.profileImageUrl ?? '',
+						coverImageUrl : req.body.coverImageUrl ?? '',
+					})
+					biography.save();
 				}
-				else if(updatedParameter == 2){
-					biography =  await biographyModel.findOneAndUpdate({userId : user.id}, {coverImageUrl : req.body.coverImageUrl},{
-						new: true
-					});
-				}
-				
-			}
-			else{
-				biography = new biographyModel({
-					userId : user.id,
-					description : req.body.description ?? '',
-					profileImageUrl : req.body.profileImageUrl ?? '',
-					coverImageUrl : req.body.coverImageUrl ?? '',
-				})
-				biography.save();
-			}
-			res.status(200).json({success : true, message: biography})
+				res.status(200).json({success : true, message: biography})
+		    }
 		});
     	}
 	catch (error) {
@@ -427,14 +445,16 @@ router.post('/updatebiography', (req, res) => {
 router.post('/addphoto', (req, res) => {
     try{
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
-        	if (err) throw err;
-			let addPhoto = new addPhotoModel({
-				userId : user.id,
-				title : req.body.title,
-				imageUrl : req.body.imageUrl,
-			})
-			addPhoto.save();
-			res.status(200).json({success : true, message: 'Photo added successfully'})
+        	if (err) res.status(400).json({success : false,message: err.message});
+			else{
+				let addPhoto = new addPhotoModel({
+					userId : user.id,
+					title : req.body.title,
+					imageUrl : req.body.imageUrl,
+				})
+				addPhoto.save();
+				res.status(200).json({success : true, message: addPhoto})
+		    }
 		});
     	}
 	catch (error) {
@@ -445,14 +465,16 @@ router.post('/addphoto', (req, res) => {
 router.post('/addvideo', (req, res) => {
     try{
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
-        	if (err) throw err;
-			let addVideo = new addVideoModel({
-				userId : user.id,
-				title : req.body.title,
-				videoUrl : req.body.imageUrl,
-			})
-			addVideo.save();
-			res.status(200).json({success : true, message: 'Video added successfully'})
+        	if (err) res.status(400).json({success : false,message: err.message});
+			else{
+				let addVideo = new addVideoModel({
+					userId : user.id,
+					title : req.body.title,
+					videoUrl : req.body.imageUrl,
+				})
+				addVideo.save();
+				res.status(200).json({success : true, message: addVideo})
+		    }
 		});
     	}
 	catch (error) {
@@ -464,9 +486,11 @@ router.post('/addvideo', (req, res) => {
 router.get('/myphotos', (req, res) => {
     try{
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
-        	if (err) throw err;
-			const images = await addPhotoModel.find({userId : user.id}).sort([['createdAt', -1]]);
-			res.status(200).json({success : true, message: images})
+        	if (err) res.status(400).json({success : false,message: err.message});
+			else{
+				const images = await addPhotoModel.find({userId : user.id}).sort([['createdAt', -1]]);
+				res.status(200).json({success : true, message: images})
+			}
 		});
     	}
 	catch (error) {
@@ -478,9 +502,11 @@ router.get('/myphotos', (req, res) => {
 router.get('/myvideos', (req, res) => {
     try{
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
-        	if (err) throw err;
-			const videos = await addVideoModel.find({userId : user.id}).sort([['createdAt', -1]]);
-			res.status(200).json({success : true, message: videos})
+        	if (err) res.status(400).json({success : false,message: err.message});
+			else{
+				const videos = await addVideoModel.find({userId : user.id}).sort([['createdAt', -1]]);
+				res.status(200).json({success : true, message: videos})
+			}
 		});
     	}
 	catch (error) {
@@ -492,9 +518,11 @@ router.get('/myvideos', (req, res) => {
 router.get('/mybiography', (req, res) => {
     try{
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
-        	if (err) throw err;
-			const biography = await biographyModel.find({userId : user.id});
-			res.status(200).json({success : true, message: biography})
+        	if (err) res.status(400).json({success : false,message: err.message});
+			else{
+				const biography = await biographyModel.find({userId : user.id});
+				res.status(200).json({success : true, message: biography})
+			}
 		});
     	}
 	catch (error) {
@@ -506,18 +534,20 @@ router.get('/mybiography', (req, res) => {
 router.post('/addevent', (req, res) => {
     try{
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
-        	if (err) throw err;
-			let event = new eventModel({
-				userId : user.id,
-				title : req.body.title,
-				description : req.body.description,
-				place : req.body.place,
-				type: req.body.type,
-				bannerImageUrl : req.body.bannerImageUrl,
-				relatedImageUrl : req.body.relatedImageUrl,
-			})
-			event.save();
-			res.status(200).json({success : true,message: event})
+        	if (err) res.status(400).json({success : false,message: err.message});
+			else{
+				let event = new eventModel({
+					userId : user.id,
+					title : req.body.title,
+					description : req.body.description,
+					place : req.body.place,
+					type: req.body.type,
+					bannerImageUrl : req.body.bannerImageUrl,
+					relatedImageUrl : req.body.relatedImageUrl,
+				})
+				event.save();
+				res.status(200).json({success : true,message: event})
+		    }
 		});
     	}
 	catch (error) {
@@ -528,17 +558,19 @@ router.post('/addevent', (req, res) => {
 router.post('/addservice', (req, res) => {
     try{
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
-        	if (err) throw err;
-			let service = new addServiceModel({
-				userId : user.id,
-				services : req.body.services,
-				type : req.body.type,
-				place : req.body.place,
-				price: req.body.price,
-				imageUrl : req.body.imageUrl,
-			})
-			service.save();
-			res.status(200).json({success : true,message: event})
+        	if (err) res.status(400).json({success : false,message: err.message});
+			else{
+				let service = new addServiceModel({
+					userId : user.id,
+					services : req.body.services,
+					type : req.body.type,
+					place : req.body.place,
+					price: req.body.price,
+					imageUrl : req.body.imageUrl,
+				})
+				service.save();
+				res.status(200).json({success : true,message: service})
+		    }
 		});
     	}
 	catch (error) {
@@ -549,9 +581,11 @@ router.post('/addservice', (req, res) => {
 router.get('/myevents', (req, res) => {
     try{
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
-        	if (err) throw err;
-			const event = await eventModel.find({userId : user.id});
-			res.status(200).json({success : true, message: event})
+        	if (err) res.status(400).json({success : false,message: err.message});
+			else{
+				const event = await eventModel.find({userId : user.id});
+				res.status(200).json({success : true, message: event})
+			}
 		});
     	}
 	catch (error) {
@@ -562,9 +596,11 @@ router.get('/myevents', (req, res) => {
 router.get('/myservice', (req, res) => {
     try{
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
-        	if (err) throw err;
-			const service = await addServiceModel.find({userId : user.id});
-			res.status(200).json({success : true, message: service})
+        	if (err) res.status(400).json({success : false,message: err.message});
+			else{
+				const service = await addServiceModel.find({userId : user.id});
+				res.status(200).json({success : true, message: service})
+			}
 		});
     	}
 	catch (error) {
@@ -576,19 +612,21 @@ router.get('/myservice', (req, res) => {
 router.post('/addproduct', (req, res) => {
     try{
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
-        	if (err) throw err;
-			let product = new productModel({
-				userId : user.id,
-				title : req.body.title,
-				type : req.body.type,
-				description : req.body.description,
-				price: req.body.price,
-				imageUrl : req.body.imageUrl,
-				pricePerUnit : req.body.pricePerUnit,
-				category: req.body.category,
-			})
-			product.save();
-			res.status(200).json({success : true,message: product})
+        	if (err) res.status(400).json({success : false,message: err.message});
+			else{
+				let product = new productModel({
+					userId : user.id,
+					title : req.body.title,
+					type : req.body.type,
+					description : req.body.description,
+					price: req.body.price,
+					imageUrl : req.body.imageUrl,
+					pricePerUnit : req.body.pricePerUnit,
+					category: req.body.category,
+				})
+				product.save();
+				res.status(200).json({success : true,message: product})
+			}
 		});
     	}
 	catch (error) {
