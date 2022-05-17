@@ -16,7 +16,7 @@ const commentSchema = new mongoose.Schema({
 	},
 	createdAt:{
 		type: Date,
-		default: moment(Date.now()).format('MM/DD/YYYY')
+		default: Date.now()
 	},
 },{collection : 'comments'})
 
