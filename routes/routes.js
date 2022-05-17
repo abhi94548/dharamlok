@@ -427,6 +427,7 @@ router.post('/updatebiography', (req, res) => {
 				else{
 					biography = new biographyModel({
 						userId : user.id,
+						name: req.body.name ?? '',
 						description : req.body.description ?? '',
 						profileImageUrl : req.body.profileImageUrl ?? '',
 						coverImageUrl : req.body.coverImageUrl ?? '',
@@ -499,6 +500,21 @@ router.get('/myphotos', (req, res) => {
     }
 })
 
+
+router.post('/getphoto', (req, res) => {
+    try{
+    	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+        	if (err) res.status(400).json({success : false,message: err.message});
+			else{
+				const photoDetails = await addPhotoModel.findOne({_id : req.body.id});
+				res.status(200).json({success : true, message: photoDetails})
+			}
+		});
+    	}
+	catch (error) {
+        res.status(400).json({success : false,message: error.message})
+    }
+})
 
 router.get('/myvideos', (req, res) => {
     try{

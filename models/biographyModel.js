@@ -6,6 +6,10 @@ const biographySchema = new mongoose.Schema({
 		required: true,
 		type: String
 	},
+	name : {
+		required: false,
+		type: String
+	},
 	description : {
 		required: false,
 		type: String
