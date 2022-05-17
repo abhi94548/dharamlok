@@ -306,7 +306,7 @@ router.post('/getcomment', (req, res) => {
 router.post('/likepost', (req, res) => {
     try{
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
-        	if (err) res.status(400).json({success : false,message: error.message});
+        	if (err) res.status(400).json({success : false,message: err.message});
 			let id = req.body.postId
 			let like;
 			var isLiked = await likeModal.findOne({userId: user.id, postId : id});
@@ -334,7 +334,7 @@ router.post('/likepost', (req, res) => {
 router.delete('/unlikepost', (req, res) => {
     try{
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
-        	if (err) res.status(400).json({success : false,message: error.message});
+        	if (err) res.status(400).json({success : false,message: err.message});
 			let id = req.body.postId
 			postModel.findOneAndUpdate({_id : id }, {$inc : {like : -1}}, function(err, response){
 				if (err) throw err;
@@ -353,7 +353,7 @@ router.delete('/unlikepost', (req, res) => {
 router.post('/viewpost', (req, res) => {
     try{
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
-        	if (err) throw err;
+        	if (err) res.status(400).json({success : false,message: err.message});
 			let id = req.body.postId
 			const post = await postModel.find({_id : id});
 			const comment = await commentModel.find({postId : id});
@@ -368,7 +368,7 @@ router.post('/viewpost', (req, res) => {
 router.get('/mostliked', (req, res) => {
     try{
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
-        	if (err) res.status(400).json({success : false,message: error.message});
+        	if (err) res.status(400).json({success : false,message: err.message});
 			const post = await postModel.find({}).sort([['like', -1]]).limit(10);
 			res.status(200).json({success : true, post: post })
 		});
