@@ -200,7 +200,7 @@ router.post('/uploadphoto',upload.single("file"), async (req, res) => {
 })
 
 //Upload Photos
-router.post('/uploadvideo',uploadVideo.single("video"), async (req, res) => {
+router.post('/uploadvideo',upload.single("video"), async (req, res) => {
     try{
     	jwt.verify(req.headers.token, 'bootspider', function(err, user){
         	if (err) res.status(400).json({success : false,message: err.message});
