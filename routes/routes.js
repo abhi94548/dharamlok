@@ -279,7 +279,7 @@ router.post('/commentpost', (req, res) => {
 			let id = req.body.postId
 			postModel.findOneAndUpdate({_id : id }, {$inc : {comment : 1}}, {new : true}, function(error, response){
 				if (error) throw error;
-				else res.status(200).json({success : true,message: 'Comment added'})
+				else res.status(200).json({success : true,message: comment})
 			});
 		});
     	}
