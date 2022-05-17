@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongooseDateFormat = require('mongoose-date-format');
 
 const biographySchema = new mongoose.Schema({
 	userId : {
@@ -22,5 +23,7 @@ const biographySchema = new mongoose.Schema({
 		default: Date.now()
 	},
 },{collection : 'biography'})
+
+biographySchema.plugin(mongooseDateFormat)
 
 module.exports = mongoose.model('biography',biographySchema)

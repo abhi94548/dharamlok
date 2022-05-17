@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongooseDateFormat = require('mongoose-date-format');
 
 const eventSchema = new mongoose.Schema({
 	userId : {
@@ -34,5 +35,7 @@ const eventSchema = new mongoose.Schema({
 		default: Date.now()
 	},
 },{collection : 'events'})
+
+eventSchema.plugin(mongooseDateFormat)
 
 module.exports = mongoose.model('events',eventSchema)
