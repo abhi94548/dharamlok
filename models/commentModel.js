@@ -21,6 +21,6 @@ const commentSchema = new mongoose.Schema({
 },{collection : 'comments'})
 
 
-commentSchema.plugin(mongooseDateFormat.Date)
+commentSchema.plugin(mongooseDateFormat)
 
 module.exports = mongoose.model('comments',commentSchema)
