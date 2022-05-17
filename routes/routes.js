@@ -354,10 +354,12 @@ router.post('/viewpost', (req, res) => {
     try{
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
         	if (err) res.status(400).json({success : false,message: err.message});
-			let id = req.body.postId
-			const post = await postModel.find({_id : id});
-			const comment = await commentModel.find({postId : id});
-			res.status(200).json({success : true, post: post , comment : comment})
+			else{
+				let id = req.body.postId
+				const post = await postModel.find({_id : id});
+				const comment = await commentModel.find({postId : id});
+				res.status(200).json({success : true, post: post , comment : comment})
+			}
 		});
     	}
 	catch (error) {
@@ -369,8 +371,10 @@ router.get('/mostliked', (req, res) => {
     try{
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
         	if (err) res.status(400).json({success : false,message: err.message});
-			const post = await postModel.find({}).sort([['like', -1]]).limit(10);
-			res.status(200).json({success : true, post: post })
+			else{
+				const post = await postModel.find({}).sort([['like', -1]]).limit(10);
+				res.status(200).json({success : true, post: post })
+			}
 		});
     	}
 	catch (error) {
