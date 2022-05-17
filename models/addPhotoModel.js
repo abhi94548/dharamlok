@@ -6,8 +6,12 @@ const addPhotoSchema = new mongoose.Schema({
 		required: true,
 		type: String
 	},
+	description : {
+		required: false,
+		type: String
+	},
 	title : {
-		required: true,
+		required: false,
 		type: String
 	},
 	imageUrl : {

@@ -449,6 +449,7 @@ router.post('/addphoto', (req, res) => {
 			else{
 				let addPhoto = new addPhotoModel({
 					userId : user.id,
+					description : req.body.description,
 					title : req.body.title,
 					imageUrl : req.body.imageUrl,
 				})
@@ -520,7 +521,7 @@ router.get('/mybiography', (req, res) => {
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
         	if (err) res.status(400).json({success : false,message: err.message});
 			else{
-				const biography = await biographyModel.find({userId : user.id});
+				const biography = await biographyModel.find({userId : user.id}).limit(1);
 				res.status(200).json({success : true, message: biography})
 			}
 		});
