@@ -522,7 +522,7 @@ router.get('/mybiography', (req, res) => {
         	if (err) res.status(400).json({success : false,message: err.message});
 			else{
 				const biography = await biographyModel.find({userId : user.id}).limit(1);
-				res.status(200).json({success : true, message: biography})
+				res.status(200).send({success : true, message: biography})
 			}
 		});
     	}
