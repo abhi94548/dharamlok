@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const moment = require('moment');
 
 const commentSchema = new mongoose.Schema({
 	userId : {
@@ -15,7 +16,7 @@ const commentSchema = new mongoose.Schema({
 	},
 	createdAt:{
 		type: Date,
-		default: Date().toISOString().replace(/T/, ' ').replace(/\..+/, '') 
+		default: moment(Date.now()).format('MM/DD/YYYY')
 	},
 },{collection : 'comments'})
 

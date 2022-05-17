@@ -19,7 +19,7 @@ const biographySchema = new mongoose.Schema({
 	},
 	createdAt:{
 		type: Date,
-		default: Date.now().toISOString().replace(/T/, ' ').replace(/\..+/, '') 
+		default: Date.now()
 	},
 },{collection : 'biography'})
 
