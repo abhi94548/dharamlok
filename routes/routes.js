@@ -275,7 +275,7 @@ router.get('/getallpost', (req, res) => {
 						result[j].category = biographyDetails.category;
 					}
 				}
-				res.status(200).json({success : true,message: biographyDetails.profileImageUrl}) 
+				res.status(200).json({success : true,message: result}) 
 			}  
 		});
     	}
