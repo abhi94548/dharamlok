@@ -233,7 +233,7 @@ router.post('/uploadpost',async (req, res) => {
 					postType : req.body.postType
 				})
 				post.save();
-				res.status(200).json({success : true,message: "Post uploaded successfully"})
+				res.status(200).json({success : true,message: post})
 		    }
 		});
     	}
