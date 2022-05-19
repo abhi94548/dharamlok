@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-const mongooseDateFormat = require('mongoose-date-format');
 
 const addVideoSchema = new mongoose.Schema({
 	userId : {
@@ -25,7 +24,5 @@ const addVideoSchema = new mongoose.Schema({
 	},
 },{collection : 'Videos'})
 
-
-addVideoSchema.plugin(mongooseDateFormat)
 
 module.exports = mongoose.model('Videos',addVideoSchema)

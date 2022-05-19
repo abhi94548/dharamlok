@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const mongooseDateFormat = require('mongoose-date-format');
 
 const serviceSchema = new mongoose.Schema({
 	userId : {
@@ -28,6 +27,5 @@ const serviceSchema = new mongoose.Schema({
 	},
 },{collection : 'services'})
 
-serviceSchema.plugin(mongooseDateFormat)
 
 module.exports = mongoose.model('services',serviceSchema)

@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const mongooseDateFormat = require('mongoose-date-format');
 
 
 const productSchema = new mongoose.Schema({
@@ -37,6 +36,5 @@ const productSchema = new mongoose.Schema({
 	},
 },{collection : 'products'})
 
-productSchema.plugin(mongooseDateFormat)
 
 module.exports = mongoose.model('products',productSchema)

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const mongooseDateFormat = require('mongoose-date-format');
+
 
 const addPhotoSchema = new mongoose.Schema({
 	userId : {
@@ -23,7 +23,5 @@ const addPhotoSchema = new mongoose.Schema({
 		default: Date.now()
 	},
 },{collection : 'Photos'})
-
-addPhotoSchema.plugin(mongooseDateFormat)
 
 module.exports = mongoose.model('Photos',addPhotoSchema)
