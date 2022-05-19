@@ -230,7 +230,7 @@ router.post('/uploadpost',async (req, res) => {
 					userName : userDetails.name,
 					userImage : biographyDetails.profileImageUrl,
 					description : req.body.description,
-					imageLink : req.body.imageUrl,
+					imageUrl : req.body.imageUrl,
 					videoUrl : req.body.videoUrl,
 					postType : req.body.postType
 				})
