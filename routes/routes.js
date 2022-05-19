@@ -218,7 +218,7 @@ router.post('/uploadvideo',upload.single("video"), async (req, res) => {
 //Get by ID Method
 router.post('/uploadpost',async (req, res) => {
     try{
-    	jwt.verify(req.headers.token, 'bootspider', function(err, user){
+    	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
         	if (err) res.status(400).json({success : false,message: err.message});
 			else{
 				var userDetails = await userModel.findOne({_id : user.id}).select("name");
