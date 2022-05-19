@@ -279,7 +279,7 @@ router.get('/getallpost', (req, res) => {
 						}
 					}
 				}
-				res.status(200).json({success : true,message: req.query.page}) 
+				res.status(200).json({success : true,message: result}) 
 			}  
 		});
     	}
