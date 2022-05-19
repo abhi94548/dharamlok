@@ -674,11 +674,12 @@ router.post('/addproduct', (req, res) => {
 
 
 router.post('/approvecomment', (req, res) => {
+	let comment;
     try{
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
         	if (err) res.status(400).json({success : false,message: err.message});
             else{
-				const comment =  await  commentModel.findOneAndUpdate({_id : req.body.id}, {approved : 1},{
+				comment =  await  commentModel.findOneAndUpdate({_id : req.body.id}, {approved : 1},{
 					new: true
 				});
 				res.status(200).json({success : true, message: comment})
