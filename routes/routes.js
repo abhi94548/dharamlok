@@ -156,7 +156,7 @@ router.post('/userdetails',(req, res) => {
         	if (err) res.status(400).json({success : false,message: err.message});
 			else{
 				let userDetail = await userModel.find({_id : req.body.id}).select("name").select("email").select("phone");
-				let biographyDetails = await biographyModel.find({_id : user.id});
+				let biographyDetails = await biographyModel.find({userId : user.id});
 				res.status(200).json({success : true,message: userDetail, biography : biographyDetails})
 			}
 		});
@@ -173,7 +173,7 @@ router.get('/mydetails',(req, res) => {
         	if (err) res.status(400).json({success : false,message: err.message});
 			else{
 				let userDetail = await userModel.find({_id : user.id}).select("name").select("email").select("phone");
-				let biographyDetails = await biographyModel.find({_id : user.id});
+				let biographyDetails = await biographyModel.find({userId : user.id});
 				res.status(200).json({success : true,message: userDetail, biography : biographyDetails})
 			}
 		});
