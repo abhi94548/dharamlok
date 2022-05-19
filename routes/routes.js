@@ -271,9 +271,6 @@ router.get('/getallpost', (req, res) => {
 						else{
 							result[j].isLiked = false
 						}
-						result[j].profileImage = biographyDetails.profileImageUrl;
-						result[j].description = biographyDetails.description;
-						result[j].category = biographyDetails.category;
 					}
 				}
 				for (var j = 0; j < result.length; j++){
