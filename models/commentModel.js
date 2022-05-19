@@ -14,6 +14,11 @@ const commentSchema = new mongoose.Schema({
 		required: true,
 		type: String,
 	},
+	approved:{
+		required: false,
+		type: Number,
+		default:0
+	},
 	createdAt:{
 		type: Date,
 		default: Date.now()

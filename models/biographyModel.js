@@ -22,6 +22,10 @@ const biographySchema = new mongoose.Schema({
 		required: false,
 		type: String,
 	},
+	category : {
+		required: false,
+		type: String,
+	},
 	createdAt:{
 		type: Date,
 		default: Date.now()

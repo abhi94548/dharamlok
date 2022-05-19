@@ -224,8 +224,8 @@ router.post('/uploadpost',async (req, res) => {
 				let post = new postModel({
 					userId : user.id,
 					description : req.body.description,
-					imageLink : 'http://54.221.98.136:3000/view/'+req.body.imageUrl,
-					videoUrl : 'http://54.221.98.136:3000/view/'+req.body.videoUrl,
+					imageLink : req.body.imageUrl,
+					videoUrl : req.body.videoUrl,
 					postType : req.body.postType
 				})
 				post.save();
@@ -309,7 +309,7 @@ router.post('/getcomment', (req, res) => {
     try{
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
         	if (err) res.status(400).json({success : false,message: err.message});
-			const comments = await commentModel.find({postId : req.body.postId}).sort([['createdAt', -1]]);
+			const comments = await commentModel.find({postId : req.body.postId, approved : 1}).sort([['createdAt', -1]]);
 			res.status(200).json({success : true,message: comments})
 		});
     	}
@@ -422,6 +422,11 @@ router.post('/updatebiography', (req, res) => {
 							new: true
 						});
 					}
+					else if(updatedParameter == 3){
+						biography =  await biographyModel.findOneAndUpdate({userId : user.id}, {category : req.body.category},{
+							new: true
+						});
+					}
 					
 				}
 				else{
@@ -431,6 +436,7 @@ router.post('/updatebiography', (req, res) => {
 						description : req.body.description ?? '',
 						profileImageUrl : req.body.profileImageUrl ?? '',
 						coverImageUrl : req.body.coverImageUrl ?? '',
+						category : req.body.category ?? '',
 					})
 					biography.save();
 				}
@@ -659,6 +665,24 @@ router.post('/addproduct', (req, res) => {
 				product.save();
 				res.status(200).json({success : true,message: product})
 			}
+		});
+    	}
+	catch (error) {
+        res.status(400).json({success : false,message: error.message})
+    }
+})
+
+
+router.post('/approvecomment', (req, res) => {
+    try{
+    	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+        	if (err) res.status(400).json({success : false,message: err.message});
+            else{
+				const comment =  await  commentModel.findOneAndUpdate({_id : req.body.id}, {approved : 1},{
+					new: true
+				});
+				res.status(200).json({success : true, message: comment})
+		    }
 		});
     	}
 	catch (error) {
