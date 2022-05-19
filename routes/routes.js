@@ -275,6 +275,11 @@ router.get('/getallpost', (req, res) => {
 						result[j].category = biographyDetails.category;
 					}
 				}
+				for (var j = 0; j < result.length; j++){
+					result[j].profileImage = biographyDetails.profileImageUrl;
+					result[j].description = biographyDetails.description;
+					result[j].category = biographyDetails.category;
+				}
 				res.status(200).json({success : true,message: result}) 
 			}  
 		});
