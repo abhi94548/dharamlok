@@ -267,7 +267,7 @@ router.get('/getallpost', (req, res) => {
         	if (err) res.status(400).json({success : false,message: err.message});
 			else{
 				var i,j = 0
-				var result = await postModel.find({}).sort([['createdAt', -1]]);
+				var result = await postModel.find({}).limit(10).skip(10 * req.params.page).sort([['createdAt', -1]]);
 				var userLikedPosts = await likeModal.find({userId : user.id});
 				for (i = 0; i < userLikedPosts.length; i++){
 					for (j = 0; j < result.length; j++){
