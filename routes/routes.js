@@ -261,6 +261,7 @@ router.get('/getallpost', (req, res) => {
 			else{
 				var result = await postModel.find({}).sort([['createdAt', -1]]);
 				var userLikedPosts = await likeModal.find({userId : user.id});
+				var biographyDetails  = await biographyModel.findOne({userId : user.id});
 				for (var i = 0; i < userLikedPosts.length; i++){
 					for (var j = 0; j < result.length; j++){
 						if(userLikedPosts[i].postId == result[j]._id){
@@ -269,6 +270,9 @@ router.get('/getallpost', (req, res) => {
 						else{
 							result[j].isLiked = false
 						}
+						result[j].image = biographyDetails[0].imageUrl;
+						result[j].description = biographyDetails[0].description;
+						result[j].category = biographyDetails[0].category;
 					}
 				}
 				res.status(200).json({success : true,message: result}) 
@@ -478,7 +482,8 @@ router.post('/addvideo', (req, res) => {
 				let addVideo = new addVideoModel({
 					userId : user.id,
 					title : req.body.title,
-					videoUrl : req.body.imageUrl,
+					description : req.body.description,
+					videoUrl : req.body.videoUrl,
 				})
 				addVideo.save();
 				res.status(200).json({success : true, message: addVideo})
@@ -582,6 +587,7 @@ router.post('/addevent', (req, res) => {
 					type: req.body.type,
 					bannerImageUrl : req.body.bannerImageUrl,
 					relatedImageUrl : req.body.relatedImageUrl,
+					location : req.body.location
 				})
 				event.save();
 				res.status(200).json({success : true,message: event})
@@ -679,7 +685,7 @@ router.post('/approvecomment', (req, res) => {
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
         	if (err) res.status(400).json({success : false,message: err.message});
             else{
-				comment =  await  commentModel.findOneAndUpdate({_id : req.body.id}, {approved : 1},{
+				comment =  await  commentModel.findOneAndUpdate({_id : req.body.postId}, {approved : 1},{
 					new: true
 				});
 				res.status(200).json({success : true, message: comment})

@@ -11,6 +11,10 @@ const addVideoSchema = new mongoose.Schema({
 		required: true,
 		type: String
 	},
+	description : {
+		required: true,
+		type: String
+	},
 	videoUrl : {
 		required: false,
 		type: String,

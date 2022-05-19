@@ -35,6 +35,10 @@ const eventSchema = new mongoose.Schema({
 		type: Number,
 		default:0
 	},
+	locationUrl : {
+		required: true,
+		type: String,
+	},
 	createdAt:{
 		type: Date,
 		default: Date.now()
