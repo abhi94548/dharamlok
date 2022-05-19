@@ -261,6 +261,7 @@ router.get('/getallpost', (req, res) => {
 			else{
 				var result = await postModel.find({}).sort([['createdAt', -1]]);
 				var userLikedPosts = await likeModal.find({userId : user.id});
+				let userDetail = await userModel.find({_id : user.id}).select("name");
 				var biographyDetails  = await biographyModel.findOne({userId : user.id});
 				for (var i = 0; i < userLikedPosts.length; i++){
 					for (var j = 0; j < result.length; j++){
@@ -276,9 +277,8 @@ router.get('/getallpost', (req, res) => {
 					}
 				}
 				for (var j = 0; j < result.length; j++){
+					result[j].name = userDetail;
 					result[j].profileImage = biographyDetails.profileImageUrl;
-					result[j].description = biographyDetails.description;
-					result[j].category = biographyDetails.category;
 				}
 				res.status(200).json({success : true,message: result}) 
 			}  
