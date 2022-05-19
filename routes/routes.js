@@ -260,12 +260,13 @@ router.get('/getallpost', (req, res) => {
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
         	if (err) res.status(400).json({success : false,message: err.message});
 			else{
+				var i,j = 0
 				var result = await postModel.find({}).sort([['createdAt', -1]]);
 				var userLikedPosts = await likeModal.find({userId : user.id});
 				let userDetail = await userModel.findOne({_id : user.id}).select("name");
 				var biographyDetails  = await biographyModel.findOne({userId : user.id});
-				for (var i = 0; i < userLikedPosts.length; i++){
-					for (var j = 0; j < result.length; j++){
+				for (i = 0; i < userLikedPosts.length; i++){
+					for (j = 0; j < result.length; j++){
 						if(userLikedPosts[i].postId == result[j]._id){
 							result[j].isLiked = true
 						}
@@ -274,11 +275,11 @@ router.get('/getallpost', (req, res) => {
 						}
 					}
 				}
-				for (var j = 0; j < result.length; j++){
+				for (j = 0; j < result.length; j++){
 					result[j].name = userDetail.name;
 					result[j].profileImage = biographyDetails.profileImageUrl;
 				}
-				res.status(200).json({success : true,message: result[1]}) 
+				res.status(200).json({success : true,message: result}) 
 			}  
 		});
     	}
