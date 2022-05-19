@@ -275,10 +275,10 @@ router.get('/getallpost', (req, res) => {
 					}
 				}
 				for (var j = 0; j < result.length; j++){
-					result[j].name = userDetail;
+					result[j].name = userDetail.name;
 					result[j].profileImage = biographyDetails.profileImageUrl;
 				}
-				res.status(200).json({success : true,message: userDetail}) 
+				res.status(200).json({success : true,message: result[1]}) 
 			}  
 		});
     	}
