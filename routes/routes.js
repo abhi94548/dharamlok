@@ -225,8 +225,8 @@ router.post('/uploadpost',async (req, res) => {
 				var biographyDetails = await biographyModel.findOne({id : user.id}).select("profileImageUrl");
 				let post = new postModel({
 					userId : user.id,
-					userName : userDetails,
-					userImage : biographyDetails,
+					userName : userDetails.name,
+					userImage : biographyDetails.profileImageUrl,
 					description : req.body.description,
 					imageLink : req.body.imageUrl,
 					videoUrl : req.body.videoUrl,
