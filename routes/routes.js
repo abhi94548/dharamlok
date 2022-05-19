@@ -224,7 +224,7 @@ router.post('/uploadpost',async (req, res) => {
         	if (err) res.status(400).json({success : false,message: err.message});
 			else{
 				var userDetails = await userModel.findOne({_id : user.id}).select("name");
-				var biographyDetails = await biographyModel.findOne({id : user.id}).select("profileImageUrl");
+				var biographyDetails = await biographyModel.findOne({userId : user.id}).select("profileImageUrl");
 				let post = new postModel({
 					userId : user.id,
 					userName : userDetails.name,
