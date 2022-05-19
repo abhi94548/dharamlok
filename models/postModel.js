@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const mongooseDateFormat = require('mongoose-date-format');
 
 const postSchema = new mongoose.Schema({
 	userId : {
@@ -47,12 +46,10 @@ const postSchema = new mongoose.Schema({
 		type: Boolean,
 		default: false
 	},
-	// createdAt:{
-	// 	type: Date,
-	// 	default: Date.now()
-	// },
-},{collection : 'posts'}, { timestamps: true },)
-
-postSchema.plugin(mongooseDateFormat)
+	createdAt:{
+		type: Date,
+		default: Date.now()
+	},
+},{collection : 'posts'},)
 
 module.exports = mongoose.model('posts',postSchema)
