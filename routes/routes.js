@@ -436,6 +436,11 @@ router.post('/updatebiography', (req, res) => {
 						});
 					}
 					else if(updatedParameter == 4){
+						biography =  await biographyModel.findOneAndUpdate({userId : user.id}, {name : req.body.name},{
+							new: true
+						});
+					}
+					else if(updatedParameter == 5){
 						biography =  await biographyModel.findOneAndUpdate({userId : user.id}, {
 							description : req.body.description,
 							profileImageUrl : req.body.profileImageUrl,
