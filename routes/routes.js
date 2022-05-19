@@ -267,7 +267,7 @@ router.get('/getallpost', (req, res) => {
         	if (err) res.status(400).json({success : false,message: err.message});
 			else{
 				var i,j = 0
-				var result = await postModel.find({}).limit(10).skip(10 * req.params.page).sort([['createdAt', -1]]);
+				var result = await postModel.find({}).limit(10).skip(10 * req.query.page).sort([['createdAt', -1]]);
 				var userLikedPosts = await likeModal.find({userId : user.id});
 				for (i = 0; i < userLikedPosts.length; i++){
 					for (j = 0; j < result.length; j++){
@@ -279,7 +279,7 @@ router.get('/getallpost', (req, res) => {
 						}
 					}
 				}
-				res.status(200).json({success : true,message: req.params.page}) 
+				res.status(200).json({success : true,message: req.query.page}) 
 			}  
 		});
     	}
@@ -435,7 +435,15 @@ router.post('/updatebiography', (req, res) => {
 							new: true
 						});
 					}
-					
+					else if(updatedParameter == 4){
+						biography =  await biographyModel.findOneAndUpdate({userId : user.id}, {
+							description : req.body.description,
+							profileImageUrl : req.body.profileImageUrl,
+							coverImageUrl : req.body.coverImageUrl,
+							category : req.body.category},{
+							new: true
+						});
+					}
 				}
 				else{
 					biography = new biographyModel({
