@@ -268,7 +268,7 @@ router.get('/getallpost', (req, res) => {
 			else{
 				//result = await postModel.deleteMany();
 				var i,j = 0
-				var result = await postModel.find({}).limit(10).skip(10 * req.query.page).sort([['createdAt', 1]]);
+				var result = await postModel.find({}).limit(10).skip(10 * req.query.page).sort([['createdAt', 'desc']]);
 				var userLikedPosts = await likeModal.find({userId : user.id});
 				for (i = 0; i < userLikedPosts.length; i++){
 					for (j = 0; j < result.length; j++){
