@@ -581,7 +581,9 @@ router.get('/mybiography', (req, res) => {
         	if (err) res.status(400).json({success : false,message: err.message});
 			else{
 				const biography = await biographyModel.findOne({userId : user.id}).limit(1);
-				res.status(200).json({success : true, message: biography})
+				const images = await addPhotoModel.find({userId : user.id});
+				const videos = await addVideoModel.find({userId : user.id});
+				res.status(200).json({success : true, biography: biography, photos : images.length, videos: videos.length})
 			}
 		});
     	}
