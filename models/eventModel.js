@@ -35,7 +35,7 @@ const eventSchema = new mongoose.Schema({
 		default:0
 	},
 	locationUrl : {
-		required: true,
+		required: false,
 		type: String,
 	},
 	createdAt:{
