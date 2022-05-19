@@ -221,8 +221,12 @@ router.post('/uploadpost',async (req, res) => {
     	jwt.verify(req.headers.token, 'bootspider', function(err, user){
         	if (err) res.status(400).json({success : false,message: err.message});
 			else{
+				var userDetails = await userModel.findOne({_id : user.id}).select("name");
+				var biographyDetails = await biographyModel.findOne({id : user.id}).select("profileImageUrl");
 				let post = new postModel({
 					userId : user.id,
+					userName : userDetails,
+					profileImageUrl : biographyDetails,
 					description : req.body.description,
 					imageLink : req.body.imageUrl,
 					videoUrl : req.body.videoUrl,
@@ -272,12 +276,6 @@ router.get('/getallpost', (req, res) => {
 							result[j].isLiked = false
 						}
 					}
-				}
-				for (i = 0; i < result.length; i++){
-                    var userDetail = await userModel.findOne({_id : result[i].userId}).select("name");
-				    var biographyDetails  = await biographyModel.find({userId :  result[i].userId});
-					result[i].name = await userDetail;
-					result[i].imageUrl = await biographyDetails.profileImageUrl;
 				}
 				res.status(200).json({success : true,message: result}) 
 			}  
