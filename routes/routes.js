@@ -712,7 +712,7 @@ router.post('/approvecomment', (req, res) => {
 				comment =  await  commentModel.findOneAndUpdate({_id : req.body.postId}, {approved : 1},{
 					new: true
 				});
-				res.status(200).json({success : true, message: comment})
+			res.status(200).json({success : true, message: comment})
 		    }
 		});
     	}
