@@ -270,7 +270,7 @@ router.get('/getallpost', (req, res) => {
 						else{
 							result[j].isLiked = false
 						}
-						result[j].image = biographyDetails.profileImageUrl;
+						result[j].profileImage = biographyDetails.profileImageUrl;
 						result[j].description = biographyDetails.description;
 						result[j].category = biographyDetails.category;
 					}
