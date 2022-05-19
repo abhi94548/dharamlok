@@ -275,9 +275,9 @@ router.get('/getallpost', (req, res) => {
 				}
 				for (i = 0; i < result.length; i++){
                     var userDetail = await userModel.findOne({_id : result[i].userId}).select("name");
-				    var biographyDetails  = await biographyModel.findOne({userId :  result[i].userId});
+				    var biographyDetails  = await biographyModel.find({userId :  result[i].userId});
 					result[i].name = userDetail;
-					result[i].imageUrl = biographyDetails[0].profileImageUrl;
+					result[i].imageUrl = biographyDetails.profileImageUrl;
 				}
 				res.status(200).json({success : true,message: result}) 
 			}  
