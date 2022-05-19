@@ -270,12 +270,12 @@ router.get('/getallpost', (req, res) => {
 						else{
 							result[j].isLiked = false
 						}
-						result[j].image = biographyDetails[0].profileImageUrl;
-						result[j].description = biographyDetails[0].description;
-						result[j].category = biographyDetails[0].category;
+						// result[j].image = biographyDetails[0].profileImageUrl;
+						// result[j].description = biographyDetails[0].description;
+						// result[j].category = biographyDetails[0].category;
 					}
 				}
-				res.status(200).json({success : true,message: result}) 
+				res.status(200).json({success : true,message: biographyDetails}) 
 			}  
 		});
     	}
