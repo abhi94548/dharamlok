@@ -396,7 +396,7 @@ router.get('/mostliked', (req, res) => {
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
         	if (err) res.status(400).json({success : false,message: err.message});
 			else{
-				const post = await postModel.find({}).sort([['like', -1]]).limit(10);
+				const post = await postModel.find({}).sort([['like', -1]]).limit(5).skip(10 * req.query.page);
 				res.status(200).json({success : true, post: post })
 			}
 		});
