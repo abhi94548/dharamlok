@@ -294,8 +294,12 @@ router.post('/commentpost', (req, res) => {
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
         	if (err) res.status(400).json({success : false,message: err.message});
 			else{
+				var userDetails = await userModel.findOne({_id : user.id}).select("name");
+				var biographyDetails = await biographyModel.findOne({userId : user.id}).select("profileImageUrl");
 				let comment = new commentModel({
 					userId : user.id,
+					userName: userDetails.name,
+					userImage : biographyDetails.profileImageUrl,
 					postId : req.body.postId,
 					comment : req.body.comment,
 				})
