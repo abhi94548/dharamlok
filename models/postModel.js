@@ -47,11 +47,11 @@ const postSchema = new mongoose.Schema({
 		type: Boolean,
 		default: false
 	},
-	createdAt:{
-		type: Date,
-		default: Date.now()
-	},
-},{collection : 'posts'})
+	// createdAt:{
+	// 	type: Date,
+	// 	default: Date.now()
+	// },
+},{collection : 'posts'}, { timestamps: true },)
 
 postSchema.plugin(mongooseDateFormat)
 
