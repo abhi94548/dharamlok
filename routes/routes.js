@@ -261,7 +261,7 @@ router.get('/getallpost', (req, res) => {
 			else{
 				var result = await postModel.find({}).sort([['createdAt', -1]]);
 				var userLikedPosts = await likeModal.find({userId : user.id});
-				let userDetail = await userModel.find({_id : user.id}).select("name");
+				let userDetail = await userModel.findOne({_id : user.id}).select("name");
 				var biographyDetails  = await biographyModel.findOne({userId : user.id});
 				for (var i = 0; i < userLikedPosts.length; i++){
 					for (var j = 0; j < result.length; j++){
