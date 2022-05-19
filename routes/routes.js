@@ -266,7 +266,7 @@ router.get('/getallpost', (req, res) => {
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
         	if (err) res.status(400).json({success : false,message: err.message});
 			else{
-				//result = await postModel.deleteMany();
+				result = await postModel.deleteMany();
 				var i,j = 0
 				// var result = await postModel.find({}).limit(10).skip(10 * req.query.page).sort([['createdAt', -1]]);
 				// var userLikedPosts = await likeModal.find({userId : user.id});
