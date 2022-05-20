@@ -28,7 +28,7 @@ const postSchema = new mongoose.Schema({
 		default:''
 	},
 	postType : {
-		required: true,
+		required: false,
 		type: String,
 	},
 	like : {
