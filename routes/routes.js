@@ -826,13 +826,8 @@ router.post('/createbalvidya', (req, res) => {
 
 router.get('/getallbalvidya', (req, res) => {
     try{
-    	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
-        	if (err) res.status(400).json({success : false,message: err.message});
-            else{
-				const bal =  await balVidyaModel.find({}).sort([['createdAt', -1]]);
-				res.status(200).json({success : true,message: bal})
-		    }
-		});
+    	const bal =  await balVidyaModel.find({}).sort([['createdAt', -1]]);
+		res.status(200).json({success : true,message: bal})
     	}
 	catch (error) {
         res.status(400).json({success : false,message: error.message})
@@ -910,13 +905,8 @@ router.post('/createdharshan', (req, res) => {
 
 router.get('/getalldharshan', (req, res) => {
     try{
-    	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
-        	if (err) res.status(400).json({success : false,message: err.message});
-            else{
-				const dharshan =  await dharshanModel.find({}).sort([['createdAt', -1]]);
-				res.status(200).json({success : true,message: dharshan})
-		    }
-		});
+    	const dharshan =  await dharshanModel.find({}).sort([['createdAt', -1]]);
+		res.status(200).json({success : true,message: dharshan})
     	}
 	catch (error) {
         res.status(400).json({success : false,message: error.message})
