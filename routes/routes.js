@@ -15,6 +15,7 @@ const eventModel = require('../models/eventModel');
 const addServiceModel = require('../models/addServiceModel');
 const productModel = require('../models/productModel');
 const balVidyaModel = require('../models/balVidyaModel');
+const dharshanModel = require('../models/dharshanModel');
 const path = require('path');
 const e = require('cors');
 
@@ -862,7 +863,7 @@ router.post('/updatebalvidya', (req, res) => {
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
         	if (err) res.status(400).json({success : false,message: err.message});
             else{
-				balVidya =  await balVidyaModel.findOneAndUpdate({_id : req.body.id}, 
+				balVidya =  await balVidyaModel.findOneAndUpdate({_id : req.body.id, userId : user.id}, 
 					{
 						name : req.body.name,
 						description : req.body.description,
@@ -875,6 +876,85 @@ router.post('/updatebalvidya', (req, res) => {
 					new: true
 				});
 				res.status(200).json({success : true, message: balVidya})
+		    }
+		});
+    	}
+	catch (error) {
+        res.status(400).json({success : false,message: error.message})
+    }
+})
+
+
+
+router.post('/createdharshan', (req, res) => {
+    try{
+    	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+        	if (err) res.status(400).json({success : false,message: err.message});
+            else{
+				let dharshan = new dharshanModel({
+					userId : user.id,
+					title : req.body.title,
+					description : req.body.description,
+					url : req.body.url,
+				})
+				dharshan.save();
+				res.status(200).json({success : true,message: dharshan})
+		    }
+		});
+    	}
+	catch (error) {
+        res.status(400).json({success : false,message: error.message})
+    }
+})
+
+
+router.get('/getalldharshan', (req, res) => {
+    try{
+    	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+        	if (err) res.status(400).json({success : false,message: err.message});
+            else{
+				const dharshan =  await dharshanModel.find({}).sort([['createdAt', -1]]);
+				res.status(200).json({success : true,message: dharshan})
+		    }
+		});
+    	}
+	catch (error) {
+        res.status(400).json({success : false,message: error.message})
+    }
+})
+
+
+router.post('/deletedharshan', (req, res) => {
+    try{
+    	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+        	if (err) res.status(400).json({success : false,message: err.message});
+			dharshanModel.findByIdAndDelete({_id : req.body.id } , function(errorDelete, response){
+				if (errorDelete) res.status(400).json({success : false,message: errorDelete.message});
+				else res.status(200).json({success : true, message: 'Dharshan Deleted'})
+			});
+		});
+    	}
+	catch (error) {
+        res.status(400).json({success : false,message: error.message})
+    }
+})
+
+
+router.post('/updatedharshan', (req, res) => {
+	let dharshan;
+    try{
+    	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+        	if (err) res.status(400).json({success : false,message: err.message});
+            else{
+				dharshan =  await dharshanModel.findOneAndUpdate({_id : req.body.id, userId : user.id}, 
+					{
+						title : req.body.title,
+						description : req.body.description,
+						url : req.body.url,
+					},{
+					new: true
+				});
+				res.status(200).json({success : true, message: dharshan})
 		    }
 		});
     	}
