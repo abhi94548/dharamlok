@@ -703,13 +703,13 @@ router.post('/addproduct', (req, res) => {
 })
 
 
-router.post('/approvecomment', (req, res) => {
+router.post('/commentstatus', (req, res) => {
 	let comment;
     try{
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
         	if (err) res.status(400).json({success : false,message: err.message});
             else{
-				comment =  await  commentModel.findOneAndUpdate({_id : req.body.postId}, {approved : 1},{
+				comment =  await  commentModel.findOneAndUpdate({_id : req.body.commentId}, {approved : req.body.approve},{
 					new: true
 				});
 			res.status(200).json({success : true, message: comment})
@@ -730,6 +730,40 @@ router.get('/getallcomment', (req, res) => {
             else{
 				comment =  await  commentModel.find({}).sort([['createdAt', -1]]);
 				res.status(200).json({success : true, message: comment})
+		    }
+		});
+    	}
+	catch (error) {
+        res.status(400).json({success : false,message: error.message})
+    }
+})
+
+router.get('/getallevent', (req, res) => {
+	let events;
+    try{
+    	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+        	if (err) res.status(400).json({success : false,message: err.message});
+            else{
+				events =  await  eventModel.find({}).sort([['createdAt', -1]]);
+				res.status(200).json({success : true, message: events})
+		    }
+		});
+    	}
+	catch (error) {
+        res.status(400).json({success : false,message: error.message})
+    }
+})
+
+router.post('/eventstatus', (req, res) => {
+	let event;
+    try{
+    	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+        	if (err) res.status(400).json({success : false,message: err.message});
+            else{
+				event =  await  eventModel.findOneAndUpdate({_id : req.body.eventId}, {approved : req.body.approve},{
+					new: true
+				});
+			res.status(200).json({success : true, message: event})
 		    }
 		});
     	}
