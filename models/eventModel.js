@@ -6,27 +6,27 @@ const eventSchema = new mongoose.Schema({
 		type: String
 	},
 	title : {
-		required: true,
+		required: false,
 		type: String
 	},
 	description : {
-		required: true,
+		required: false,
 		type: String,
 	},
     place : {
-		required: true,
+		required: false,
 		type: String,
 	},
     type : {
-		required: true,
+		required: false,
 		type: String,
 	},
     bannerImageUrl : {
-		required: true,
+		required: false,
 		type: String,
 	},
     relatedImageUrl : {
-		required: true,
+		required: false,
 		type: String,
 	},
 	approved:{
