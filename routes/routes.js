@@ -738,6 +738,18 @@ router.get('/getallcomment', (req, res) => {
     }
 })
 
+
+router.get('/getevents', (req, res) => {
+	let events;
+    try{
+    	events =  await  eventModel.find({approved : 1}).sort([['createdAt', -1]]);
+	    res.status(200).json({success : true, message: events})
+	}
+	catch (error) {
+        res.status(400).json({success : false,message: error.message})
+    }
+})
+
 router.get('/getallevent', (req, res) => {
 	let events;
     try{
@@ -745,6 +757,23 @@ router.get('/getallevent', (req, res) => {
         	if (err) res.status(400).json({success : false,message: err.message});
             else{
 				events =  await  eventModel.find({}).sort([['createdAt', -1]]);
+				res.status(200).json({success : true, message: events})
+		    }
+		});
+    	}
+	catch (error) {
+        res.status(400).json({success : false,message: error.message})
+    }
+})
+
+
+router.get('/geteventdetail', (req, res) => {
+	let events;
+    try{
+    	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+        	if (err) res.status(400).json({success : false,message: err.message});
+            else{
+				events =  await  eventModel.find({_id : req.body.eventId});
 				res.status(200).json({success : true, message: events})
 		    }
 		});
