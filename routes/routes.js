@@ -360,7 +360,7 @@ router.post('/likepost', (req, res) => {
     }
 })
 
-router.delete('/unlikepost', (req, res) => {
+router.post('/unlikepost', (req, res) => {
     try{
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
         	if (err) res.status(400).json({success : false,message: err.message});
@@ -750,7 +750,7 @@ router.get('/getevents', (req, res) => {
     }
 })
 
-router.get('/getallevent', (req, res) => {
+router.get('/getallevents', (req, res) => {
 	let events;
     try{
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
@@ -767,17 +767,12 @@ router.get('/getallevent', (req, res) => {
 })
 
 
-router.get('/geteventdetail', (req, res) => {
+router.post('/geteventdetail', (req, res) => {
 	let events;
     try{
-    	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
-        	if (err) res.status(400).json({success : false,message: err.message});
-            else{
-				events =  await  eventModel.find({_id : req.body.eventId});
-				res.status(200).json({success : true, message: events})
-		    }
-		});
-    	}
+    	events =  await  eventModel.find({_id : req.body.eventId});
+		res.status(200).json({success : true, message: events})
+	}
 	catch (error) {
         res.status(400).json({success : false,message: error.message})
     }
