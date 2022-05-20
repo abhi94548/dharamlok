@@ -824,7 +824,7 @@ router.post('/createbalvidya', (req, res) => {
     }
 })
 
-router.get('/getallbalvidya', (req, res) => {
+router.get('/getallbalvidya', async (req, res) => {
     try{
     	const bal =  await balVidyaModel.find({}).sort([['createdAt', -1]]);
 		res.status(200).json({success : true,message: bal})
@@ -903,7 +903,7 @@ router.post('/createdharshan', (req, res) => {
 })
 
 
-router.get('/getalldharshan', (req, res) => {
+router.get('/getalldharshan',async (req, res) => {
     try{
     	const dharshan =  await dharshanModel.find({}).sort([['createdAt', -1]]);
 		res.status(200).json({success : true,message: dharshan})
