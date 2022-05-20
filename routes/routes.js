@@ -824,7 +824,7 @@ router.post('/createbalvidya', (req, res) => {
     }
 })
 
-router.get('/getbalvidya', (req, res) => {
+router.get('/getallbalvidya', (req, res) => {
     try{
     	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
         	if (err) res.status(400).json({success : false,message: err.message});
