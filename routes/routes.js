@@ -739,7 +739,7 @@ router.get('/getallcomment', (req, res) => {
 })
 
 
-router.get('/getevents', (req, res) => {
+router.get('/getevents', async (req, res) => {
 	let events;
     try{
     	events =  await  eventModel.find({approved : 1}).sort([['createdAt', -1]]);
@@ -767,7 +767,7 @@ router.get('/getallevents', (req, res) => {
 })
 
 
-router.post('/geteventdetail', (req, res) => {
+router.post('/geteventdetail',async (req, res) => {
 	let events;
     try{
     	events =  await  eventModel.find({_id : req.body.eventId});
