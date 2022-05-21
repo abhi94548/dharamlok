@@ -16,7 +16,7 @@ const addServiceModel = require('../models/addServiceModel');
 const productModel = require('../models/productModel');
 const balVidyaModel = require('../models/balVidyaModel');
 const dharshanModel = require('../models/dharshanModel');
-var balVidyaController = require('./controllers/balVidyaController');
+var balVidyaController = require('../controllers/balVidyaController');
 const path = require('path');
 const e = require('cors');
 
