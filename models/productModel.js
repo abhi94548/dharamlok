@@ -16,7 +16,7 @@ const productSchema = new mongoose.Schema({
 	},
     price : {
 		required: true,
-		type: String,
+		type: Number,
 	},
     imageUrl : {
 		required: false,
@@ -24,7 +24,7 @@ const productSchema = new mongoose.Schema({
 	},
 	pricePerUnit : {
 		required: true,
-		type: String,
+		type: Number,
 	},
     category : {
 		required: false,
