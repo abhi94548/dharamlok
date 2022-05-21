@@ -20,7 +20,7 @@ const balVidyaSchema = new mongoose.Schema({
 	},
     cost : {
 		required: false,
-		type: String
+		type: Number
 	},
 	type : {
 		required: false,
