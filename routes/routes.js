@@ -16,6 +16,7 @@ const addServiceModel = require('../models/addServiceModel');
 const productModel = require('../models/productModel');
 const balVidyaModel = require('../models/balVidyaModel');
 const dharshanModel = require('../models/dharshanModel');
+var balVidyaController = require('./controllers/balVidyaController');
 const path = require('path');
 const e = require('cors');
 
@@ -799,30 +800,7 @@ router.post('/eventstatus', (req, res) => {
 })
 
 
-router.post('/createbalvidya', (req, res) => {
-    try{
-    	jwt.verify(req.headers.token, 'bootspider', async function(err, user){
-        	if (err) res.status(400).json({success : false,message: err.message});
-            else{
-				let balVidya = new balVidyaModel({
-					userId : user.id,
-					name : req.body.name,
-					description : req.body.description,
-					keyInsight : req.body.keyInsight,
-					cost: req.body.cost,
-					type : req.body.type,
-					bannerImageUrl : req.body.bannerImageUrl,
-					relatedImageUrl: req.body.relatedImageUrl,
-				})
-				balVidya.save();
-				res.status(200).json({success : true,message: balVidya})
-		    }
-		});
-    	}
-	catch (error) {
-        res.status(400).json({success : false,message: error.message})
-    }
-})
+router.route('/createbalvidya').post(balVidyaController.createBalVidya); 
 
 router.get('/getallbalvidya', async (req, res) => {
     try{
