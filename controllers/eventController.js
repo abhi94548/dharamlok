@@ -66,7 +66,7 @@ module.exports = {
             res.status(400).json({success : false,message: error.message})
         }
     },
-    getEventDetail : function(req, res) {
+    getEventDetail : async function(req, res) {
         let events;
         try{
             events =  await  eventModel.find({_id : req.body.eventId});
