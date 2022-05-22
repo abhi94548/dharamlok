@@ -16,7 +16,7 @@ module.exports = {
                 if (err) res.status(400).json({success : false,message: err.message});
                 else{
                     const product = await productModel.findOne({_id : req.body.productId}).select("price");
-                    var amount = productPrice.price;
+                    var amount = product.price;
                     res.status(200).json({success : true, message: product})
                     // const currency = 'INR'
                     // razorpayInstance.orders.create({amount, currency}, 
