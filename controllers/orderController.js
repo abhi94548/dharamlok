@@ -25,12 +25,12 @@ module.exports = {
                         if(!err){
                             let orderSave = new orderModel({
                                 userId : user.id,
-                                orderId : order,
+                                orderId : order.id,
                                 productId : req.body.productId,
                                 amount : product.price
                             })
                             orderSave.save();
-                            res.status(200).json({success : true, message: order.id})
+                            res.status(200).json({success : true, message: order})
                         }
                         else
                             res.status(400).json({success : false,message: error.message});
