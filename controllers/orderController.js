@@ -17,7 +17,8 @@ module.exports = {
                 else{
                     const productPrice = await productModel.find({_id : req.body.productId}).select("price");
                     var price = productPrice.price;
-                    razorpayInstance.orders.create({price, INR}, 
+                    const currency = 'INR'
+                    razorpayInstance.orders.create({price, currency}, 
                     (error, order)=>{
                         if(!err)
                             res.status(200).json({success : true, message: order})
