@@ -3,6 +3,7 @@ const userModel = require('../models/user');
 const addPhotoModel = require('../models/addPhotoModel');
 const addVideoModel = require('../models/addVideoModel');
 const jwt = require("jsonwebtoken");
+const biographyModel = require('../models/biographyModel');
 
 
 module.exports = {
