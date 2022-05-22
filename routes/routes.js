@@ -10,6 +10,7 @@ const commentController = require('../controllers/commentController');
 const eventController = require('../controllers/eventController');
 const balVidyaController = require('../controllers/balVidyaController');
 const dharshanController = require('../controllers/dharshanController');
+const orderController = require('../controllers/orderController');
 const path = require('path');
 
 const router = express.Router();
@@ -96,6 +97,8 @@ router.route('/myservice').get(serviceController.myService);
 //////////////////Product Route///////////////
 router.route('/addproduct').post(productController.addProduct);
 router.route('/productdetail').post(productController.productDetail);
+router.route('/getallproduct').get(productController.getAllProduct);
+
 
 //////////////////Comment Route///////////////
 
@@ -129,3 +132,8 @@ router.route('/getalldharshan').get(dharshanController.getAllDharshan);
 router.route('/deletedharshan').post(dharshanController.deleteDharshan);
 router.route('/updatedharshan').post(dharshanController.updateDharshan);
 router.route('/getdharshan').post(dharshanController.getDharshanById);
+
+
+
+////////////////Order Route////////////////////
+router.route('/createorder').post(orderController.createOrder);
