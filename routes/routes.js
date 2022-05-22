@@ -138,3 +138,4 @@ router.route('/getdharshan').post(dharshanController.getDharshanById);
 ////////////////Order Route////////////////////
 router.route('/createorder').post(orderController.createOrder);
 router.route('/verifyorder').post(orderController.verifyOrder);
+router.route('/deleteorder').post(orderController.deleteOrder);

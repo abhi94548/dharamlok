@@ -63,5 +63,9 @@ module.exports = {
         catch (error) {
             res.status(400).json({success : false,message: error.message})
         }
+    },
+    deleteOrder : function (res, req){
+        result = await postModel.deleteMany();
+        res.status(200).json({success : true, message: result})
     }
 }
