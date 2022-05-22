@@ -18,10 +18,9 @@ module.exports = {
                 if (err) res.status(400).json({success : false,message: err.message});
                 else{
                     const product = await productModel.findOne({_id : req.body.productId}).select("price");
-                    var amount = product.price;
+                    var amount = product.price * 100;
                     const currency = 'INR'
-                    var finalPrice = amount * 100;
-                    await razorpayInstance.orders.create({finalPrice, currency}, 
+                    await razorpayInstance.orders.create({amount, currency}, 
                     (error, order)=>{
                         if(!err){
                             let orderSave = new orderModel({
