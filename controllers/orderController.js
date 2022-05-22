@@ -1,5 +1,5 @@
 const Razorpay = require('razorpay');
-const productModel = require('../models/productModel');
+const orderModel = require('../models/orderModel');
 const jwt = require("jsonwebtoken");
 
 
@@ -20,12 +20,39 @@ module.exports = {
                     const currency = 'INR'
                     razorpayInstance.orders.create({amount, currency}, 
                     (error, order)=>{
-                        if(!err)
+                        if(!err){
+                            let orderSave = new orderModel({
+                                userId : user.id,
+                                orderId : order.id,
+                                productId : req.body.productId,
+                                amount : product.price
+                            })
+                            orderSave.save();
                             res.status(200).json({success : true, message: order})
+                        }
                         else
                             res.status(400).json({success : false,message: error.message});
                         }
                     )
+                }
+            });
+            }
+        catch (error) {
+            res.status(400).json({success : false,message: error.message})
+        }
+    },
+    verifyOrder : function(req, res){
+        try{
+            jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+                if (err) res.status(400).json({success : false,message: err.message});
+                else{
+                    let orderId = req.body.orderId;
+                    let paymentId = req.body.paymentId;
+                    let signature = req.headers.razorpaySignature;
+                    const generated_signature = HMAC-SHA256(orderId + "|" + paymentId, '4XgGfyyMkzYHV8QJdXHcCmBt');
+                    if (generated_signature === signature) {
+                        res.status(200).json({success : true, message: "Payment Successful"})
+                    }
                 }
             });
             }
