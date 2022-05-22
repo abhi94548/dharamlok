@@ -15,9 +15,9 @@ module.exports = {
             jwt.verify(req.headers.token, 'bootspider', async function(err, user){
                 if (err) res.status(400).json({success : false,message: err.message});
                 else{
-                    const productPrice = await productModel.find({_id : req.body.productId}).select("price");
+                    const product = await productModel.findOne({_id : req.body.productId}).select("price");
                     var amount = productPrice.price;
-                    res.status(200).json({success : true, message: amount})
+                    res.status(200).json({success : true, message: product})
                     // const currency = 'INR'
                     // razorpayInstance.orders.create({amount, currency}, 
                     // (error, order)=>{
