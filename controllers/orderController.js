@@ -10,7 +10,7 @@ const razorpayInstance = new Razorpay({
 
 
 module.exports = {
-    createOrder : function(req, res){
+    createOrder : async function(req, res){
         try{
             jwt.verify(req.headers.token, 'bootspider', async function(err, user){
                 if (err) res.status(400).json({success : false,message: err.message});
