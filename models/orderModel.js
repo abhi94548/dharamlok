@@ -26,6 +26,6 @@ const orderSchema = new mongoose.Schema({
 		type: Date,
 		default: Date.now()
 	},
-},{collection : 'Orders'})
+},{collection : 'PaymentOrder'})
 
-module.exports = mongoose.model('Orders',orderSchema)
+module.exports = mongoose.model('PaymentOrder',orderSchema)
