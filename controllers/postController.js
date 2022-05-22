@@ -47,20 +47,29 @@ module.exports = {
     },
     getAllPost : async function(req, res){
         //result = await postModel.deleteMany();
-        var i,j = 0
-        var result = await postModel.find({}).sort([['createdAt', 'desc']]);
-        var userLikedPosts = await likeModal.find({userId : user.id});
-        for (i = 0; i < userLikedPosts.length; i++){
-            for (j = 0; j < result.length; j++){
-                if(userLikedPosts[i].postId == result[j]._id){
-                    result[j].isLiked = true
+        
+        try{
+            jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+                if (err) res.status(400).json({success : false,message: err.message});
+                var i,j = 0
+                var result = await postModel.find({}).sort([['createdAt', 'desc']]);
+                var userLikedPosts = await likeModal.find({userId : user.id});
+                for (i = 0; i < userLikedPosts.length; i++){
+                for (j = 0; j < result.length; j++){
+                    if(userLikedPosts[i].postId == result[j]._id){
+                        result[j].isLiked = true
+                    }
+                    else{
+                        result[j].isLiked = false
+                    }
                 }
-                else{
-                    result[j].isLiked = false
                 }
-            }
+            res.status(200).json({success : true,message: result}) 
+        });
         }
-        res.status(200).json({success : true,message: result}) 
+        catch (error) {
+            res.status(400).json({success : false,message: error.message})
+        }
     },
     likePost : function(req, res){
         try{
