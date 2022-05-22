@@ -64,7 +64,7 @@ module.exports = {
             res.status(400).json({success : false,message: error.message})
         }
     },
-    deleteOrder : async function (res, req){
+    deleteOrder : async function (req, res){
         result = await orderModel.deleteMany();
         res.status(200).json({success : true, message: result})
     }
