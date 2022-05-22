@@ -4,8 +4,8 @@ const jwt = require("jsonwebtoken");
 
 
 const razorpayInstance = new Razorpay({
-    key_id: "rzp_live_FXjOhgXoALsSB6",
-    key_secret: "3RJqLFFGZGwqLO2zwtM4tzD5"
+    key_id: "rzp_test_CjE6dleliI5tcb",
+    key_secret: "4XgGfyyMkzYHV8QJdXHcCmBt"
 });
 
 
