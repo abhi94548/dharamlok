@@ -17,15 +17,16 @@ module.exports = {
                 else{
                     const productPrice = await productModel.find({_id : req.body.productId}).select("price");
                     var amount = productPrice.price;
-                    const currency = 'INR'
-                    razorpayInstance.orders.create({amount, currency}, 
-                    (error, order)=>{
-                        if(!err)
-                            res.status(200).json({success : true, message: order})
-                        else
-                            res.status(400).json({success : false,message: error.message});
-                        }
-                    )
+                    res.status(200).json({success : true, message: amount})
+                    // const currency = 'INR'
+                    // razorpayInstance.orders.create({amount, currency}, 
+                    // (error, order)=>{
+                    //     if(!err)
+                    //         res.status(200).json({success : true, message: order})
+                    //     else
+                    //         res.status(400).json({success : false,message: error.message});
+                    //     }
+                    // )
                 }
             });
             }
