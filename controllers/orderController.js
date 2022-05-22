@@ -48,7 +48,7 @@ module.exports = {
                 else{
                     let orderId = req.body.orderId;
                     let paymentId = req.body.paymentId;
-                    let signature = req.headers.razorpaySignature;
+                    let signature = req.headers.signature;
                     const generated_signature = HMAC-SHA256(orderId + "|" + paymentId, '4XgGfyyMkzYHV8QJdXHcCmBt');
                     if (generated_signature === signature) {
                         res.status(200).json({success : true, message: "Payment Successful"})
