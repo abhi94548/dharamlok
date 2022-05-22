@@ -27,6 +27,6 @@ const orderSchema = new mongoose.Schema({
 		type: Date,
 		default: Date.now()
 	},
-},{collection : 'likes'})
+},{collection : 'Orders'})
 
-module.exports = mongoose.model('likes',likeSchema)
+module.exports = mongoose.model('Orders',orderSchema)
