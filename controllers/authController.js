@@ -18,7 +18,7 @@ module.exports = {
                 userId : user.id,
                 name: user.name ?? '',
                 description : '',
-                profileImageUrl : '',
+                profileImageUrl : 'https://trade-signal.s3.ap-south-1.amazonaws.com/Users/5d088f94-70a2-4cce-af9b-51b4af894943.png',
                 coverImageUrl :  '',
                 category :  '',
             })
