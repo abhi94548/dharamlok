@@ -18,6 +18,26 @@ const userSchema = new mongoose.Schema({
 		required: true,
 		type: String,
 	},
+	profileImageUrl : {
+		required: true,
+		type: String,
+		default: '1653326870689.png'
+	},
+	description : {
+		required: true,
+		type: String,
+		default:''
+	},
+	coverImageUrl : {
+		required: true,
+		type: String,
+		default:''
+	},
+	category : {
+		required: true,
+		type: String,
+		default:''
+	},
 	password :{
 		required: true,
 		type: String,

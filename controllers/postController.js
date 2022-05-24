@@ -11,12 +11,11 @@ module.exports = {
             jwt.verify(req.headers.token, 'bootspider', async function(err, user){
                 if (err) res.status(400).json({success : false,message: err.message});
                 else{
-                    var userDetails = await userModel.findOne({_id : user.id}).select("name");
-                    var biographyDetails = await biographyModel.findOne({userId : user.id}).select("profileImageUrl");
+                    var userDetails = await userModel.findOne({_id : user.id}).select("name").select("profileImageUrl");
                     let post = new postModel({
                         userId : user.id,
                         userName : userDetails.name,
-                        userImage : biographyDetails.profileImageUrl,
+                        userImage : userDetails.profileImageUrl,
                         description : req.body.description,
                         imageUrl : req.body.imageUrl,
                         videoUrl : req.body.videoUrl,

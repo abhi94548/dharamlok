@@ -14,15 +14,6 @@ module.exports = {
            const salt = await bcrypt.genSalt(10);
             user.password = await bcrypt.hash(password, salt);
             await user.save();
-            const biography = new biographyModel({
-                userId : user.id,
-                name: user.name ?? '',
-                description : '',
-                profileImageUrl : '1653326870689.png',
-                coverImageUrl :  '',
-                category :  '',
-            })
-            biography.save();
             const payload = {id: user.id};
             jwt.sign(
                     payload,
