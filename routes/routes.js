@@ -151,4 +151,4 @@ router.route('/createtemple').post(templeController.addTemple);
 router.route('/gettempledetail').get(templeController.templeDetailById);
 router.route('/deletetemple').post(templeController.deleteTemple);
 router.route('/updatetemple').post(templeController.updateTemple);
-router.route('/getalltemples').post(templeController.getAllTemple);
+router.route('/getalltemples').get(templeController.getAllTemple);
