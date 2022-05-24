@@ -11,9 +11,9 @@ module.exports = {
             jwt.verify(req.headers.token, 'bootspider', async function(err, user){
                 if (err) res.status(400).json({success : false,message: err.message});
                 else{
-                    let userDetail = await userModel.find({_id : req.body.id}).select("name").select("email").select("phone").select("profileImageUrl");
-                    let biographyDetails = await biographyModel.find({userId : user.id});
-                    res.status(200).json({success : true,userDetails: userDetail, biography : biographyDetails})
+                    let userDetail = await userModel.find({_id : req.body.id}).select("name").select("email").select("phone")
+                    .select("profileImageUrl").select("description").select("coverImageUrl").select("category");
+                    res.status(200).json({success : true,userDetails: userDetail})
                 }
             });
             }
@@ -26,9 +26,9 @@ module.exports = {
             jwt.verify(req.headers.token, 'bootspider', async function(err, user){
                 if (err) res.status(400).json({success : false,message: err.message});
                 else{
-                    let userDetail = await userModel.find({_id : user.id}).select("name").select("email").select("phone");
-                    let biographyDetails = await biographyModel.find({userId : user.id});
-                    res.status(200).json({success : true,userDetails: userDetail, biography : biographyDetails})
+                    let userDetail = await userModel.find({_id : user.id}).select("name").select("email").select("phone")
+                    .select("profileImageUrl").select("description").select("coverImageUrl").select("category");
+                    res.status(200).json({success : true,userDetails: userDetail})
                 }
             });
             }
@@ -37,61 +37,19 @@ module.exports = {
         }
     },
     updateBiography : async function(req, res){
-        let biography;
+        let userDetails;
         try{
             jwt.verify(req.headers.token, 'bootspider', async function(err, user){
                 if (err) res.status(400).json({success : false,message: err.message});
                 else{
-                    let previousBiography = await biographyModel.findOne({userId : user.id});
-                    updatedParameter = req.body.updatedParameter;
-                    if(previousBiography){
-                        if(updatedParameter == 0){
-                            biography = await biographyModel.findOneAndUpdate({userId : user.id} ,{description : req.body.description},{
-                                new: true,
-                            });
-                        }
-                        else if(updatedParameter == 1){
-                            biography =  await biographyModel.findOneAndUpdate({userId : user.id} ,{profileImageUrl : req.body.profileImageUrl},{
-                                new: true
-                            });
-                        }
-                        else if(updatedParameter == 2){
-                            biography =  await biographyModel.findOneAndUpdate({userId : user.id}, {coverImageUrl : req.body.coverImageUrl},{
-                                new: true
-                            });
-                        }
-                        else if(updatedParameter == 3){
-                            biography =  await biographyModel.findOneAndUpdate({userId : user.id}, {category : req.body.category},{
-                                new: true
-                            });
-                        }
-                        else if(updatedParameter == 5){
-                            biography =  await biographyModel.findOneAndUpdate({userId : user.id}, {name : req.body.name},{
-                                new: true
-                            });
-                        }
-                        else if(updatedParameter == 4){
-                            biography =  await biographyModel.findOneAndUpdate({userId : user.id}, {
-                                description : req.body.description,
-                                profileImageUrl : req.body.profileImageUrl,
-                                coverImageUrl : req.body.coverImageUrl,
-                                category : req.body.category},{
-                                new: true
-                            });
-                        }
-                    }
-                    else{
-                        biography = new biographyModel({
-                            userId : user.id,
-                            name: req.body.name ?? '',
-                            description : req.body.description ?? '',
-                            profileImageUrl : req.body.profileImageUrl ?? '',
-                            coverImageUrl : req.body.coverImageUrl ?? '',
-                            category : req.body.category ?? '',
-                        })
-                        biography.save();
-                    }
-                    res.status(200).json({success : true, message: biography})
+                    userDetails =  await userModel.findOneAndUpdate({userId : user.id}, {
+                        description : req.body.description,
+                        profileImageUrl : req.body.profileImageUrl,
+                        coverImageUrl : req.body.coverImageUrl,
+                        category : req.body.category},{
+                        new: true
+                    });
+                    res.status(200).json({success : true, message: userDetails})
                 }
             });
             }
@@ -104,10 +62,11 @@ module.exports = {
             jwt.verify(req.headers.token, 'bootspider', async function(err, user){
                 if (err) res.status(400).json({success : false,message: err.message});
                 else{
-                    const biography = await biographyModel.findOne({userId : user.id}).limit(1);
+                    let userDetail = await userModel.findOne({_id : user.id}).select("name").select("email").select("phone")
+                    .select("profileImageUrl").select("description").select("coverImageUrl").select("category");
                     const images = await addPhotoModel.find({userId : user.id});
                     const videos = await addVideoModel.find({userId : user.id});
-                    res.status(200).json({success : true, biography: biography, photos : images.length, videos: videos.length})
+                    res.status(200).json({success : true, biography: userDetail, photos : images.length, videos: videos.length})
                 }
             });
             }
@@ -232,6 +191,20 @@ module.exports = {
                 else{
                     const dharamguru = await userModel.find({userType : 'Dharamguru'}).sort([['_id', -1]]);
                     res.status(200).json({success : true, message: dharamguru})
+                }
+            });
+            }
+        catch (error) {
+            res.status(400).json({success : false,message: error.message})
+        }
+    },
+    getallUsers : function(req, res){ 
+        try{
+            jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+                if (err) res.status(400).json({success : false,message: err.message});
+                else{
+                    const users = await userModel.find({}).sort([['_id', -1]]);
+                    res.status(200).json({success : true, message: users})
                 }
             });
             }
