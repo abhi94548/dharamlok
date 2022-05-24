@@ -19,22 +19,22 @@ const userSchema = new mongoose.Schema({
 		type: String,
 	},
 	profileImageUrl : {
-		required: true,
+		required: false,
 		type: String,
 		default: '1653326870689.png'
 	},
 	description : {
-		required: true,
+		required: false,
 		type: String,
 		default:''
 	},
 	coverImageUrl : {
-		required: true,
+		required: false,
 		type: String,
 		default:''
 	},
 	category : {
-		required: true,
+		required: false,
 		type: String,
 		default:''
 	},
