@@ -170,33 +170,23 @@ module.exports = {
             res.status(400).json({success : false,message: error.message})
         }
     },
-    getKathavachak : function(req, res){ 
+    getKathavachak : async function(req, res){ 
         try{
-            jwt.verify(req.headers.token, 'bootspider', async function(err, user){
-                if (err) res.status(400).json({success : false,message: err.message});
-                else{
-                    const kathavachak = await userModel.find({userType : 'Kathavachak'}).select("name").select("email").select("phone")
+            const kathavachak = await userModel.find({userType : 'Kathavachak'}).select("name").select("email").select("phone")
                     .select("profileImageUrl").select("description").select("coverImageUrl").select("category")
                     .sort([['_id', -1]]);
                     res.status(200).json({success : true, message: kathavachak})
-                }
-            });
-            }
+        }
         catch (error) {
             res.status(400).json({success : false,message: error.message})
         }
     },
-    getDharamguru : function(req, res){ 
+    getDharamguru : async function(req, res){ 
         try{
-            jwt.verify(req.headers.token, 'bootspider', async function(err, user){
-                if (err) res.status(400).json({success : false,message: err.message});
-                else{
-                    const dharamguru = await userModel.find({userType : 'Dharamguru'}).select("name").select("email").select("phone")
+            const dharamguru = await userModel.find({userType : 'Dharamguru'}).select("name").select("email").select("phone")
                     .select("profileImageUrl").select("description").select("coverImageUrl").select("category")
                     .sort([['_id', -1]]);
                     res.status(200).json({success : true, message: dharamguru})
-                }
-            });
             }
         catch (error) {
             res.status(400).json({success : false,message: error.message})
