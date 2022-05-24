@@ -1,5 +1,5 @@
 const commentModel = require('../models/commentModel');
-const biographyModel = require('../models/biographyModel');
+const postModel = require('../models/postModel');
 const userModel = require('../models/user');
 const jwt = require("jsonwebtoken");
 
