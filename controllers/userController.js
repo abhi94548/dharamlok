@@ -175,7 +175,9 @@ module.exports = {
             jwt.verify(req.headers.token, 'bootspider', async function(err, user){
                 if (err) res.status(400).json({success : false,message: err.message});
                 else{
-                    const kathavachak = await userModel.find({userType : 'Kathavachak'}).sort([['_id', -1]]);
+                    const kathavachak = await userModel.find({userType : 'Kathavachak'}).select("name").select("email").select("phone")
+                    .select("profileImageUrl").select("description").select("coverImageUrl").select("category")
+                    .sort([['_id', -1]]);
                     res.status(200).json({success : true, message: kathavachak})
                 }
             });
@@ -189,7 +191,9 @@ module.exports = {
             jwt.verify(req.headers.token, 'bootspider', async function(err, user){
                 if (err) res.status(400).json({success : false,message: err.message});
                 else{
-                    const dharamguru = await userModel.find({userType : 'Dharamguru'}).sort([['_id', -1]]);
+                    const dharamguru = await userModel.find({userType : 'Dharamguru'}).select("name").select("email").select("phone")
+                    .select("profileImageUrl").select("description").select("coverImageUrl").select("category")
+                    .sort([['_id', -1]]);
                     res.status(200).json({success : true, message: dharamguru})
                 }
             });
@@ -203,7 +207,9 @@ module.exports = {
             jwt.verify(req.headers.token, 'bootspider', async function(err, user){
                 if (err) res.status(400).json({success : false,message: err.message});
                 else{
-                    const users = await userModel.find({}).sort([['_id', -1]]);
+                    const users = await userModel.find({}).select("name").select("email").select("phone")
+                    .select("profileImageUrl").select("description").select("coverImageUrl").select("category")
+                    .sort([['_id', -1]]);
                     res.status(200).json({success : true, message: users})
                 }
             });
