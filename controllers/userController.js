@@ -120,7 +120,7 @@ module.exports = {
             jwt.verify(req.headers.token, 'bootspider', async function(err, user){
                 if (err) res.status(400).json({success : false,message: err.message});
                 else{
-                    const images = await addPhotoModel.find({userId : user.id}).sort([['createdAt', -1]]);
+                    const images = await addPhotoModel.find({userId : user.id}).sort([['_id', -1]]);
                     res.status(200).json({success : true, message: images})
                 }
             });
@@ -216,7 +216,7 @@ module.exports = {
             jwt.verify(req.headers.token, 'bootspider', async function(err, user){
                 if (err) res.status(400).json({success : false,message: err.message});
                 else{
-                    const kathavachak = await userModel.find({userType : 'Kathavachak'});
+                    const kathavachak = await userModel.find({userType : 'Kathavachak'}).sort([['_id', -1]]);
                     res.status(200).json({success : true, message: kathavachak})
                 }
             });
@@ -230,7 +230,7 @@ module.exports = {
             jwt.verify(req.headers.token, 'bootspider', async function(err, user){
                 if (err) res.status(400).json({success : false,message: err.message});
                 else{
-                    const dharamguru = await userModel.find({userType : 'Dharamguru'});
+                    const dharamguru = await userModel.find({userType : 'Dharamguru'}).sort([['_id', -1]]);
                     res.status(200).json({success : true, message: dharamguru})
                 }
             });
