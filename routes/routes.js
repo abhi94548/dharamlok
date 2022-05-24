@@ -11,6 +11,7 @@ const eventController = require('../controllers/eventController');
 const balVidyaController = require('../controllers/balVidyaController');
 const dharshanController = require('../controllers/dharshanController');
 const orderController = require('../controllers/orderController');
+const templeController = require('../controllers/templeController');
 const path = require('path');
 
 const router = express.Router();
@@ -47,6 +48,8 @@ router.route('/addphoto').post(userController.addPhoto);
 router.route('/addvideo').post(userController.addVideo);
 router.route('/getphoto').post(userController.getPhoto)
 router.route('/getvideo').post(userController.getVideo)
+router.route('/dharamguru').get(userController.getDharamguru)
+router.route('/kathavachak').get(userController.getKathavachak)
 
 //Upload Photos
 router.post('/uploadphoto',upload.single("file"), async (req, res) => {
@@ -139,3 +142,13 @@ router.route('/getdharshan').post(dharshanController.getDharshanById);
 router.route('/createorder').post(orderController.createOrder);
 router.route('/verifyorder').post(orderController.verifyOrder);
 router.route('/deleteorder').post(orderController.deleteOrder);
+
+
+//////////////////Temple Route///////////////
+
+
+router.route('/createtemple').post(templeController.addTemple); 
+router.route('/gettempledetail').get(templeController.templeDetailById);
+router.route('/deletetemple').post(templeController.deleteTemple);
+router.route('/updatetemple').post(templeController.updateTemple);
+router.route('/getalltemples').post(templeController.getAllTemple);

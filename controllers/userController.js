@@ -211,5 +211,32 @@ module.exports = {
             res.status(400).json({success : false,message: error.message})
         }
     },
-
+    getKathavachak : function(req, res){ 
+        try{
+            jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+                if (err) res.status(400).json({success : false,message: err.message});
+                else{
+                    const kathavachak = await userModel.find({userType : 'Kathavachak'});
+                    res.status(200).json({success : true, message: kathavachak})
+                }
+            });
+            }
+        catch (error) {
+            res.status(400).json({success : false,message: error.message})
+        }
+    },
+    getDharamguru : function(req, res){ 
+        try{
+            jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+                if (err) res.status(400).json({success : false,message: err.message});
+                else{
+                    const dharamguru = await userModel.find({userType : 'Dharamguru'});
+                    res.status(200).json({success : true, message: dharamguru})
+                }
+            });
+            }
+        catch (error) {
+            res.status(400).json({success : false,message: error.message})
+        }
+    },
 }

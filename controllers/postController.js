@@ -62,6 +62,7 @@ module.exports = {
                     else{
                         result[j].isLiked = false
                     }
+                
                 }
                 }
             res.status(200).json({success : true,message: result}) 
