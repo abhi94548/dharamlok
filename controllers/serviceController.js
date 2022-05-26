@@ -8,7 +8,7 @@ module.exports = {
             jwt.verify(req.headers.token, 'bootspider', async function(err, user){
                 if (err) res.status(400).json({success : false,message: err.message});
                 else{
-                    let service = new addServiceModel({
+                    let service = new serviceModel({
                         userId : user.id,
                         services : req.body.services,
                         type : req.body.type,
