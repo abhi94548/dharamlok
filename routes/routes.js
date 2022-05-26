@@ -12,7 +12,9 @@ const balVidyaController = require('../controllers/balVidyaController');
 const dharshanController = require('../controllers/dharshanController');
 const orderController = require('../controllers/orderController');
 const templeController = require('../controllers/templeController');
+const eBookController = require('../controllers/ebookController');
 const path = require('path');
+const ebookController = require("../controllers/ebookController");
 
 const router = express.Router();
 
@@ -97,11 +99,19 @@ router.route('/mostliked').get(postController.mostLikedPost);
 //////////////////Service Route///////////////
 router.route('/addservice').post(serviceController.addService);
 router.route('/myservice').get(serviceController.myService);
+router.route('/getservicedetail').get(serviceController.getServiceById);
+router.route('/deleteservice').post(serviceController.deleteService);
+router.route('/updateservice').post(serviceController.updateService);
+router.route('/getallservice').get(serviceController.getAllService);
 
 //////////////////Product Route///////////////
 router.route('/addproduct').post(productController.addProduct);
 router.route('/productdetail').post(productController.productDetail);
 router.route('/getallproduct').get(productController.getAllProduct);
+router.route('/addcategory').post(productController.addCategories);
+router.route('/getallcategory').get(productController.getAllCategories);
+router.route('/deletecategory').post(productController.deleteCategory);
+
 
 
 //////////////////Comment Route///////////////
@@ -153,3 +163,13 @@ router.route('/gettempledetail').get(templeController.templeDetailById);
 router.route('/deletetemple').post(templeController.deleteTemple);
 router.route('/updatetemple').post(templeController.updateTemple);
 router.route('/getalltemples').get(templeController.getAllTemple);
+
+
+//////////////////EBook Route///////////////
+
+
+router.route('/createebook').post(eBookController.createEbook); 
+router.route('/getebookdetail').get(eBookController.getEbookById);
+router.route('/deleteebook').post(eBookController.deleteEbook);
+router.route('/updateebook').post(ebookController.updateEbook);
+router.route('/getallebook').get(ebookController.getAllEbook);

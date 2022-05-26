@@ -172,7 +172,7 @@ module.exports = {
     },
     getKathavachak : async function(req, res){ 
         try{
-            const kathavachak = await userModel.find({userType : 'Kathavachak'}).select("name").select("email").select("phone")
+            const kathavachak = await userModel.find({typeVendor : 'Kathavachak'}).select("name").select("email").select("phone")
                     .select("profileImageUrl").select("description").select("coverImageUrl").select("category")
                     .sort([['_id', -1]]);
                     res.status(200).json({success : true, message: kathavachak})
@@ -183,7 +183,7 @@ module.exports = {
     },
     getDharamguru : async function(req, res){ 
         try{
-            const dharamguru = await userModel.find({userType : 'Dharamguru'}).select("name").select("email").select("phone")
+            const dharamguru = await userModel.find({typeVendor : 'Dharamguru'}).select("name").select("email").select("phone")
                     .select("profileImageUrl").select("description").select("coverImageUrl").select("category")
                     .sort([['_id', -1]]);
                     res.status(200).json({success : true, message: dharamguru})

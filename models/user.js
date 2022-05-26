@@ -15,8 +15,13 @@ const userSchema = new mongoose.Schema({
 		type: String,
 	},
 	userType : {
-		required: true,
+		required: false,
 		type: String,
+	},
+	typeVendor : {
+		required: false,
+		type: String,
+		default:''
 	},
 	profileImageUrl : {
 		required: false,
