@@ -30,7 +30,7 @@ module.exports = {
             jwt.verify(req.headers.token, 'bootspider', async function(err, user){
                 if (err) res.status(400).json({success : false,message: err.message});
                 else{
-                    const service = await addServiceModel.find({userId : user.id});
+                    const service = await serviceModel.find({userId : user.id});
                     res.status(200).json({success : true, message: service})
                 }
             });
@@ -72,12 +72,12 @@ module.exports = {
         }
     },
     updateService : function(req, res){
-        let Service;
+        let service;
         try{
             jwt.verify(req.headers.token, 'bootspider', async function(err, user){
                 if (err) res.status(400).json({success : false,message: err.message});
                 else{
-                    Service =  await eBookModel.findOneAndUpdate({_id : req.body.id, userId : user.id}, 
+                    service =  await serviceModel.findOneAndUpdate({_id : req.body.id, userId : user.id}, 
                         {
                             services : req.body.services,
                             type : req.body.type,
@@ -87,7 +87,7 @@ module.exports = {
                         },{
                         new: true
                     });
-                    res.status(200).json({success : true, message: Service})
+                    res.status(200).json({success : true, message: service})
                 }
             });
             }
