@@ -161,7 +161,7 @@ router.route('/createorder').post(orderController.createOrder);
 router.route('/verifyorder').post(orderController.verifyOrder);
 router.route('/deleteorder').post(orderController.deleteOrder);
 router.route('/myorder').get(orderController.myOrders);
-router.route('/getorderdetail').get(orderController.orderDetailById);
+router.route('/getorderdetail').post(orderController.orderDetailById);
 
 
 //////////////////Temple Route///////////////
