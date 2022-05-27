@@ -28,7 +28,7 @@ module.exports = {
                 else{
                     let userDetail = await userModel.find({_id : user.id}).select("name").select("email").select("phone")
                     .select("profileImageUrl").select("description").select("coverImageUrl").select("category").select("userType").select("typeVendor");
-                    res.status(200).json({success : true,userDetails: userDetail})
+                    res.status(200).json({success : true,message: userDetail})
                 }
             });
             }
