@@ -200,7 +200,7 @@ module.exports = {
                         cust =  await customerModel.findOne({_id : orderDetail.customerId});
                         prod =  await productModel.findOne({id : orderDetail.id});
                     }
-                    res.status(200).json({success : true, order: myOrders, customer : cust, product : prod})
+                    res.status(200).json({success : true, order: orderDetail, customer : cust, product : prod})
                 }
             });
         }
