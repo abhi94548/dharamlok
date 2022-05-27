@@ -220,7 +220,7 @@ module.exports = {
                         },{
                         new: true
                     });
-                    if(orders != null){
+                    if(orders.length > 0){
                         customerDetail =  await customerModel.findOne({_id : orders.customerId});
                         productDetails =  await productModel.findOne({id : orders.id});
                     }
