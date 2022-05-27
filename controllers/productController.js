@@ -29,11 +29,11 @@ module.exports = {
         }
     },
     productDetail : async function(req, res){
-        var product = await productModel.find({_id : req.body.productId}).sort([['createdAt', 'desc']]);
+        var product = await productModel.find({_id : req.body.productId}).sort([['_id', 'desc']]);
         res.status(200).json({success : true,message: product}) 
     },
     getAllProduct : async function(req, res){
-        var product = await productModel.find({}).sort([['createdAt', 'desc']]);
+        var product = await productModel.find({}).sort([['_id', 'desc']]);
         res.status(200).json({success : true,message: product})
     },
     updateProduct : function(req, res){
@@ -102,7 +102,7 @@ module.exports = {
         try{
             jwt.verify(req.headers.token, 'bootspider', async function(err, user){
                 if (err) res.status(400).json({success : false,message: err.message});
-                var product = productModel.find({title: { $regex: '.*' + req.body.title + '.*' }});
+                var product = productModel.find({title: /req.body.title/}).sort([['_id', 'desc']]);
                 res.status(200).json({success : true, message: product+"hello"})
             });
             }
