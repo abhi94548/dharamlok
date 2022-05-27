@@ -9,6 +9,7 @@ module.exports = {
                 if (err) res.status(400).json({success : false,message: err.message});
                 else{
                     let customer = new customerModel({
+                        userId : user.id,
                         name : req.body.name,
                         phone : req.body.phone,
                         email : req.body.email,
