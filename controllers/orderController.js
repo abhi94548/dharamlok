@@ -176,7 +176,7 @@ module.exports = {
             jwt.verify(req.headers.token, 'bootspider', async function(err, user){
                 if (err) res.status(400).json({success : false,message: err.message});
                 else{
-                    const orders =  await orderModel.find({approved : 0});
+                    var orders =  await orderModel.find({approved : 0});
                     if(orders != null){
                         customer =  await customerModel.findOne({_id : orders.customerId});
                         product =  await productModel.findOne({id : orders.id});
