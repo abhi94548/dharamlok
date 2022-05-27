@@ -160,6 +160,7 @@ router.route('/getdharshan').post(dharshanController.getDharshanById);
 router.route('/createorder').post(orderController.createOrder);
 router.route('/verifyorder').post(orderController.verifyOrder);
 router.route('/deleteorder').post(orderController.deleteOrder);
+router.route('/myorder').get(orderController.myOrders);
 
 
 //////////////////Temple Route///////////////
@@ -183,7 +184,6 @@ router.route('/getallebook').get(ebookController.getAllEbook);
 
 
 //////////////////Customer Route///////////////
-
 
 router.route('/addcustomer').post(customerController.createCustomer); 
 router.route('/getallcustomer').get(customerController.getAllCustomer);

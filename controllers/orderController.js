@@ -126,5 +126,19 @@ module.exports = {
     deleteOrder : async function (req, res){
         result = await orderModel.remove();
         res.status(200).json({success : true, message: result})
+    },
+    myOrders : function(req, res){
+        try{
+            jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+                if (err) res.status(400).json({success : false,message: err.message});
+                else{
+                    const myOrders =  await orderModel.findOne({userId : user.id});
+                    res.status(200).json({success : true,message: myOrders})
+                }
+            });
+            }
+        catch (error) {
+            res.status(400).json({success : false,message: error.message})
+        }
     }
 }
