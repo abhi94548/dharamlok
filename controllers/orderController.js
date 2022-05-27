@@ -196,10 +196,10 @@ module.exports = {
                 if (err) res.status(400).json({success : false,message: err.message});
                 else{
                     var orderDetail =  await orderModel.find({approved : 1});
-                    if(orderDetail != null){
-                        cust =  await customerModel.find({_id : orderDetail.customerId});
-                        prod =  await productModel.find({id : orderDetail.id});
-                    }
+                    // if(orderDetail != null){
+                    //     cust =  await customerModel.find({_id : orderDetail.customerId});
+                    //     prod =  await productModel.find({id : orderDetail.id});
+                    // }
                     res.status(200).json({success : true, order: orderDetail, customer : cust, product : prod})
                 }
             });
