@@ -202,10 +202,14 @@ module.exports = {
                     var cust,prod;
                     var orderDetail =  await orderModel.find({approved : 1});
                     if(orderDetail.length > 0){
-                        cust =  await customerModel.findOne({_id : orderDetail[0].customerId});
-                        prod =  await productModel.findOne({id : orderDetail[0].id});
+                        for(var x = 0; x < orderDetail.length ; x++){
+                            cust =  await customerModel.findOne({_id : orderDetail[x].customerId});
+                            prod =  await productModel.findOne({id : orderDetail[x].id});
+                            orderDetail[x].customer = cust;
+                            orderDetail[x].product = prod;
+                        }
                     }
-                    res.status(200).json({success : true, order: orderDetail, customer : cust, product : prod})
+                    res.status(200).json({success : true, message: orderDetail})
                 }
             });
         }
