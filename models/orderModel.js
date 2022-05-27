@@ -22,6 +22,15 @@ const orderSchema = new mongoose.Schema({
 		type: Number,
         default: 0
 	},
+	paymentId : {
+		required: false,
+		type: String,
+		default:''
+	},
+	customerId : {
+		required: false,
+		type: String,
+	},
     createdAt:{
 		type: Date,
 		default: Date.now()

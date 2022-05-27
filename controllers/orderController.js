@@ -31,7 +31,8 @@ module.exports = {
                                     userId : user.id,
                                     orderId : order.id,
                                     productId : req.body.productId,
-                                    amount : amount
+                                    amount : amount,
+                                    customerId : req.body.customerId
                                 })
                                 orderSave.save();
                                 res.status(200).json({success : true, message: order})
@@ -52,7 +53,8 @@ module.exports = {
                                     userId : user.id,
                                     orderId : order.id,
                                     productId : req.body.productId,
-                                    amount : amount
+                                    amount : amount,
+                                    customerId : req.body.customerId
                                 })
                                 orderSave.save();
                                 res.status(200).json({success : true, message: order})
@@ -73,7 +75,8 @@ module.exports = {
                                     userId : user.id,
                                     orderId : order.id,
                                     productId : req.body.productId,
-                                    amount : amount
+                                    amount : amount,
+                                    customerId : req.body.customerId
                                 })
                                 orderSave.save();
                                 res.status(200).json({success : true, message: order})
@@ -102,7 +105,16 @@ module.exports = {
                     hmac.update(orderId + "|" + paymentId);
                     const generated_signature = hmac.digest('hex');
                     if (generated_signature === signature) {
-                        res.status(200).json({success : true, message: paymentId})
+                        var orders =  await orderModel.findOneAndUpdate({orderId : orderId, userId : user.id}, 
+                            {
+                                paymentId : paymentId
+                            },{
+                            new: true
+                        });
+                        res.status(200).json({success : true, message: orders})
+                    }
+                    else{
+                        res.status(400).json({success : false,message: 'Transaction Failed'})
                     }
                 }
             });
