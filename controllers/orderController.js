@@ -33,7 +33,8 @@ module.exports = {
                                     orderId : order.id,
                                     productId : req.body.productId,
                                     amount : amount,
-                                    customerId : req.body.customerId
+                                    customerId : req.body.customerId,
+                                    quantity : req.body.quantity
                                 })
                                 orderSave.save();
                                 await customerModel.findOneAndUpdate({_id : req.body.customerId, userId : user.id}, 
