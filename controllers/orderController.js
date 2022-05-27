@@ -149,5 +149,19 @@ module.exports = {
         catch (error) {
             res.status(400).json({success : false,message: error.message})
         }
+    },
+    orderDetailById : function(req, res){
+        try{
+            jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+                if (err) res.status(400).json({success : false,message: err.message});
+                else{
+                    const myOrders =  await orderModel.findOne({orderId : req.body.id});
+                    res.status(200).json({success : true,message: myOrders})
+                }
+            });
+            }
+        catch (error) {
+            res.status(400).json({success : false,message: error.message})
+        }
     }
 }
