@@ -152,7 +152,7 @@ module.exports = {
         }
     },
     orderDetailById : function(req, res){
-        var customerDetail;
+        var customerDetail,productDetails;
         try{
             jwt.verify(req.headers.token, 'bootspider', async function(err, user){
                 if (err) res.status(400).json({success : false,message: err.message});
@@ -160,8 +160,9 @@ module.exports = {
                     const myOrders =  await orderModel.findOne({_id : req.body.id});
                     if(myOrders != null){
                         customerDetail =  await customerModel.findOne({_id : myOrders.customerId});
+                        productDetails =  await productModel.findOne({_id : myOrders.productId});
                     }
-                    res.status(200).json({success : true, order: myOrders, customer : customerDetail})
+                    res.status(200).json({success : true, order: myOrders, customer : customerDetail, product : productDetails})
                 }
             });
         }
