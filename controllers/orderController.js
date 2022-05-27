@@ -31,7 +31,7 @@ module.exports = {
                                 let orderSave = new orderModel({
                                     userId : user.id,
                                     orderId : order.id,
-                                    productId : req.body.productId,
+                                    productId : req.body.id,
                                     amount : amount,
                                     customerId : req.body.customerId,
                                     quantity : req.body.quantity
@@ -60,7 +60,7 @@ module.exports = {
                                 let orderSave = new orderModel({
                                     userId : user.id,
                                     orderId : order.id,
-                                    productId : req.body.productId,
+                                    productId : req.body.id,
                                     amount : amount,
                                     customerId : req.body.customerId
                                 })
@@ -82,7 +82,7 @@ module.exports = {
                                 let orderSave = new orderModel({
                                     userId : user.id,
                                     orderId : order.id,
-                                    productId : req.body.productId,
+                                    productId : req.body.id,
                                     amount : amount,
                                     customerId : req.body.customerId
                                 })
