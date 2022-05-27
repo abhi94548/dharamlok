@@ -26,7 +26,7 @@ module.exports = {
                         var amount = product.price * 100 * req.body.quantity;
                         const currency = 'INR'
                         await razorpayInstance.orders.create({amount, currency}, 
-                        (error, order)=>{
+                        async (error, order)=> {
                             if(!err){
                                 let orderSave = new orderModel({
                                     userId : user.id,
