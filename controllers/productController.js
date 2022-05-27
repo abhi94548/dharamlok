@@ -71,7 +71,7 @@ module.exports = {
                         userId : user.id,
                         name : req.body.name,
                     })
-                    product.save();
+                    category.save();
                     res.status(200).json({success : true,message: category})
                 }
             });
