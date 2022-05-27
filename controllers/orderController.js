@@ -214,7 +214,7 @@ module.exports = {
             jwt.verify(req.headers.token, 'bootspider', async function(err, user){
                 if (err) res.status(400).json({success : false,message: err.message});
                 else{
-                    var orders =  await orderModel.findOneAndUpdate({_id : req.body.id, userId : user.id}, 
+                    var orders =  await orderModel.findOneAndUpdate({_id : req.body.id}, 
                         {
                             approved : req.body.status
                         },{
