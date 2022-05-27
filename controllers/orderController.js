@@ -176,12 +176,12 @@ module.exports = {
             jwt.verify(req.headers.token, 'bootspider', async function(err, user){
                 if (err) res.status(400).json({success : false,message: err.message});
                 else{
-                    const myOrders =  await orderModel.find({approved : 0});
-                    if(myOrders != null){
-                        customer =  await customerModel.findOne({_id : myOrders.customerId});
-                        product =  await productModel.findOne({id : myOrders.id});
+                    const orders =  await orderModel.find({approved : 0});
+                    if(orders != null){
+                        customer =  await customerModel.findOne({_id : orders.customerId});
+                        product =  await productModel.findOne({id : orders.id});
                     }
-                    res.status(200).json({success : true, order: myOrders, customer : customer, product : product})
+                    res.status(200).json({success : true, order: orders, customer : customer, product : product})
                 }
             });
         }
