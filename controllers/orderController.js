@@ -160,7 +160,7 @@ module.exports = {
                     const myOrders =  await orderModel.findOne({_id : req.body.id});
                     if(myOrders != null){
                         customerDetail =  await customerModel.findOne({_id : myOrders.customerId});
-                        productDetails =  await productModel.findOne({_id : myOrders.productId});
+                        productDetails =  await productModel.findOne({id : myOrders.productId});
                     }
                     res.status(200).json({success : true, order: myOrders, customer : customerDetail, product : productDetails})
                 }
