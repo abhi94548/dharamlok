@@ -53,6 +53,7 @@ router.route('/getvideo').post(userController.getVideo)
 router.route('/dharamguru').get(userController.getDharamguru)
 router.route('/kathavachak').get(userController.getKathavachak)
 router.route('/users').get(userController.getallUsers)
+router.route('/searchvendor').get(userController.searchByVendorName)
 
 //Upload Photos
 router.post('/uploadphoto',upload.single("file"), async (req, res) => {
