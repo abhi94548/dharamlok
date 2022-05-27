@@ -109,6 +109,8 @@ router.route('/getallservice').get(serviceController.getAllService);
 router.route('/addproduct').post(productController.addProduct);
 router.route('/productdetail').post(productController.productDetail);
 router.route('/getallproduct').get(productController.getAllProduct);
+router.route('/updateproduct').post(productController.updateProduct);
+router.route('/deleteproduct').post(productController.deleteProduct);
 router.route('/addcategory').post(productController.addCategories);
 router.route('/getallcategory').get(productController.getAllCategories);
 router.route('/deletecategory').post(productController.deleteCategory);

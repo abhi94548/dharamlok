@@ -36,6 +36,20 @@ module.exports = {
         var product = await productModel.find({}).sort([['_id', 'desc']]);
         res.status(200).json({success : true,message: product})
     },
+    deleteProduct : function(req, res){
+        try{
+            jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+                if (err) res.status(400).json({success : false,message: err.message});
+                productModel.findByIdAndDelete({_id : req.body.id, userId : user.id } , function(errorDelete, response){
+                    if (errorDelete) res.status(400).json({success : false,message: errorDelete.message});
+                    else res.status(200).json({success : true, message: 'Product Deleted'})
+                });
+            });
+            }
+        catch (error) {
+            res.status(400).json({success : false,message: error.message})
+        }
+    },
     updateProduct : function(req, res){
         let productUpdate;
         try{
