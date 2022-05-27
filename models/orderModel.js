@@ -9,8 +9,8 @@ const orderSchema = new mongoose.Schema({
 		required: false,
 		type: String,
 	},
-    productId : {
-		required: true,
+    id : {
+		required: false,
 		type: String,
 	},
     amount : {
