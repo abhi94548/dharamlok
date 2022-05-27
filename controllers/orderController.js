@@ -22,7 +22,7 @@ module.exports = {
                     var orderType = req.body.type;
                     if(orderType == 0){
                         const product = await productModel.findOne({_id : req.body.id}).select("price");
-                        var amount = product.price * 100;
+                        var amount = product.price * 100 * req.body.quantity;
                         const currency = 'INR'
                         await razorpayInstance.orders.create({amount, currency}, 
                         (error, order)=>{
@@ -43,7 +43,7 @@ module.exports = {
                     }
                     else if(orderType == 1){
                         const balVidya = await balVidyaModel.findOne({_id : req.body.id}).select("cost");
-                        var amount = balVidya.cost * 100;
+                        var amount = balVidya.cost * 100 * req.body.quantity;
                         const currency = 'INR'
                         await razorpayInstance.orders.create({amount, currency}, 
                         (error, order)=>{
@@ -64,7 +64,7 @@ module.exports = {
                     }
                     else if(orderType == 2){
                         const event = await eventModel.findOne({_id : req.body.id}).select("cost");
-                        var amount = event.cost * 100;
+                        var amount = event.cost * 100 * req.body.quantity;
                         const currency = 'INR'
                         await razorpayInstance.orders.create({amount, currency}, 
                         (error, order)=>{
