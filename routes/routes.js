@@ -162,6 +162,9 @@ router.route('/verifyorder').post(orderController.verifyOrder);
 router.route('/deleteorder').post(orderController.deleteOrder);
 router.route('/myorder').get(orderController.myOrders);
 router.route('/getorderdetail').post(orderController.orderDetailById);
+router.route('/pendingorder').get(orderController.orderPending);
+router.route('/allorder').get(orderController.orderApproved);
+router.route('/approveorder').post(orderController.approveOrder);
 
 
 //////////////////Temple Route///////////////

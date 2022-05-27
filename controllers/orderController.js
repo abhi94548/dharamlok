@@ -169,5 +169,68 @@ module.exports = {
         catch (error) {
             res.status(400).json({success : false,message: error.message})
         }
+    },
+    orderPending : function(req, res){
+        var customerDetail,productDetails;
+        try{
+            jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+                if (err) res.status(400).json({success : false,message: err.message});
+                else{
+                    const myOrders =  await orderModel.find({approved : 0});
+                    if(myOrders != null){
+                        customerDetail =  await customerModel.findOne({_id : myOrders.customerId});
+                        productDetails =  await productModel.findOne({id : myOrders.id});
+                    }
+                    res.status(200).json({success : true, order: myOrders, customer : customerDetail, product : productDetails})
+                }
+            });
+        }
+        catch (error) {
+            res.status(400).json({success : false,message: error.message})
+        }
+    },
+    orderApproved : function(req, res){
+        var customerDetail,productDetails;
+        try{
+            jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+                if (err) res.status(400).json({success : false,message: err.message});
+                else{
+                    const myOrders =  await orderModel.findOne({approved : 1});
+                    if(myOrders != null){
+                        customerDetail =  await customerModel.findOne({_id : myOrders.customerId});
+                        productDetails =  await productModel.findOne({id : myOrders.id});
+                    }
+                    res.status(200).json({success : true, order: myOrders, customer : customerDetail, product : productDetails})
+                }
+            });
+        }
+        catch (error) {
+            res.status(400).json({success : false,message: error.message})
+        }
+    },
+    approveOrder : function(req, res){
+        var customerDetail,productDetails;
+        try{
+            jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+                if (err) res.status(400).json({success : false,message: err.message});
+                else{
+                    var orders =  await orderModel.findOneAndUpdate({orderId : req.body.id, userId : user.id}, 
+                        {
+                            approved : 1
+                        },{
+                        new: true
+                    });
+                    if(orders != null){
+                        customerDetail =  await customerModel.findOne({_id : orders.customerId});
+                        productDetails =  await productModel.findOne({id : orders.id});
+                    }
+                    res.status(200).json({success : true, order: orders, customer : customerDetail, product : productDetails})
+                }
+            });
+        }
+        catch (error) {
+            res.status(400).json({success : false,message: error.message})
+        }
     }
+    
 }
