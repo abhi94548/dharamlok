@@ -190,15 +190,16 @@ module.exports = {
         }
     },
     orderApproved : function(req, res){
-        var cust,prod;
+        
         try{
             jwt.verify(req.headers.token, 'bootspider', async function(err, user){
                 if (err) res.status(400).json({success : false,message: err.message});
                 else{
+                    var cust,prod;
                     var orderDetail =  await orderModel.find({approved : 1});
                     if(orderDetail.length > 0){
-                        cust =  await customerModel.find({_id : orderDetail[0].customerId});
-                        prod =  await productModel.find({id : orderDetail[0].id});
+                        cust =  await customerModel.findOne({_id : orderDetail[0].customerId});
+                        prod =  await productModel.findOne({id : orderDetail[0].id});
                     }
                     res.status(200).json({success : true, order: orderDetail, customer : cust, product : prod})
                 }
