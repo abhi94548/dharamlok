@@ -103,7 +103,7 @@ module.exports = {
             jwt.verify(req.headers.token, 'bootspider', async function(err, user){
                 if (err) res.status(400).json({success : false,message: err.message});
                 var product = productModel.find({title: { $regex: '.*' + req.body.title + '.*' }});
-                res.status(200).json({success : true, message: product})
+                res.status(200).json({success : true, message: product+"hello"})
             });
             }
         catch (error) {
