@@ -122,5 +122,16 @@ module.exports = {
             res.status(400).json({success : false,message: error.message})
         }
     },
-    
+    searchByType : function(req, res){
+        try{
+            jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+                if (err) res.status(400).json({success : false,message: err.message});
+                var product = await productModel.find({type: { $regex: '.*' + req.body.type + '.*' } }).sort([['_id', 'desc']]);
+                res.status(200).json({success : true, message: product})
+            });
+            }
+        catch (error) {
+            res.status(400).json({success : false,message: error.message})
+        }
+    },
 }

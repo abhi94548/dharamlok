@@ -114,6 +114,7 @@ router.route('/getallcategory').get(productController.getAllCategories);
 router.route('/deletecategory').post(productController.deleteCategory);
 router.route('/searchtitle').post(productController.searchByTitle);
 router.route('/searchcategory').post(productController.searchByCategory);
+router.route('/searchtype').post(productController.searchByType);
 
 
 
