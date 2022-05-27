@@ -107,7 +107,8 @@ module.exports = {
                     if (generated_signature === signature) {
                         var orders =  await orderModel.findOneAndUpdate({orderId : orderId, userId : user.id}, 
                             {
-                                paymentId : paymentId
+                                paymentId : paymentId,
+                                paymentStatus : 1
                             },{
                             new: true
                         });
