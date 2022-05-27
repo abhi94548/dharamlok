@@ -102,7 +102,7 @@ module.exports = {
                     hmac.update(orderId + "|" + paymentId);
                     const generated_signature = hmac.digest('hex');
                     if (generated_signature === signature) {
-                        res.status(200).json({success : true, message: "Payment Successful"})
+                        res.status(200).json({success : true, message: paymentId})
                     }
                 }
             });
