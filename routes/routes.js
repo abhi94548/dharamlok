@@ -15,6 +15,7 @@ const templeController = require('../controllers/templeController');
 const eBookController = require('../controllers/ebookController');
 const path = require('path');
 const ebookController = require("../controllers/ebookController");
+const customerController = require("../controllers/customerController");
 
 const router = express.Router();
 
@@ -179,3 +180,10 @@ router.route('/getebookdetail').get(eBookController.getEbookById);
 router.route('/deleteebook').post(eBookController.deleteEbook);
 router.route('/updateebook').post(ebookController.updateEbook);
 router.route('/getallebook').get(ebookController.getAllEbook);
+
+
+//////////////////Customer Route///////////////
+
+
+router.route('/addcustomer').post(customerController.createCustomer); 
+router.route('/getallcustomer').get(customerController.getAllCustomer);
