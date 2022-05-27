@@ -197,8 +197,8 @@ module.exports = {
                 else{
                     var orderDetail =  await orderModel.find({approved : 1});
                     if(orderDetail != null){
-                        cust =  await customerModel.findOne({_id : orderDetail.customerId});
-                        prod =  await productModel.findOne({id : orderDetail.id});
+                        cust =  await customerModel.find({_id : orderDetail.customerId});
+                        prod =  await productModel.find({id : orderDetail.id});
                     }
                     res.status(200).json({success : true, order: orderDetail, customer : cust, product : prod})
                 }
