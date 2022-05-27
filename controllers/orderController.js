@@ -133,7 +133,7 @@ module.exports = {
             jwt.verify(req.headers.token, 'bootspider', async function(err, user){
                 if (err) res.status(400).json({success : false,message: err.message});
                 else{
-                    const myOrders =  await orderModel.find({userId : user.id}).sort('_id', -1);
+                    const myOrders =  await orderModel.find({userId : user.id}).sort([['_id', -1]]);
                     res.status(200).json({success : true,message: myOrders})
                 }
             });
