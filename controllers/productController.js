@@ -102,7 +102,7 @@ module.exports = {
         try{
             jwt.verify(req.headers.token, 'bootspider', async function(err, user){
                 if (err) res.status(400).json({success : false,message: err.message});
-                var product = await productModel.find({}).sort([['_id', 'desc']]);
+                var product = await productModel.find({title: /req.body.title/}).sort([['_id', 'desc']]);
                 res.status(200).json({success : true, message: product+"hello"})
             });
             }
