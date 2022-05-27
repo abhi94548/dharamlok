@@ -10,7 +10,7 @@ module.exports = {
             const {name,phone,email,password,userType} = req.body;
            let user = await userModel.findOne({email});
            if (user) return res.status(400).json({ success : false, message: "user already exists"});
-           user =  new userModel({name,phone,email,password,userType,typeVendor})
+           user =  new userModel({name,phone,email,password,userType,typeVendor,address, city, country, pincode})
            const salt = await bcrypt.genSalt(10);
             user.password = await bcrypt.hash(password, salt);
             await user.save();

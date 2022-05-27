@@ -47,6 +47,26 @@ const userSchema = new mongoose.Schema({
 		required: true,
 		type: String,
 	},
+	address : {
+		required: false,
+		type: String,
+		default:''
+	},
+	city : {
+		required: false,
+		type: String,
+		default:''
+	},
+	country : {
+		required: false,
+		type: String,
+		default:''
+	},
+	pincode : {
+		required: false,
+		type: String,
+		default:''
+	},
 	createdAt:{
 		type: Date,
 		default: Date.now()
