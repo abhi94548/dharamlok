@@ -151,13 +151,16 @@ module.exports = {
         }
     },
     orderDetailById : function(req, res){
+        var customerDetail;
         try{
             jwt.verify(req.headers.token, 'bootspider', async function(err, user){
                 if (err) res.status(400).json({success : false,message: err.message});
                 else{
                     const myOrders =  await orderModel.findOne({orderId : req.body.id});
-                    const customerDetail =  await customerModel.findOne({orderId : myOrders.customerId});
-                    res.status(200).json({success : true,order: myOrders, customer : customerDetail})
+                    if(myOrders != null){
+                        customerDetail =  await customerModel.findOne({orderId : myOrders.customerId});
+                    }
+                    res.status(200).json({success : true, order: myOrders, customer : customerDetail})
                 }
             });
         }
