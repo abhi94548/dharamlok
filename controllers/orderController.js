@@ -200,7 +200,7 @@ module.exports = {
                 if (err) res.status(400).json({success : false,message: err.message});
                 else{
                     var cust,prod;
-                    var orderDetail =  await orderModel.find({approved : 1});
+                    var orderDetail =  await orderModel.find({approved : 1}).lean();
                     if(orderDetail.length > 0){
                         for(var x = 0; x < orderDetail.length ; x++){
                             cust =  await customerModel.findOne({_id : orderDetail[x].customerId});
