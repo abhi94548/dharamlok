@@ -156,10 +156,11 @@ module.exports = {
                 if (err) res.status(400).json({success : false,message: err.message});
                 else{
                     const myOrders =  await orderModel.findOne({orderId : req.body.id});
-                    res.status(200).json({success : true,message: myOrders})
+                    const customerDetail =  await customerModel.findOne({orderId : myOrders.customerId});
+                    res.status(200).json({success : true,order: myOrders, customer : customerDetail})
                 }
             });
-            }
+        }
         catch (error) {
             res.status(400).json({success : false,message: error.message})
         }
