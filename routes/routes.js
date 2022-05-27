@@ -112,7 +112,7 @@ router.route('/getallproduct').get(productController.getAllProduct);
 router.route('/addcategory').post(productController.addCategories);
 router.route('/getallcategory').get(productController.getAllCategories);
 router.route('/deletecategory').post(productController.deleteCategory);
-router.route('/searchtitle').post(productController.searchByTitle);
+router.route('/search').post(productController.search);
 router.route('/searchcategory').post(productController.searchByCategory);
 router.route('/searchtype').post(productController.searchByType);
 
