@@ -157,12 +157,14 @@ module.exports = {
             jwt.verify(req.headers.token, 'bootspider', async function(err, user){
                 if (err) res.status(400).json({success : false,message: err.message});
                 else{
-                    var myOrders =  await orderModel.findOne({_id : req.body.id});
+                    var myOrders =  await orderModel.findOne({_id : req.body.id}).lean();
                     if(myOrders != null){
                         customerDetail =  await customerModel.findOne({_id : myOrders.customerId});
                         productDetails =  await productModel.findOne({id : myOrders.id});
+                        myOrders.customer = customerDetail;
+                        myOrders.product = productDetails;
                     }
-                    res.status(200).json({success : true, order: myOrders, customer : customerDetail, product : productDetails})
+                    res.status(200).json({success : true, message: myOrders})
                 }
             });
         }
@@ -176,7 +178,7 @@ module.exports = {
                 if (err) res.status(400).json({success : false,message: err.message});
                 else{
                     var customer,product;
-                    var orders =  await orderModel.find({approved : 0});
+                    var orders =  await orderModel.find({approved : 0}).lean();
                     if(orders.length > 0){
                         for(var x = 0; x < orders.length ; x++){
                             customer =  await customerModel.findOne({_id : orders[x].customerId});
@@ -228,12 +230,14 @@ module.exports = {
                             approved : req.body.status
                         },{
                         new: true
-                    });
+                    }).lean();
                     if(orders.length > 0){
                         customerDetail =  await customerModel.findOne({_id : orders.customerId});
                         productDetails =  await productModel.findOne({id : orders.id});
+                        orders.customer = customerDetail;
+                        orders.product = productDetails;
                     }
-                    res.status(200).json({success : true, order: orders, customer : customerDetail, product : productDetails})
+                    res.status(200).json({success : true, message: orders})
                 }
             });
         }
