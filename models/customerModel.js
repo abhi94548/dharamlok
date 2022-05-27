@@ -38,6 +38,11 @@ const customerSchema = new mongoose.Schema({
 		type: String,
 		default:''
 	},
+	orderId : {
+		required: false,
+		type: String,
+		default:''
+	},
 	createdAt:{
 		type: Date,
 		default: Date.now()

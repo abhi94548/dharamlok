@@ -3,6 +3,7 @@ const orderModel = require('../models/orderModel');
 const productModel = require('../models/productModel');
 const balVidyaModel = require('../models/balVidyaModel');
 const eventModel = require('../models/eventModel');
+const customerModel = require('../models/customerModel');
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 
@@ -35,6 +36,12 @@ module.exports = {
                                     customerId : req.body.customerId
                                 })
                                 orderSave.save();
+                                await customerModel.findOneAndUpdate({_id : req.body.customerId, userId : user.id}, 
+                                    {
+                                        orderId : order.id
+                                    },{
+                                    new: true
+                                });
                                 res.status(200).json({success : true, message: order})
                             }
                             else
@@ -112,7 +119,8 @@ module.exports = {
                             },{
                             new: true
                         });
-                        res.status(200).json({success : true, message: orders})
+                        const customer =  await customerModel.find({orderId : orderId, userId : user.id});
+                        res.status(200).json({success : true, order: orders, customer : customer, customer : customer})
                     }
                     else{
                         res.status(400).json({success : false,message: 'Transaction Failed'})
