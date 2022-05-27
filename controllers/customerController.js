@@ -8,7 +8,7 @@ module.exports = {
             jwt.verify(req.headers.token, 'bootspider', async function(err, user){
                 if (err) res.status(400).json({success : false,message: err.message});
                 else{
-                    let customer = new createCustomer({
+                    let customer = new customerModel({
                         name : req.body.name,
                         phone : req.body.phone,
                         email : req.body.email,
