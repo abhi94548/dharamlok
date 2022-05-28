@@ -61,7 +61,6 @@ module.exports = {
                             }
                         }
                     }
-                    res.status(200).json({success : true,message: result})
                 }); 
             }
             res.status(200).json({success : true,message: result}) 
