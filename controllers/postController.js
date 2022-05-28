@@ -54,7 +54,7 @@ module.exports = {
                 jwt.verify(req.headers.token, 'bootspider', async function(err, users){
                     if (err) res.status(400).json({success : false,message: err.message});
                     var userLikedPosts = await likeModal.find({userId : users.id});
-                    count = users.id
+                    count = token
                     for (var i = 0; i < userLikedPosts.length; i++){
                         for (var j = 0; j < result.length; j++){
                             if(userLikedPosts[i].postId == result[j]._id){
