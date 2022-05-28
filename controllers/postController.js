@@ -60,10 +60,6 @@ module.exports = {
                         if(userLikedPosts[i].postId == result[j]._id){
                             result[j].isLiked = true
                         }
-                        else{
-                            result[j].isLiked = false
-                        }
-                    
                     }
                     }
                 
