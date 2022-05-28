@@ -5,43 +5,33 @@ const dharamshalaSchema = new mongoose.Schema({
 		required: true,
 		type: String
 	},
-	name : {
+	bannerImageUrl : {
 		required: false,
 		type: String
 	},
-	email : {
-		required: false,
-		type: String,
-		unique: true
-	},
-	country : {
+	city : {
 		required: false,
 		type: String,
 	},
 	description : {
 		required: false,
 		type: String,
-		default:''
 	},
-	date : {
+	location : {
 		required: false,
 		type: String,
-		default:''
 	},
-	duration : {
-		required: false,
-		type: Number,
-		default:0
-	},
-	person : {
-		required: false,
-		type: Number,
-		default:0
-	},
-	phone : {
+	name : {
 		required: false,
 		type: String,
-		default:''
+	},
+	relatedImageUrl : {
+		required: false,
+		type: String,
+	},
+	state : {
+		required: false,
+		type: String,
 	},
 	createdAt:{
 		type: Date,

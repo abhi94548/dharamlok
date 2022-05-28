@@ -18,6 +18,7 @@ const ebookController = require("../controllers/ebookController");
 const customerController = require("../controllers/customerController");
 const dharamshalaController = require("../controllers/dharamshalaController");
 const adController = require("../controllers/adController");
+const bookingController = require("../controllers/bookingController");
 
 const router = express.Router();
 
@@ -138,6 +139,15 @@ router.route('/getevents').get(eventController.getEvents);
 router.route('/getallevents').get(eventController.getAllEvents);
 router.route('/geteventdetail').post(eventController.getEventDetail);
 router.route('/eventstatus').post(eventController.eventStatus);
+
+
+//////////////////Booking Route///////////////
+
+router.route('/adddbooking').post(bookingController.createBooking);
+router.route('/getallbooking').get(bookingController.getAllBooking);
+router.route('/deletebooking').post(bookingController.deleteBooking);
+router.route('/updatebooking').post(bookingController.updateBooking);
+router.route('/getbooking').post(bookingController.getBookingById);
 
 
 //////////////////Dharamshala Route///////////////

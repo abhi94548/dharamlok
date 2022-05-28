@@ -10,14 +10,13 @@ module.exports = {
                 else{
                     let dharamshala = new dharamshalaModel({
                         userId : user.id,
+                        bannerImageUrl : req.body.bannerImageUrl,
+                        city : req.body.city,
+                        description : req.body.description,
+                        location: req.body.location,
                         name : req.body.name,
-                        email : req.body.email,
-                        country : req.body.country,
-                        description: req.body.description,
-                        duration : req.body.duration,
-                        date : req.body.date,
-                        person: req.body.person,
-                        phone: req.body.phone,
+                        relatedImageUrl : req.body.relatedImageUrl,
+                        state: req.body.state,
                     })
                     dharamshala.save();
                     res.status(200).json({success : true,message: badharamshalalVidya})
@@ -68,14 +67,13 @@ module.exports = {
                 else{
                     dharamshala =  await dharamshalaModel.findOneAndUpdate({_id : req.body.id, userId : user.id}, 
                         {
+                            bannerImageUrl : req.body.bannerImageUrl,
+                            city : req.body.city,
+                            description : req.body.description,
+                            location: req.body.location,
                             name : req.body.name,
-                            email : req.body.email,
-                            country : req.body.country,
-                            description: req.body.description,
-                            duration : req.body.duration,
-                            date : req.body.date,
-                            person: req.body.person,
-                            phone: req.body.phone,
+                            relatedImageUrl : req.body.relatedImageUrl,
+                            state: req.body.state,
                         },{
                         new: true
                     });
