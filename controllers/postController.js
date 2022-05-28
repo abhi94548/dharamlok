@@ -53,11 +53,10 @@ module.exports = {
             if(typeof token != 'undefined'){
                 jwt.verify(req.headers.token, 'bootspider', async function(err, user){
                     if (err) res.status(400).json({success : false,message: err.message});
-                    var i,j = 0
-                    var userLikedPosts = await likeModal.find({userId : user.id});
+                    var userLikedPosts = await likeModal.findOne({userId : user.id});
                     count = userLikedPosts.length
-                    for (i = 0; i < userLikedPosts.length; i++){
-                        for (j = 0; j < result.length; j++){
+                    for (var i = 0; i < userLikedPosts.length; i++){
+                        for (var j = 0; j < result.length; j++){
                             if(userLikedPosts[i].postId == result[j]._id){
                                 result[j].isLiked = true
                                 
