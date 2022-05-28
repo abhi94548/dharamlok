@@ -7,11 +7,11 @@ const adSchema = new mongoose.Schema({
 		type: String
 	},
 	name : {
-		required: true,
+		required: false,
 		type: String
 	},
 	phone : {
-		required: true,
+		required: false,
 		type: String
 	},
 	description : {
