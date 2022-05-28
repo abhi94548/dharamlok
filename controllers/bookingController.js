@@ -25,7 +25,7 @@ module.exports = {
     getAllBooking  : async function(req, res) {
         try{
             const booking =  await bookingModel.find({}).sort([['_id', -1]]);
-            res.status(200).json({success : true,message: dharamshala})
+            res.status(200).json({success : true,message: booking})
             }
         catch (error) {
             res.status(400).json({success : false,message: error.message})
