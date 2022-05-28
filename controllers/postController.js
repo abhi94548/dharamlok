@@ -46,7 +46,7 @@ module.exports = {
     },
     getAllPost : async function(req, res){
         //result = await postModel.deleteMany();
-        
+        var count = 0
         try{
             var result = await postModel.find({}).sort([['_id', 'desc']]).lean();
             var token = req.headers.token;
@@ -59,12 +59,13 @@ module.exports = {
                         for (j = 0; j < result.length; j++){
                             if(userLikedPosts[i].postId == result[j]._id){
                                 result[j].isLiked = true
+                                count++
                             }
                         }
                     }
                 }); 
             }
-            res.status(200).json({success : true,message: result}) 
+            res.status(200).json({success : true,message: result+ count}) 
         }
         catch (error) {
             res.status(400).json({success : false,message: error.message})
