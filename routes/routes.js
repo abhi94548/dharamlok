@@ -171,7 +171,7 @@ router.route('/approveorder').post(orderController.approveOrder);
 
 
 router.route('/createtemple').post(templeController.addTemple); 
-router.route('/gettempledetail').get(templeController.templeDetailById);
+router.route('/gettempledetail').post(templeController.templeDetailById);
 router.route('/deletetemple').post(templeController.deleteTemple);
 router.route('/updatetemple').post(templeController.updateTemple);
 router.route('/getalltemples').get(templeController.getAllTemple);
