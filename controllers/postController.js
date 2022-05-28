@@ -55,11 +55,12 @@ module.exports = {
                     if (err) res.status(400).json({success : false,message: err.message});
                     var i,j = 0
                     var userLikedPosts = await likeModal.find({userId : user.id});
+                    count = userLikedPosts.length
                     for (i = 0; i < userLikedPosts.length; i++){
                         for (j = 0; j < result.length; j++){
                             if(userLikedPosts[i].postId == result[j]._id){
                                 result[j].isLiked = true
-                                count = userLikedPosts.length
+                                
                             }
                         }
                     }
