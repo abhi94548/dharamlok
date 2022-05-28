@@ -143,7 +143,7 @@ router.route('/eventstatus').post(eventController.eventStatus);
 
 //////////////////Booking Route///////////////
 
-router.route('/adddbooking').post(bookingController.createBooking);
+router.route('/addbooking').post(bookingController.createBooking);
 router.route('/getallbooking').get(bookingController.getAllBooking);
 router.route('/deletebooking').post(bookingController.deleteBooking);
 router.route('/updatebooking').post(bookingController.updateBooking);
