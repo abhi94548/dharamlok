@@ -51,10 +51,10 @@ module.exports = {
             var result = await postModel.find({}).sort([['_id', 'desc']]).lean();
             var token = req.headers.token;
             if(typeof token != 'undefined'){
-                jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+                jwt.verify(req.headers.token, 'bootspider', async function(err, users){
                     if (err) res.status(400).json({success : false,message: err.message});
-                    var userLikedPosts = await likeModal.find({userId : user.id});
-                    count = user.id
+                    var userLikedPosts = await likeModal.find({userId : users.id});
+                    count = users.id
                     for (var i = 0; i < userLikedPosts.length; i++){
                         for (var j = 0; j < result.length; j++){
                             if(userLikedPosts[i].postId == result[j]._id){
