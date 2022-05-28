@@ -16,6 +16,7 @@ const eBookController = require('../controllers/ebookController');
 const path = require('path');
 const ebookController = require("../controllers/ebookController");
 const customerController = require("../controllers/customerController");
+const dharamshalaController = require("../controllers/dharamshalaController");
 
 const router = express.Router();
 
@@ -136,6 +137,15 @@ router.route('/getevents').get(eventController.getEvents);
 router.route('/getallevents').get(eventController.getAllEvents);
 router.route('/geteventdetail').post(eventController.getEventDetail);
 router.route('/eventstatus').post(eventController.eventStatus);
+
+
+//////////////////Dharamshala Route///////////////
+
+router.route('/adddharamshala').post(dharamshalaController.createDharamshala);
+router.route('/getalldharamshala').get(dharamshalaController.getAllDharamshala);
+router.route('/deletedharamshala').post(dharamshalaController.deleteDharamshala);
+router.route('/updatedharamshala').post(dharamshalaController.updateDharamshala);
+router.route('/getdharamshala').post(dharamshalaController.getDharamshalaById);
 
 //////////////////Bal Vidya Route///////////////
 
