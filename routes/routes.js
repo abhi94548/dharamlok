@@ -17,6 +17,7 @@ const path = require('path');
 const ebookController = require("../controllers/ebookController");
 const customerController = require("../controllers/customerController");
 const dharamshalaController = require("../controllers/dharamshalaController");
+const adController = require("../controllers/adController");
 
 const router = express.Router();
 
@@ -155,6 +156,17 @@ router.route('/getallbalvidya').get(balVidyaController.getAllBalVidya);
 router.route('/deletebalvidya').post(balVidyaController.deleteBalVidya);
 router.route('/updatebalvidya').post(balVidyaController.updateBalVidya);
 router.route('/getbalvidya').post(balVidyaController.getBalVidyaById);
+
+
+
+//////////////////Ad Route///////////////
+
+
+router.route('/createad').post(adController.createAd); 
+router.route('/getallad').get(adController.getAllAd);
+router.route('/deletead').post(adController.deleteAd);
+router.route('/updatead').post(adController.updateAd);
+router.route('/getad').post(adController.getAdById);
 
 //////////////////Dharshan Route///////////////
 
