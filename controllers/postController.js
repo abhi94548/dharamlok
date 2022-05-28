@@ -46,7 +46,6 @@ module.exports = {
     },
     getAllPost : async function(req, res){
         //result = await postModel.deleteMany();
-        var count
         try{
             var result = await postModel.find({}).sort([['_id', 'desc']]).lean();
             var token = req.headers.token;
