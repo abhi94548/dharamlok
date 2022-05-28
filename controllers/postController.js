@@ -50,7 +50,7 @@ module.exports = {
         try{
             var result = await postModel.find({}).sort([['_id', 'desc']]).lean();
             var token = req.headers.token;
-            if(token.length > 0){
+            if(typeof token != 'undefined'){
                 jwt.verify(req.headers.token, 'bootspider', async function(err, user){
                     if (err) res.status(400).json({success : false,message: err.message});
                     var i,j = 0
