@@ -56,17 +56,15 @@ module.exports = {
                     var i,j = 0
                     var userLikedPosts = await likeModal.find({userId : user.id});
                     for (i = 0; i < userLikedPosts.length; i++){
-                    for (j = 0; j < result.length; j++){
-                        if(userLikedPosts[i].postId == result[j]._id){
-                            result[j].isLiked = true
+                        for (j = 0; j < result.length; j++){
+                            if(userLikedPosts[i].postId == result[j]._id){
+                                result[j].isLiked = true
+                            }
                         }
                     }
-                    }
-                
-                });
-                res.status(200).json({success : true,message: result}) 
+                }); 
             }
-            
+            res.status(200).json({success : true,message: result}) 
         }
         catch (error) {
             res.status(400).json({success : false,message: error.message})
