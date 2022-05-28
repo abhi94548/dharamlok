@@ -59,7 +59,7 @@ module.exports = {
                         for (j = 0; j < result.length; j++){
                             if(userLikedPosts[i].postId == result[j]._id){
                                 result[j].isLiked = true
-                                count++
+                                count = userLikedPosts.length
                             }
                         }
                     }
