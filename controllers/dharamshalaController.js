@@ -19,7 +19,7 @@ module.exports = {
                         state: req.body.state,
                     })
                     dharamshala.save();
-                    res.status(200).json({success : true,message: badharamshalalVidya})
+                    res.status(200).json({success : true,message: dharamshala})
                 }
             });
             }
