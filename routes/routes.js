@@ -148,6 +148,7 @@ router.route('/getallbooking').get(bookingController.getAllBooking);
 router.route('/deletebooking').post(bookingController.deleteBooking);
 router.route('/updatebooking').post(bookingController.updateBooking);
 router.route('/getbooking').post(bookingController.getBookingById);
+router.route('/mybooking').get(bookingController.myBooking);
 
 
 //////////////////Dharamshala Route///////////////

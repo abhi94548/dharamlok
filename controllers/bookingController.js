@@ -5,18 +5,22 @@ const jwt = require("jsonwebtoken");
 module.exports = {
     createBooking : async function(req, res){
         try{
-            let booking = new bookingModel({
-                name : req.body.name,
-                email : req.body.email,
-                country : req.body.country,
-                description: req.body.description,
-                duration : req.body.duration,
-                date : req.body.date,
-                person: req.body.person,
-                phone: req.body.phone,
-            })
-            await booking.save();
-            res.status(200).json({success : true,message: booking})
+            jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+                if (err) res.status(400).json({success : false,message: err.message});
+                let booking = new bookingModel({
+                    userId : user.id,
+                    name : req.body.name,
+                    email : req.body.email,
+                    country : req.body.country,
+                    description: req.body.description,
+                    duration : req.body.duration,
+                    date : req.body.date,
+                    person: req.body.person,
+                    phone: req.body.phone,
+                })
+                await booking.save();
+                res.status(200).json({success : true,message: booking})
+            });
             }
         catch (error) {
             res.status(400).json({success : false,message: error.message})
@@ -48,6 +52,20 @@ module.exports = {
                     if (errorDelete) res.status(400).json({success : false,message: errorDelete.message});
                     else res.status(200).json({success : true, message: 'Booking Deleted'})
                 });
+            });
+            }
+        catch (error) {
+            res.status(400).json({success : false,message: error.message})
+        }
+    },
+    myBooking : function(req, res){
+        try{
+            jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+                if (err) res.status(400).json({success : false,message: err.message});
+                else{
+                    const booking =  await bookingModel.findOne({userId : user.id}).sort([['_id', -1]]);
+                    res.status(200).json({success : true,message: booking})
+                }
             });
             }
         catch (error) {
