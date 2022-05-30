@@ -216,7 +216,7 @@ router.route('/getalltemples').get(templeController.getAllTemple);
 
 
 router.route('/createebook').post(eBookController.createEbook); 
-router.route('/getebookdetail').get(eBookController.getEbookById);
+router.route('/getebookdetail').post(eBookController.getEbookById);
 router.route('/deleteebook').post(eBookController.deleteEbook);
 router.route('/updateebook').post(ebookController.updateEbook);
 router.route('/getallebook').get(ebookController.getAllEbook);
