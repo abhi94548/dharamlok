@@ -2,6 +2,7 @@ const biographyModel = require('../models/biographyModel');
 const userModel = require('../models/user');
 const addPhotoModel = require('../models/addPhotoModel');
 const addVideoModel = require('../models/addVideoModel');
+const serviceProviderModel = require('../models/serviceProviderModel');
 const jwt = require("jsonwebtoken");
 
 
@@ -50,6 +51,56 @@ module.exports = {
                         new: true
                     });
                     res.status(200).json({success : true, message: userDetails})
+                }
+            });
+            }
+        catch (error) {
+            res.status(400).json({success : false,message: error.message})
+        }
+    },
+    updateBiographyVendor : async function(req, res){
+        let vndrDetails;
+        try{
+            jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+                if (err) res.status(400).json({success : false,message: err.message});
+                else{
+                    vndrDetails =  await userModel.findOneAndUpdate({userId : user.id}, {
+                        name : req.body.name,
+                        email : req.body.email,
+                        phone : req.body.phone,
+                        address : req.body.address},{
+                        new: true
+                    });
+                    res.status(200).json({success : true, message: vndrDetails})
+                }
+            });
+            }
+        catch (error) {
+            res.status(400).json({success : false,message: error.message})
+        }
+    },
+    updateBiographyServiceProvider : async function(req, res){
+        let srvPvdrDetails;
+        try{
+            jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+                if (err) res.status(400).json({success : false,message: err.message});
+                else{
+                    srvPvdrDetails =  await userModel.findOneAndUpdate({userId : user.id}, {
+                        name : req.body.name,
+                        email : req.body.email,
+                        phone : req.body.phone,
+                        address : req.body.address,
+                        buisnessName: req.body.buisnessName,
+                        profileImageUrl: req.body.profileImageUrl,
+                        gstNo: req.body.gstNo,
+                        bankName: req.body.bankName,
+                        IFSC: req.body.ifsc,
+                        accountNo: req.body.accountNo,
+                    },{ 
+                        returnDocument: true,
+                        upsert: true
+                    });
+                    res.status(200).json({success : true, message: srvPvdrDetails})
                 }
             });
             }
