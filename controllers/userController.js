@@ -170,12 +170,12 @@ module.exports = {
             res.status(400).json({success : false,message: error.message})
         }
     },
-    getKathavachak : async function(req, res){ 
+    getTypeVendor : async function(req, res){ 
         try{
-            const kathavachak = await userModel.find({typeVendor : 'Kathavachak'}).select("name").select("email").select("phone")
+            const vendor = await userModel.find({typeVendor : req.body.typeVendor}).select("name").select("email").select("phone")
                     .select("profileImageUrl").select("description").select("coverImageUrl").select("category")
                     .sort([['_id', -1]]);
-                    res.status(200).json({success : true, message: kathavachak})
+                    res.status(200).json({success : true, message: vendor})
         }
         catch (error) {
             res.status(400).json({success : false,message: error.message})
