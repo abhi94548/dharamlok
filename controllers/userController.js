@@ -125,6 +125,20 @@ module.exports = {
             res.status(400).json({success : false,message: error.message})
         }
     },
+    myBiography : function(req, res){ 
+        try{
+            jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+                if (err) res.status(400).json({success : false,message: err.message});
+                else{
+                    let vendorDetails = await userModel.findOne({_id : user.id}).select("name").select("email").select("phone").select("address");
+                    res.status(200).json({success : true, biography:vendorDetails})
+                }
+            });
+            }
+        catch (error) {
+            res.status(400).json({success : false,message: error.message})
+        }
+    },
     myPhotos : function(req, res){ 
         try{
             jwt.verify(req.headers.token, 'bootspider', async function(err, user){
