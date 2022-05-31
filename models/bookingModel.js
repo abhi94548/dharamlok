@@ -12,7 +12,6 @@ const bookingSchema = new mongoose.Schema({
 	email : {
 		required: false,
 		type: String,
-		unique: true
 	},
 	country : {
 		required: false,
