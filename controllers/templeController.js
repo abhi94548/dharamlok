@@ -41,7 +41,7 @@ module.exports = {
             jwt.verify(req.headers.token, 'bootspider', async function(err, user){
                 if (err) res.status(400).json({success : false,message: err.message});
                 else{
-                    templeUpdate =  await templeModel.findOneAndUpdate({_id : req.body.templeId, userId : user.id}, 
+                    templeUpdate =  await templeModel.findOneAndUpdate({_id : req.body.templeId}, 
                         {
                             bannerImageUrl : req.body.bannerImageUrl,
                             city : req.body.city,
