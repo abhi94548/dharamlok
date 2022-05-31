@@ -69,7 +69,7 @@ module.exports = {
     getEventDetail : async function(req, res) {
         let events;
         try{
-            events =  await  eventModel.find({_id : req.body.eventId});
+            events =  await  eventModel.find({_id : req.body.id});
             res.status(200).json({success : true, message: events})
         }
         catch (error) {

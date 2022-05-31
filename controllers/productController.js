@@ -56,7 +56,7 @@ module.exports = {
             jwt.verify(req.headers.token, 'bootspider', async function(err, user){
                 if (err) res.status(400).json({success : false,message: err.message});
                 else{
-                    productUpdate =  await productModel.findOneAndUpdate({_id : req.body.productId, userId : user.id}, 
+                    productUpdate =  await productModel.findOneAndUpdate({_id : req.body.id, userId : user.id}, 
                         {
                             title : req.body.title,
                             type : req.body.type,
