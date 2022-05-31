@@ -125,7 +125,7 @@ module.exports = {
             res.status(400).json({success : false,message: error.message})
         }
     },
-    myBiography : function(req, res){ 
+    vendorBiography : function(req, res){ 
         try{
             jwt.verify(req.headers.token, 'bootspider', async function(err, user){
                 if (err) res.status(400).json({success : false,message: err.message});
