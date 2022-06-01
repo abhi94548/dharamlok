@@ -19,6 +19,7 @@ const customerController = require("../controllers/customerController");
 const dharamshalaController = require("../controllers/dharamshalaController");
 const adController = require("../controllers/adController");
 const bookingController = require("../controllers/bookingController");
+const audioController = require("../controllers/audioController");
 
 const router = express.Router();
 
@@ -164,6 +165,15 @@ router.route('/getalldharamshala').get(dharamshalaController.getAllDharamshala);
 router.route('/deletedharamshala').post(dharamshalaController.deleteDharamshala);
 router.route('/updatedharamshala').post(dharamshalaController.updateDharamshala);
 router.route('/getdharamshala').post(dharamshalaController.getDharamshalaById);
+
+
+//////////////////Audio Route///////////////
+
+router.route('/addaudio').post(audioController.addAudio);
+router.route('/getallaudio').get(audioController.getAllAudio);
+router.route('/deleteaudio').post(audioController.deleteAudio);
+router.route('/updateaudio').post(audioController.updateAudio);
+router.route('/getaudio').post(audioController.getAudioById);
 
 //////////////////Bal Vidya Route///////////////
 
