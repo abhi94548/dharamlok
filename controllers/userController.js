@@ -68,7 +68,9 @@ module.exports = {
                         name : req.body.name,
                         email : req.body.email,
                         phone : req.body.phone,
-                        address : req.body.address},{
+                        address : req.body.address,
+                        profileImageUrl : req.body.profileImageUrl,
+                    },{
                         new: true
                     });
                     res.status(200).json({success : true, message: vndrDetails})
