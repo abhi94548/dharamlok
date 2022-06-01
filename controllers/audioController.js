@@ -13,7 +13,7 @@ module.exports = {
                         title : req.body.title,
                         description : req.body.description,
                         category : req.body.category,
-                        bannerImageUrl : req.bodybannerImageUrl,
+                        bannerImageUrl : req.body.bannerImageUrl,
                         audioUrl : req.body.audioUrl
                     })
                     dharshan.save();
