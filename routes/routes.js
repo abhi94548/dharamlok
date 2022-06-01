@@ -143,6 +143,8 @@ router.route('/getevents').get(eventController.getEvents);
 router.route('/getallevents').get(eventController.getAllEvents);
 router.route('/geteventdetail').post(eventController.getEventDetail);
 router.route('/eventstatus').post(eventController.eventStatus);
+router.route('/deleteevent').post(eventController.deleteEvent);
+router.route('/updateevent').post(eventController.updateEvent);
 
 
 //////////////////Booking Route///////////////

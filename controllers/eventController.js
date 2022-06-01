@@ -92,5 +92,45 @@ module.exports = {
         catch (error) {
             res.status(400).json({success : false,message: error.message})
         }
-    }
+    },
+    deleteEvent : function(req, res){
+        try{
+            jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+                if (err) res.status(400).json({success : false,message: err.message});
+                eventModel.findByIdAndDelete({_id : req.body.id} , function(errorDelete, response){
+                    if (errorDelete) res.status(400).json({success : false,message: errorDelete.message});
+                    else res.status(200).json({success : true, message: 'Event Deleted'})
+                });
+            });
+            }
+        catch (error) {
+            res.status(400).json({success : false,message: error.message})
+        }
+    },
+    updateEvent : function(req, res){
+        let eventUpdate;
+        try{
+            jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+                if (err) res.status(400).json({success : false,message: err.message});
+                else{
+                    eventUpdate =  await eventModel.findOneAndUpdate({_id : req.body.id, userId : user.id}, 
+                        {
+                            title : req.body.title,
+                            description : req.body.description,
+                            place : req.body.place,
+                            type: req.body.type,
+                            bannerImageUrl : req.body.bannerImageUrl,
+                            relatedImageUrl : req.body.relatedImageUrl,
+                            location : req.body.location
+                        },{
+                        new: true
+                    });
+                    res.status(200).json({success : true, message: eventUpdate})
+                }
+            });
+            }
+        catch (error) {
+            res.status(400).json({success : false,message: error.message})
+        }
+    },
 }
