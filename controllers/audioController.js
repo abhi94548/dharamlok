@@ -16,7 +16,7 @@ module.exports = {
                         bannerImageUrl : req.body.bannerImageUrl,
                         audioUrl : req.body.audioUrl
                     })
-                    dharshan.save();
+                    audio.save();
                     res.status(200).json({success : true,message: audio})
                 }
             });
@@ -63,7 +63,7 @@ module.exports = {
             jwt.verify(req.headers.token, 'bootspider', async function(err, user){
                 if (err) res.status(400).json({success : false,message: err.message});
                 else{
-                    audio =  await dharshanModel.findOneAndUpdate({_id : req.body.id, userId : user.id}, 
+                    audio =  await audioModel.findOneAndUpdate({_id : req.body.id}, 
                         {
                             title : req.body.title,
                             description : req.body.description,
