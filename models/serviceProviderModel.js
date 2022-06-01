@@ -10,11 +10,6 @@ const serviceProviderSchema = new mongoose.Schema({
 		type: String,
 		default:''
 	},
-	email : {
-		required: false,
-		type: String,
-        default:''
-	},
 	address : {
 		required: false,
 		type: String,

@@ -66,8 +66,6 @@ module.exports = {
                 else{
                     vndrDetails =  await userModel.findOneAndUpdate({userId : user.id}, {
                         name : req.body.name,
-                        email : req.body.email,
-                        phone : req.body.phone,
                         address : req.body.address,
                         profileImageUrl : req.body.profileImageUrl,
                     },{
@@ -89,8 +87,6 @@ module.exports = {
                 else{
                     srvPvdrDetails =  await userModel.findOneAndUpdate({userId : user.id}, {
                         name : req.body.name,
-                        email : req.body.email,
-                        phone : req.body.phone,
                         address : req.body.address,
                         buisnessName: req.body.buisnessName,
                         profileImageUrl: req.body.profileImageUrl,
