@@ -98,7 +98,7 @@ router.post('/uploadvideo',upload.single("video"), async (req, res) => {
 //////////////////Post Route///////////////
 
 router.route('/uploadpost').post(postController.uploadPost);
-router.route('/getuserpost').get(postController.getUserPost);
+router.route('/getuserpost').post(postController.getUserPost);
 router.route('/getallpost').get(postController.getAllPost);
 router.route('/likepost').post(postController.likePost);
 router.route('/unlikepost').post(postController.unlikePost);

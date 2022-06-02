@@ -18,6 +18,8 @@ module.exports = {
                         category: req.body.category,
                         fromDate: req.body.fromDate,
                         toDate: req.body.toDate,
+                        fromTime: req.body.fromTime,
+                        toTime: req.body.toTime,
                         bannerImageUrl : req.body.bannerImageUrl,
                         relatedImageUrl : req.body.relatedImageUrl,
                         location : req.body.location
@@ -127,6 +129,8 @@ module.exports = {
                             category: req.body.category,
                             fromDate: req.body.fromDate,
                             toDate: req.body.toDate,
+                            fromTime: req.body.fromTime,
+                            toTime: req.body.toTime,
                             bannerImageUrl : req.body.bannerImageUrl,
                             relatedImageUrl : req.body.relatedImageUrl,
                             location : req.body.location

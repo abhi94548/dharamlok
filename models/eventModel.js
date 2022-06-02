@@ -56,6 +56,19 @@ const eventSchema = new mongoose.Schema({
 		required: false,
 		type: String,
 	},
+	fromTime : {
+		required: false,
+		type: String,
+	},
+	toTime : {
+		required: false,
+		type: String,
+	},
+	views : {
+		required: false,
+		type: Number,
+		default:0
+	},
 	category : {
 		required: false,
 		type: String,
