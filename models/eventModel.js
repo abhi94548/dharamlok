@@ -21,6 +21,11 @@ const eventSchema = new mongoose.Schema({
 		required: false,
 		type: String,
 	},
+	location : {
+		required: false,
+		type: String,
+		default:''
+	},
 	cost : {
 		required: false,
 		type: Number,

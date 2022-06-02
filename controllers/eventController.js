@@ -14,6 +14,7 @@ module.exports = {
                         description : req.body.description,
                         place : req.body.place,
                         type: req.body.type,
+                        location: req.body.location,
                         bannerImageUrl : req.body.bannerImageUrl,
                         relatedImageUrl : req.body.relatedImageUrl,
                         location : req.body.location
@@ -119,6 +120,7 @@ module.exports = {
                             description : req.body.description,
                             place : req.body.place,
                             type: req.body.type,
+                            location: req.body.location,
                             bannerImageUrl : req.body.bannerImageUrl,
                             relatedImageUrl : req.body.relatedImageUrl,
                             location : req.body.location
