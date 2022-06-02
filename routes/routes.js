@@ -49,8 +49,8 @@ router.route('/userdetails').post(userController.userDetails);
 router.route('/mydetails').get(userController.myDetails);
 router.route('/updatebiography').post(userController.updateBiography);
 router.route('/mybiography').get(userController.myBiography);
-router.route('/myphotos').get(userController.getUserPhotos);
-router.route('/myvideos').get(userController.getUserVideos);
+router.route('/myphotos').post(userController.getUserPhotos);
+router.route('/myvideos').post(userController.getUserVideos);
 router.route('/addphoto').post(userController.addPhoto);
 router.route('/addvideo').post(userController.addVideo);
 router.route('/getphoto').post(userController.getPhoto)
