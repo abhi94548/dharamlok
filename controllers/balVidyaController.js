@@ -15,6 +15,7 @@ module.exports = {
                         keyInsight : req.body.keyInsight ?? '',
                         cost: req.body.cost ?? 0,
                         type : req.body.type ?? '',
+                        pdfUrl : req.body.pdfUrl ?? '',
                         bannerImageUrl : req.body.bannerImageUrl ?? '',
                         relatedImageUrl: req.body.relatedImageUrl ?? '',
                     })
@@ -72,6 +73,7 @@ module.exports = {
                             keyInsight : req.body.keyInsight,
                             cost : req.body.cost,
                             type : req.body.type,
+                            pdfUrl : req.body.pdfUrl,
                             bannerImageUrl : req.body.bannerImageUrl,
                             relatedImageUrl : req.body.relatedImageUrl,
                         },{

@@ -30,6 +30,11 @@ const balVidyaSchema = new mongoose.Schema({
 		required: false,
 		type: String,
 	},
+	pdfUrl : {
+		required: false,
+		type: String,
+		default:''
+	},
 	relatedImageUrl : {
 		required: false,
 		type: String,
