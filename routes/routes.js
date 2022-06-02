@@ -239,7 +239,7 @@ router.route('/createebook').post(eBookController.createEbook);
 router.route('/getebookdetail').post(eBookController.getEbookById);
 router.route('/deleteebook').post(eBookController.deleteEbook);
 router.route('/updateebook').post(ebookController.updateEbook);
-router.route('/getallebook').get(ebookController.getAllEbook);
+router.route('/getallebook').post(ebookController.getAllEbook);
 
 
 //////////////////Customer Route///////////////
