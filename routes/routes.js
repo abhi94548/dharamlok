@@ -146,7 +146,7 @@ router.route('/geteventdetail').post(eventController.getEventDetail);
 router.route('/eventstatus').post(eventController.eventStatus);
 router.route('/deleteevent').post(eventController.deleteEvent);
 router.route('/updateevent').post(eventController.updateEvent);
-router.route('/addeventcategory').post(eventController.getAllCategories);
+router.route('/addeventcategory').post(eventController.addCategory);
 router.route('/geteventcategory').get(eventController.getAllCategories);
 router.route('/deleteeventcategory').post(eventController.deleteCategory);
 
@@ -177,7 +177,7 @@ router.route('/getallaudio').get(audioController.getAllAudio);
 router.route('/deleteaudio').post(audioController.deleteAudio);
 router.route('/updateaudio').post(audioController.updateAudio);
 router.route('/getaudio').post(audioController.getAudioById);
-router.route('/addaudiocategory').post(audioController.getAllCategories);
+router.route('/addaudiocategory').post(audioController.addAudioCategory);
 router.route('/getaudiocategory').get(audioController.getAllCategories);
 router.route('/deleteaudiocategory').post(audioController.deleteCategory);
 
