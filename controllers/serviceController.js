@@ -31,7 +31,7 @@ module.exports = {
             jwt.verify(req.headers.token, 'bootspider', async function(err, user){
                 if (err) res.status(400).json({success : false,message: err.message});
                 else{
-                    const service = await serviceModel.find({$or : [{userId : req.body.id, type : req.body.type}]});
+                    const service = await serviceModel.find({userId : req.body.id}).sort([['_id', -1]]);
                     res.status(200).json({success : true, message: service})
                 }
             });
