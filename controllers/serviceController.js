@@ -105,7 +105,7 @@ module.exports = {
                         userId : user.id,
                         name : req.body.name,
                     })
-                    eventCat.save();
+                    serviceCat.save();
                     res.status(200).json({success : true,message: serviceCat})
                 }
             });
