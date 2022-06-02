@@ -27,7 +27,7 @@ module.exports = {
     },
     getAllEbook : async function(req, res) {
         try{
-            const ebook =  await eBookModel.find({category : req.body.category}).sort([['_id', -1]]);
+            const ebook =  await eBookModel.find({and: [{category : req.body.category, type : req.body.type}]}).sort([['_id', -1]]);
             res.status(200).json({success : true,message: ebook})
             }
         catch (error) {
