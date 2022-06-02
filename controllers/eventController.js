@@ -51,7 +51,7 @@ module.exports = {
     getEvents : async function(req, res){
         let events;
         try{
-            events =  await  eventModel.find({approved : 1}).sort([['createdAt', -1]]);
+            events =  await  eventModel.find({category : req.body.category}).sort([['createdAt', -1]]);
             res.status(200).json({success : true, message: events})
         }
         catch (error) {
