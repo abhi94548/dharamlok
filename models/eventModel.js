@@ -48,6 +48,14 @@ const eventSchema = new mongoose.Schema({
 		required: false,
 		type: String,
 	},
+	fromDate : {
+		required: false,
+		type: String,
+	},
+	toDate : {
+		required: false,
+		type: String,
+	},
 	category : {
 		required: false,
 		type: String,

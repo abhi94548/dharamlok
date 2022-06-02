@@ -15,6 +15,9 @@ module.exports = {
                         place : req.body.place,
                         type: req.body.type,
                         location: req.body.location,
+                        category: req.body.category,
+                        fromDate: req.body.fromDate,
+                        toDate: req.body.toDate,
                         bannerImageUrl : req.body.bannerImageUrl,
                         relatedImageUrl : req.body.relatedImageUrl,
                         location : req.body.location
@@ -121,6 +124,9 @@ module.exports = {
                             place : req.body.place,
                             type: req.body.type,
                             location: req.body.location,
+                            category: req.body.category,
+                            fromDate: req.body.fromDate,
+                            toDate: req.body.toDate,
                             bannerImageUrl : req.body.bannerImageUrl,
                             relatedImageUrl : req.body.relatedImageUrl,
                             location : req.body.location
