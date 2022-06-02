@@ -8,7 +8,7 @@ const eventSchema = new mongoose.Schema({
 	name : {
 		required: false,
 		type: String,
-		unique: true
+		unique: false
 	},
 	createdAt:{
 		type: Date,
