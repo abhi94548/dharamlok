@@ -137,12 +137,12 @@ module.exports = {
             res.status(400).json({success : false,message: error.message})
         }
     },
-    myPhotos : function(req, res){ 
+    getUserPhotos : function(req, res){ 
         try{
             jwt.verify(req.headers.token, 'bootspider', async function(err, user){
                 if (err) res.status(400).json({success : false,message: err.message});
                 else{
-                    const images = await addPhotoModel.find({userId : user.id}).sort([['_id', -1]]);
+                    const images = await addPhotoModel.find({userId : req.body.id}).sort([['_id', -1]]);
                     res.status(200).json({success : true, message: images})
                 }
             });
@@ -151,12 +151,12 @@ module.exports = {
             res.status(400).json({success : false,message: error.message})
         }
     },
-    myVideos : function(req, res){ 
+    getUserVideos : function(req, res){ 
         try{
             jwt.verify(req.headers.token, 'bootspider', async function(err, user){
                 if (err) res.status(400).json({success : false,message: err.message});
                 else{
-                    const videos = await addVideoModel.find({userId : user.id}).sort([['createdAt', -1]]);
+                    const videos = await addVideoModel.find({userId : req.body.id}).sort([['_id', -1]]);
                     res.status(200).json({success : true, message: videos})
                 }
             });
