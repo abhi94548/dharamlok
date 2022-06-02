@@ -111,7 +111,10 @@ router.route('/myservice').post(serviceController.myService);
 router.route('/getservicedetail').get(serviceController.getServiceById);
 router.route('/deleteservice').post(serviceController.deleteService);
 router.route('/updateservice').post(serviceController.updateService);
-router.route('/getallservice').get(serviceController.getAllService);
+router.route('/getallservice').post(serviceController.getAllService);
+router.route('/addservicecategory').post(eventController.addCategory);
+router.route('/getservicecategory').get(eventController.getAllCategories);
+router.route('/deleteservicecategory').post(eventController.deleteCategory);
 
 //////////////////Product Route///////////////
 router.route('/addproduct').post(productController.addProduct);

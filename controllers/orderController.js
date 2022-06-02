@@ -4,6 +4,7 @@ const productModel = require('../models/productModel');
 const balVidyaModel = require('../models/balVidyaModel');
 const eventModel = require('../models/eventModel');
 const customerModel = require('../models/customerModel');
+const serviceModel = require('../models/serviceModel');
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 
@@ -88,6 +89,28 @@ module.exports = {
                                 })
                                 orderSave.save();
                                 res.status(200).json({success : true, message: order})
+                            }
+                            else
+                                res.status(400).json({success : false,message: error.message});
+                            }
+                        )
+                    }
+                    else if(orderType == 3){
+                        const service = await service.findOne({_id : req.body.id}).select("cost");
+                        var amount = service.cost * 100 * req.body.quantity;
+                        const currency = 'INR'
+                        await razorpayInstance.orders.create({amount, currency}, 
+                        (error, order)=>{
+                            if(!err){
+                                let orderSave = new orderModel({
+                                    userId : user.id,
+                                    orderId : order.id,
+                                    id : req.body.id,
+                                    amount : amount,
+                                    customerId : req.body.customerId
+                                })
+                                orderSave.save();
+                                res.status(200).json({success : true, message: service})
                             }
                             else
                                 res.status(400).json({success : false,message: error.message});

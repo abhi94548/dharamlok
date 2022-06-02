@@ -1,4 +1,5 @@
 const serviceModel = require('../models/addServiceModel');
+const serviceCategoryModel = require('../models/serviceCategoryModel');
 const jwt = require("jsonwebtoken");
 
 
@@ -41,7 +42,7 @@ module.exports = {
     },
     getAllService : async function(req, res) {
         try{
-            const service =  await serviceModel.find({}).sort([['_id', -1]]);
+            const service =  await serviceModel.find({category : req.body.category}).sort([['_id', -1]]);
             res.status(200).json({success : true,message: service})
             }
         catch (error) {
@@ -94,5 +95,41 @@ module.exports = {
         catch (error) {
             res.status(400).json({success : false,message: error.message})
         } 
-    }
+    },
+    addCategory : function(req, res){
+        try{
+            jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+                if (err) res.status(400).json({success : false,message: err.message});
+                else{
+                    let serviceCat = new serviceCategoryModel({
+                        userId : user.id,
+                        name : req.body.name,
+                    })
+                    eventCat.save();
+                    res.status(200).json({success : true,message: serviceCat})
+                }
+            });
+            }
+        catch (error) {
+            res.status(400).json({success : false,message: error.message})
+        }
+    },
+    getAllCategories : async function(req, res){
+        var serviceCat = await serviceCategoryModel.find({}).sort([['_id', 'desc']]);
+        res.status(200).json({success : true,message: serviceCat})
+    },
+    deleteCategory : function(req, res){
+        try{
+            jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+                if (err) res.status(400).json({success : false,message: err.message});
+                serviceCategoryModel.findByIdAndDelete({_id : req.body.id, userId : user.id } , function(errorDelete, response){
+                    if (errorDelete) res.status(400).json({success : false,message: errorDelete.message});
+                    else res.status(200).json({success : true, message: 'Service Category Deleted'})
+                });
+            });
+            }
+        catch (error) {
+            res.status(400).json({success : false,message: error.message})
+        }
+    },
 }
