@@ -128,7 +128,7 @@ module.exports = {
             jwt.verify(req.headers.token, 'bootspider', async function(err, user){
                 if (err) res.status(400).json({success : false,message: err.message});
                 else{
-                    let vendorDetails = await userModel.findOne({_id : user.id}).select("name").select("email").select("phone").select("address").select("profileImageUrl").select("userType").select("typeVendor");
+                    let vendorDetails = await userModel.find({_id : user.id}).select("name").select("email").select("phone").select("address").select("profileImageUrl").select("userType").select("typeVendor");
                     res.status(200).json({success : true, biography:vendorDetails})
                 }
             });
