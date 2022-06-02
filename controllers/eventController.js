@@ -1,4 +1,5 @@
 const eventModel = require('../models/eventModel');
+const eventCategoryModel = require('../models/eventCategoryModel');
 const jwt = require("jsonwebtoken");
 
 
@@ -50,7 +51,7 @@ module.exports = {
     getEvents : async function(req, res){
         let events;
         try{
-            events =  await  eventModel.find({approved : 1}).sort([['createdAt', -1]]);
+            events =  await  eventModel.find({category : req.body.category,approved : 1}).sort([['createdAt', -1]]);
             res.status(200).json({success : true, message: events})
         }
         catch (error) {
@@ -139,6 +140,42 @@ module.exports = {
                     });
                     res.status(200).json({success : true, message: eventUpdate})
                 }
+            });
+            }
+        catch (error) {
+            res.status(400).json({success : false,message: error.message})
+        }
+    },
+    addCategory : function(req, res){
+        try{
+            jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+                if (err) res.status(400).json({success : false,message: err.message});
+                else{
+                    let eventCat = new eventCategoryModel({
+                        userId : user.id,
+                        name : req.body.name,
+                    })
+                    eventCat.save();
+                    res.status(200).json({success : true,message: eventCat})
+                }
+            });
+            }
+        catch (error) {
+            res.status(400).json({success : false,message: error.message})
+        }
+    },
+    getAllCategories : async function(req, res){
+        var eventCat = await eventCategoryModel.find({}).sort([['_id', 'desc']]);
+        res.status(200).json({success : true,message: eventCat})
+    },
+    deleteCategory : function(req, res){
+        try{
+            jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+                if (err) res.status(400).json({success : false,message: err.message});
+                eventCategoryModel.findByIdAndDelete({_id : req.body.id, userId : user.id } , function(errorDelete, response){
+                    if (errorDelete) res.status(400).json({success : false,message: errorDelete.message});
+                    else res.status(200).json({success : true, message: 'Category Deleted'})
+                });
             });
             }
         catch (error) {

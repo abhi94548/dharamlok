@@ -140,12 +140,15 @@ router.route('/getcomment').post(commentController.getPostComment);
 
 router.route('/addevent').post(eventController.addEvent);
 router.route('/myevents').get(eventController.myEvents);
-router.route('/getevents').get(eventController.getEvents);
+router.route('/getevents').post(eventController.getEvents);
 router.route('/getallevents').get(eventController.getAllEvents);
 router.route('/geteventdetail').post(eventController.getEventDetail);
 router.route('/eventstatus').post(eventController.eventStatus);
 router.route('/deleteevent').post(eventController.deleteEvent);
 router.route('/updateevent').post(eventController.updateEvent);
+router.route('/addeventcategory').post(eventController.getAllCategories);
+router.route('/geteventcategory').get(eventController.getAllCategories);
+router.route('/deleteeventcategory').post(eventController.deleteCategory);
 
 
 //////////////////Booking Route///////////////
@@ -177,7 +180,6 @@ router.route('/getaudio').post(audioController.getAudioById);
 router.route('/addaudiocategory').post(audioController.getAllCategories);
 router.route('/getaudiocategory').get(audioController.getAllCategories);
 router.route('/deleteaudiocategory').post(audioController.deleteCategory);
-router.route('/updateaudiocategory').post(audioController.updateAudioCategory);
 
 //////////////////Bal Vidya Route///////////////
 

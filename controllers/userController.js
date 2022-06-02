@@ -236,7 +236,7 @@ module.exports = {
     getTypeVendor : async function(req, res){ 
         try{
             const vendor = await userModel.find({typeVendor : req.body.typeVendor}).select("name").select("email").select("phone")
-                    .select("profileImageUrl").select("description").select("coverImageUrl").select("category")
+                    .select("profileImageUrl").select("description").select("coverImageUrl").select("category").select('typeVendor').select('userType')
                     .sort([['_id', -1]]);
                     res.status(200).json({success : true, message: vendor})
         }

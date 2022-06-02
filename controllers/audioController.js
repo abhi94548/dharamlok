@@ -118,24 +118,4 @@ module.exports = {
             res.status(400).json({success : false,message: error.message})
         }
     },
-    updateAudioCategory : function(req, res){
-        let audCat;
-        try{
-            jwt.verify(req.headers.token, 'bootspider', async function(err, user){
-                if (err) res.status(400).json({success : false,message: err.message});
-                else{
-                    audCat =  await audioCategoryoModel.findOneAndUpdate({_id : req.body.id}, 
-                        {
-                            name : req.body.name,
-                        },{
-                        new: true
-                    });
-                    res.status(200).json({success : true, message: audCat})
-                }
-            });
-            }
-        catch (error) {
-            res.status(400).json({success : false,message: error.message})
-        }
-    },
 }
