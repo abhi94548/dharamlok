@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const categorySchema = new mongoose.Schema({
+const audioCategorySchema = new mongoose.Schema({
 	userId : {
 		required: true,
 		type: String
@@ -14,6 +14,6 @@ const categorySchema = new mongoose.Schema({
 		type: Date,
 		default: Date.now()
 	},
-},{collection : 'Product'})
+},{collection : 'Audio Category'})
 
-module.exports = mongoose.model('Categories',categorySchema)
+module.exports = mongoose.model('Audio Category',audioCategorySchema)

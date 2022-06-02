@@ -174,6 +174,10 @@ router.route('/getallaudio').get(audioController.getAllAudio);
 router.route('/deleteaudio').post(audioController.deleteAudio);
 router.route('/updateaudio').post(audioController.updateAudio);
 router.route('/getaudio').post(audioController.getAudioById);
+router.route('/addaudiocategory').post(audioController.getAllCategories);
+router.route('/getaudiocategory').get(audioController.getAllCategories);
+router.route('/deleteaudiocategory').post(audioController.deleteCategory);
+router.route('/updateaudiocategory').post(audioController.updateAudioCategory);
 
 //////////////////Bal Vidya Route///////////////
 
