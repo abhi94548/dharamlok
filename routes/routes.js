@@ -121,7 +121,7 @@ router.route('/myproduct').get(productController.myProduct);
 router.route('/updateproduct').post(productController.updateProduct);
 router.route('/deleteproduct').post(productController.deleteProduct);
 router.route('/addcategory').post(productController.addCategories);
-router.route('/getallcategory').get(productController.getAllCategories);
+router.route('/getproductcategory').get(productController.getAllCategories);
 router.route('/deletecategory').post(productController.deleteCategory);
 router.route('/search').post(productController.search);
 router.route('/searchcategory').post(productController.searchByCategory);
