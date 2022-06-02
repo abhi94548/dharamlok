@@ -20,13 +20,12 @@ const audioSchema = new mongoose.Schema({
 	},
     bannerImageUrl : {
 		required: false,
-		type: Number,
-        default:0
+		type: String,
 	},
     audioUrl : {
 		required: false,
-		type: Number,
-        default:0
+		type: String,
+    
 	},  
 	createdAt:{
 		type: Date,

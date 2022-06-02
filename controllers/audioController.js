@@ -27,7 +27,7 @@ module.exports = {
     },
     getAllAudio : async function(req, res) {
         try{
-            const audio =  await audioModel.find({}).sort([['createdAt', -1]]);
+            const audio =  await audioModel.find({}).sort([['_id', -1]]);
             res.status(200).json({success : true,message: audio})
             }
         catch (error) {
