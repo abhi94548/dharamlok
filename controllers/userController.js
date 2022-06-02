@@ -64,7 +64,7 @@ module.exports = {
             jwt.verify(req.headers.token, 'bootspider', async function(err, user){
                 if (err) res.status(400).json({success : false,message: err.message});
                 else{
-                    vndrDetails =  await userModel.findOneAndUpdate({userId : user.id}, {
+                    vndrDetails =  await userModel.findOneAndUpdate({_id : user.id}, {
                         name : req.body.name,
                         address : req.body.address,
                         profileImageUrl : req.body.profileImageUrl,
