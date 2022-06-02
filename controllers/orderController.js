@@ -4,7 +4,7 @@ const productModel = require('../models/productModel');
 const balVidyaModel = require('../models/balVidyaModel');
 const eventModel = require('../models/eventModel');
 const customerModel = require('../models/customerModel');
-const serviceModel = require('../models/serviceModel');
+const serviceModel = require('../models/addServiceModel');
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 
