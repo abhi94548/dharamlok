@@ -43,7 +43,7 @@ module.exports = {
             jwt.verify(req.headers.token, 'bootspider', async function(err, user){
                 if (err) res.status(400).json({success : false,message: err.message});
                 else{
-                    userDetails =  await userModel.findOneAndUpdate({userId : user.id}, {
+                    userDetails =  await userModel.findOneAndUpdate({_id : user.id}, {
                         description : req.body.description,
                         profileImageUrl : req.body.profileImageUrl,
                         coverImageUrl : req.body.coverImageUrl,
