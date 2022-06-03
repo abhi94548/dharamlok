@@ -96,8 +96,8 @@ module.exports = {
                         )
                     }
                     else if(orderType == 3){
-                        const service = await service.findOne({_id : req.body.id}).select("cost");
-                        var amount = service.cost * 100 * req.body.quantity;
+                        const service = await service.findOne({_id : req.body.id}).select("price");
+                        var amount = service.price * 100 * req.body.quantity;
                         const currency = 'INR'
                         await razorpayInstance.orders.create({amount, currency}, 
                         (error, order)=>{
