@@ -41,6 +41,11 @@ const postSchema = new mongoose.Schema({
 		type: Number,
 		default:0
 	},
+	userType : {
+		required: false,
+		type: Number,
+		default:0
+	},
 	isLiked : {
 		required: false,
 		type: Boolean,

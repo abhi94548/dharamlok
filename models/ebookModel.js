@@ -28,6 +28,11 @@ const ebookSchema = new mongoose.Schema({
 		type: String,
 		default: ''
 	},
+	thumbNailImageUrl : {
+		required: false,
+		type: String,
+		default: ''
+	},
 	createdAt:{
 		type: Date,
 		default: Date.now()

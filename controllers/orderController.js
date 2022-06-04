@@ -23,8 +23,9 @@ module.exports = {
                 else{
                     var orderType = req.body.type;
                     if(orderType == 0){
-                        const product = await productModel.findOne({_id : req.body.id}).select("price");
+                        const product = await productModel.findOne({_id : req.body.id}).select("price").select("title");
                         var amount = product.price * 100 * req.body.quantity;
+                        var title = product.title
                         const currency = 'INR'
                         await razorpayInstance.orders.create({amount, currency}, 
                         async (error, order)=> {
@@ -34,6 +35,7 @@ module.exports = {
                                     orderId : order.id,
                                     id : req.body.id,
                                     amount : amount,
+                                    title : title,
                                     customerId : req.body.customerId,
                                     quantity : req.body.quantity
                                 })
@@ -51,31 +53,10 @@ module.exports = {
                             }
                         )
                     }
-                    else if(orderType == 1){
-                        const balVidya = await balVidyaModel.findOne({_id : req.body.id}).select("cost");
-                        var amount = balVidya.cost * 100 * req.body.quantity;
-                        const currency = 'INR'
-                        await razorpayInstance.orders.create({amount, currency}, 
-                        (error, order)=>{
-                            if(!err){
-                                let orderSave = new orderModel({
-                                    userId : user.id,
-                                    orderId : order.id,
-                                    id : req.body.id,
-                                    amount : amount,
-                                    customerId : req.body.customerId
-                                })
-                                orderSave.save();
-                                res.status(200).json({success : true, message: order})
-                            }
-                            else
-                                res.status(400).json({success : false,message: error.message});
-                            }
-                        )
-                    }
                     else if(orderType == 2){
-                        const event = await eventModel.findOne({_id : req.body.id}).select("cost");
+                        const event = await eventModel.findOne({_id : req.body.id}).select("cost").select('title');
                         var amount = event.cost * 100 * req.body.quantity;
+                        var title = event.title
                         const currency = 'INR'
                         await razorpayInstance.orders.create({amount, currency}, 
                         (error, order)=>{
@@ -84,6 +65,7 @@ module.exports = {
                                     userId : user.id,
                                     orderId : order.id,
                                     id : req.body.id,
+                                    title : title,
                                     amount : amount,
                                     customerId : req.body.customerId
                                 })
@@ -96,8 +78,9 @@ module.exports = {
                         )
                     }
                     else if(orderType == 3){
-                        const service = await service.findOne({_id : req.body.id}).select("price");
+                        const service = await service.findOne({_id : req.body.id}).select("price").select("services");
                         var amount = service.price * 100 * req.body.quantity;
+                        var services = service.services
                         const currency = 'INR'
                         await razorpayInstance.orders.create({amount, currency}, 
                         (error, order)=>{
@@ -106,6 +89,7 @@ module.exports = {
                                     userId : user.id,
                                     orderId : order.id,
                                     id : req.body.id,
+                                    title : services,
                                     amount : amount,
                                     customerId : req.body.customerId
                                 })
@@ -166,7 +150,7 @@ module.exports = {
                 if (err) res.status(400).json({success : false,message: err.message});
                 else{
                     var myOrders =  await orderModel.find({userId : user.id}).sort([['_id', -1]]);
-                    res.status(200).json({success : true,message: myOrders})
+                    res.status(200).json({success : true,orders: myOrders, total : myOrders.length})
                 }
             });
             }

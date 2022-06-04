@@ -34,13 +34,8 @@ module.exports = {
     getAllComment : function(req, res) {
         let comment;
         try{
-            jwt.verify(req.headers.token, 'bootspider', async function(err, user){
-                if (err) res.status(400).json({success : false,message: err.message});
-                else{
-                    comment =  await  commentModel.find({}).sort([['createdAt', -1]]);
-                    res.status(200).json({success : true, message: comment})
-                }
-            });
+            comment =  await  commentModel.find({}).sort([['_id', -1]]);
+            res.status(200).json({success : true, message: comment})
             }
         catch (error) {
             res.status(400).json({success : false,message: error.message})

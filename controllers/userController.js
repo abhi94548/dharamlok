@@ -125,14 +125,11 @@ module.exports = {
     },
     vendorBiography : function(req, res){ 
         try{
-            jwt.verify(req.headers.token, 'bootspider', async function(err, user){
-                if (err) res.status(400).json({success : false,message: err.message});
-                else{
-                    let vendorDetails = await userModel.find({_id : req.body.id}).select("name").select("email").select("phone")
+            let vendorDetails = await userModel.find({_id : req.body.id}).select("name").select("email").select("phone")
                     .select("profileImageUrl").select("description").select("coverImageUrl").select("category").select("userType").select("typeVendor").select("address");
-                    res.status(200).json({success : true, biography:vendorDetails})
-                }
-            });
+            const images = await addPhotoModel.find({userId : req.body.id});
+            const videos = await addVideoModel.find({userId : req.body.id});
+            res.status(200).json({success : true, biography:vendorDetails, photos : images.length, videos: videos.length})
             }
         catch (error) {
             res.status(400).json({success : false,message: error.message})
@@ -140,13 +137,8 @@ module.exports = {
     },
     getUserPhotos : function(req, res){ 
         try{
-            jwt.verify(req.headers.token, 'bootspider', async function(err, user){
-                if (err) res.status(400).json({success : false,message: err.message});
-                else{
-                    const images = await addPhotoModel.find({userId : req.body.id}).sort([['_id', -1]]);
-                    res.status(200).json({success : true, message: images})
-                }
-            });
+            const images = await addPhotoModel.find({userId : req.body.id}).sort([['_id', -1]]);
+            res.status(200).json({success : true, message: images})
             }
         catch (error) {
             res.status(400).json({success : false,message: error.message})
@@ -154,14 +146,9 @@ module.exports = {
     },
     getUserVideos : function(req, res){ 
         try{
-            jwt.verify(req.headers.token, 'bootspider', async function(err, user){
-                if (err) res.status(400).json({success : false,message: err.message});
-                else{
-                    const videos = await addVideoModel.find({userId : req.body.id}).sort([['_id', -1]]);
-                    res.status(200).json({success : true, message: videos})
-                }
-            });
-            }
+            const videos = await addVideoModel.find({userId : req.body.id}).sort([['_id', -1]]);
+            res.status(200).json({success : true, message: videos})
+        }
         catch (error) {
             res.status(400).json({success : false,message: error.message})
         }
@@ -208,13 +195,8 @@ module.exports = {
     },
     getPhoto : function(req, res){ 
         try{
-            jwt.verify(req.headers.token, 'bootspider', async function(err, user){
-                if (err) res.status(400).json({success : false,message: err.message});
-                else{
-                    const photoDetails = await addPhotoModel.findOne({_id : req.body.id});
-                    res.status(200).json({success : true, message: photoDetails})
-                }
-            });
+            const photoDetails = await addPhotoModel.findOne({_id : req.body.id});
+            res.status(200).json({success : true, message: photoDetails})
             }
         catch (error) {
             res.status(400).json({success : false,message: error.message})
@@ -222,14 +204,9 @@ module.exports = {
     },
     getVideo : function(req, res){ 
         try{
-            jwt.verify(req.headers.token, 'bootspider', async function(err, user){
-                if (err) res.status(400).json({success : false,message: err.message});
-                else{
-                    const videoDetails = await addVideoModel.findOne({_id : req.body.id});
-                    res.status(200).json({success : true, message: videoDetails})
-                }
-            });
-            }
+            const videoDetails = await addVideoModel.findOne({_id : req.body.id});
+            res.status(200).json({success : true, message: videoDetails})
+        }
         catch (error) {
             res.status(400).json({success : false,message: error.message})
         }
@@ -241,17 +218,6 @@ module.exports = {
                     .sort([['_id', -1]]);
                     res.status(200).json({success : true, message: vendor})
         }
-        catch (error) {
-            res.status(400).json({success : false,message: error.message})
-        }
-    },
-    getDharamguru : async function(req, res){ 
-        try{
-            const dharamguru = await userModel.find({typeVendor : 'Dharamguru'}).select("name").select("email").select("phone")
-                    .select("profileImageUrl").select("description").select("coverImageUrl").select("category")
-                    .sort([['_id', -1]]);
-                    res.status(200).json({success : true, message: dharamguru})
-            }
         catch (error) {
             res.status(400).json({success : false,message: error.message})
         }
@@ -274,12 +240,9 @@ module.exports = {
     },
     searchByVendorName : function(req, res){
         try{
-            jwt.verify(req.headers.token, 'bootspider', async function(err, user){
-                if (err) res.status(400).json({success : false,message: err.message});
-                var users = await userModel.find({name: { $regex: '.*' + req.body.name + '.*' }, userType : 'vendor'}).sort([['_id', 'desc']]);
-                res.status(200).json({success : true, message: users})
-            });
-            }
+            var users = await userModel.find({name: { $regex: '.*' + req.body.name + '.*' }, userType : 'vendor'}).sort([['_id', 'desc']]);
+            res.status(200).json({success : true, message: users})
+        }
         catch (error) {
             res.status(400).json({success : false,message: error.message})
         }

@@ -15,6 +15,7 @@ module.exports = {
                         category : req.body.category,
                         type : req.body.type,
                         PDFuploadUrl : req.body.PDFuploadUrl,
+                        thumbNailImageUrl: req.body.thumbNailImageUrl
                     })
                     ebook.save();
                     res.status(200).json({success : true,message: ebook})

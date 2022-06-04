@@ -9,6 +9,10 @@ const orderSchema = new mongoose.Schema({
 		required: false,
 		type: String,
 	},
+	title : {
+		required: false,
+		type: String,
+	},
     id : {
 		required: false,
 		type: String,

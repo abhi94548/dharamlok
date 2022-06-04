@@ -40,7 +40,7 @@ module.exports = {
                 if (err) res.status(400).json({success : false,message: err.message});
                 else{
                     const event = await eventModel.find({userId : user.id});
-                    res.status(200).json({success : true, message: event})
+                    res.status(200).json({success : true, event: event, total : event.length})
                 }
             });
             }
@@ -51,7 +51,7 @@ module.exports = {
     getEvents : async function(req, res){
         let events;
         try{
-            events =  await  eventModel.find({category : req.body.category}).sort([['createdAt', -1]]);
+            events =  await  eventModel.find({category : req.body.category}).sort([['_id', -1]]);
             res.status(200).json({success : true, message: events})
         }
         catch (error) {
@@ -61,14 +61,9 @@ module.exports = {
     getAllEvents : function(req, res){
         let events;
         try{
-            jwt.verify(req.headers.token, 'bootspider', async function(err, user){
-                if (err) res.status(400).json({success : false,message: err.message});
-                else{
-                    events =  await  eventModel.find({}).sort([['createdAt', -1]]);
-                    res.status(200).json({success : true, message: events})
-                }
-            });
-            }
+            events =  await  eventModel.find({}).sort([['_id', -1]]);
+            res.status(200).json({success : true, message: events})
+        }
         catch (error) {
             res.status(400).json({success : false,message: error.message})
         }

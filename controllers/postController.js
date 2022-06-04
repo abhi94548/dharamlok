@@ -19,7 +19,8 @@ module.exports = {
                         description : req.body.description,
                         imageUrl : req.body.imageUrl,
                         videoUrl : req.body.videoUrl,
-                        postType : req.body.postType
+                        postType : req.body.postType,
+                        userType : req.body.userType,
                     })
                     post.save();
                     res.status(200).json({success : true,message: post})
@@ -32,13 +33,8 @@ module.exports = {
     },
     getUserPost : function(req, res) {
         try{
-            jwt.verify(req.headers.token, 'bootspider', async function(err, user){
-                if (err) res.status(400).json({success : false,message: err.message});
-                else{
-                    const result = await postModel.find({userId : req.body.id}).sort([['_id', -1]]);
-                    res.status(200).json({success : true,message: result})
-                }
-            });
+            const result = await postModel.find({userId : req.body.id}).sort([['_id', -1]]);
+            res.status(200).json({success : true,message: result})
             }
         catch (error) {
             res.status(400).json({success : false,message: error.message})
@@ -116,15 +112,10 @@ module.exports = {
     },
     viewPost : function(req, res){
         try{
-            jwt.verify(req.headers.token, 'bootspider', async function(err, user){
-                if (err) res.status(400).json({success : false,message: err.message});
-                else{
-                    let id = req.body.postId
-                    const post = await postModel.find({_id : id});
-                    const comment = await commentModel.find({postId : id});
-                    res.status(200).json({success : true, post: post , comment : comment})
-                }
-            });
+            let id = req.body.postId
+            const post = await postModel.find({_id : id});
+            const comment = await commentModel.find({postId : id});
+            res.status(200).json({success : true, post: post , comment : comment})
             }
         catch (error) {
             res.status(400).json({success : false,message: error.message})
