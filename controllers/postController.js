@@ -31,7 +31,7 @@ module.exports = {
             res.status(400).json({success : false,message: error.message})
         }
     },
-    getUserPost : function(req, res) {
+    getUserPost : async function(req, res) {
         try{
             const result = await postModel.find({userId : req.body.id}).sort([['_id', -1]]);
             res.status(200).json({success : true,message: result})
@@ -110,7 +110,7 @@ module.exports = {
             res.status(400).json({success : false,message: error.message})
         }
     },
-    viewPost : function(req, res){
+    viewPost : async function(req, res){
         try{
             let id = req.body.postId
             const post = await postModel.find({_id : id});
@@ -121,15 +121,10 @@ module.exports = {
             res.status(400).json({success : false,message: error.message})
         }
     },
-    mostLikedPost : function(req, res){
+    mostLikedPost : async function(req, res){
         try{
-            jwt.verify(req.headers.token, 'bootspider', async function(err, user){
-                if (err) res.status(400).json({success : false,message: err.message});
-                else{
-                    const post = await postModel.find({}).sort([['like', -1]]).limit(5).skip(10 * req.query.page);
-                    res.status(200).json({success : true, post: post })
-                }
-            });
+            const post = await postModel.find({}).sort([['like', -1]]).limit(5).skip(10 * req.query.page);
+            res.status(200).json({success : true, post: post })
             }
         catch (error) {
             res.status(400).json({success : false,message: error.message})

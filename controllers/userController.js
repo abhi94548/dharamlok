@@ -123,7 +123,7 @@ module.exports = {
             res.status(400).json({success : false,message: error.message})
         }
     },
-    vendorBiography : function(req, res){ 
+    vendorBiography : async function(req, res){ 
         try{
             let vendorDetails = await userModel.find({_id : req.body.id}).select("name").select("email").select("phone")
                     .select("profileImageUrl").select("description").select("coverImageUrl").select("category").select("userType").select("typeVendor").select("address");
@@ -135,7 +135,7 @@ module.exports = {
             res.status(400).json({success : false,message: error.message})
         }
     },
-    getUserPhotos : function(req, res){ 
+    getUserPhotos : async function(req, res){ 
         try{
             const images = await addPhotoModel.find({userId : req.body.id}).sort([['_id', -1]]);
             res.status(200).json({success : true, message: images})
@@ -144,7 +144,7 @@ module.exports = {
             res.status(400).json({success : false,message: error.message})
         }
     },
-    getUserVideos : function(req, res){ 
+    getUserVideos : async function(req, res){ 
         try{
             const videos = await addVideoModel.find({userId : req.body.id}).sort([['_id', -1]]);
             res.status(200).json({success : true, message: videos})
@@ -193,7 +193,7 @@ module.exports = {
             res.status(400).json({success : false,message: error.message})
         }
     },
-    getPhoto : function(req, res){ 
+    getPhoto : async function(req, res){ 
         try{
             const photoDetails = await addPhotoModel.findOne({_id : req.body.id});
             res.status(200).json({success : true, message: photoDetails})
@@ -202,7 +202,7 @@ module.exports = {
             res.status(400).json({success : false,message: error.message})
         }
     },
-    getVideo : function(req, res){ 
+    getVideo : async function(req, res){ 
         try{
             const videoDetails = await addVideoModel.findOne({_id : req.body.id});
             res.status(200).json({success : true, message: videoDetails})
@@ -238,7 +238,7 @@ module.exports = {
             res.status(400).json({success : false,message: error.message})
         }
     },
-    searchByVendorName : function(req, res){
+    searchByVendorName : async function(req, res){
         try{
             var users = await userModel.find({name: { $regex: '.*' + req.body.name + '.*' }, userType : 'vendor'}).sort([['_id', 'desc']]);
             res.status(200).json({success : true, message: users})

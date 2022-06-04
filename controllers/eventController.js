@@ -58,7 +58,7 @@ module.exports = {
             res.status(400).json({success : false,message: error.message})
         }
     },
-    getAllEvents : function(req, res){
+    getAllEvents : async function(req, res){
         let events;
         try{
             events =  await  eventModel.find({}).sort([['_id', -1]]);
