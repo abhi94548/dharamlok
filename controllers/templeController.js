@@ -17,6 +17,7 @@ module.exports = {
                         name : req.body.name,
                         relatedImageUrl : req.body.relatedImageUrl,
                         state: req.body.state,
+                        category: req.body.category,
                     })
                     temple.save();
                     res.status(200).json({success : true,message: temple})
@@ -50,6 +51,7 @@ module.exports = {
                             name : req.body.name,
                             relatedImageUrl : req.body.relatedImageUrl,
                             state: req.body.state,
+                            category: req.body.category,
                         },{
                         new: true
                     });

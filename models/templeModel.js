@@ -33,6 +33,11 @@ const templeSchema = new mongoose.Schema({
 		required: false,
 		type: String,
 	},
+	category : {
+		required: false,
+		type: String,
+		default:''
+	},
 	createdAt:{
 		type: Date,
 		default: Date.now()
