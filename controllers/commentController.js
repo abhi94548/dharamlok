@@ -31,7 +31,7 @@ module.exports = {
             res.status(400).json({success : false,message: error.message})
         }
     },
-    getAllComment : function(req, res) {
+    getAllComment : async function(req, res) {
         let comment;
         try{
             comment =  await  commentModel.find({}).sort([['_id', -1]]);
