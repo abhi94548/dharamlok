@@ -10,14 +10,12 @@ module.exports = {
                 else{
                     let balVidya = new balVidyaModel({
                         userId : user.id,
-                        name : req.body.name ?? '',
-                        description : req.body.description ?? '',
-                        keyInsight : req.body.keyInsight ?? '',
-                        cost: req.body.cost ?? 0,
-                        type : req.body.type ?? '',
-                        pdfUrl : req.body.pdfUrl ?? '',
-                        bannerImageUrl : req.body.bannerImageUrl ?? '',
-                        relatedImageUrl: req.body.relatedImageUrl ?? '',
+                        name : req.body.name,
+                        description : req.body.description,
+                        category : req.body.category,
+                        type : req.body.type,
+                        PDFuploadUrl : req.body.PDFuploadUrl,
+                        thumbNailImageUrl: req.body.thumbNailImageUrl,
                     })
                     balVidya.save();
                     res.status(200).json({success : true,message: balVidya})
@@ -70,12 +68,10 @@ module.exports = {
                         {
                             name : req.body.name,
                             description : req.body.description,
-                            keyInsight : req.body.keyInsight,
-                            cost : req.body.cost,
+                            category : req.body.category,
                             type : req.body.type,
-                            pdfUrl : req.body.pdfUrl,
-                            bannerImageUrl : req.body.bannerImageUrl,
-                            relatedImageUrl : req.body.relatedImageUrl,
+                            PDFuploadUrl : req.body.PDFuploadUrl,
+                            thumbNailImageUrl: req.body.thumbNailImageUrl,
                         },{
                         new: true
                     });

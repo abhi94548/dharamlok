@@ -8,36 +8,31 @@ const balVidyaSchema = new mongoose.Schema({
 	},
 	name : {
 		required: false,
-		type: String
+		type: String,
+		unique: true
 	},
 	description : {
 		required: false,
-		type: String
-	},
-	keyInsight : {
-		required: false,
 		type: String,
 	},
-    cost : {
+	category : {
 		required: false,
-		type: Number
+		type: String,
 	},
 	type : {
-		required: false,
-		type: String
-	},
-	bannerImageUrl : {
-		required: false,
-		type: String,
-	},
-	pdfUrl : {
 		required: false,
 		type: String,
 		default:''
 	},
-	relatedImageUrl : {
+	PDFuploadUrl : {
 		required: false,
 		type: String,
+		default: ''
+	},
+	thumbNailImageUrl : {
+		required: false,
+		type: String,
+		default: ''
 	},
 	createdAt:{
 		type: Date,
