@@ -259,8 +259,8 @@ module.exports = {
                 if (err) res.status(400).json({success : false,message: err.message});
                 else{
                     var myOrders =  await orderModel.find({userId : user.id}).sort([['_id', -1]]);
-                    var service = await serviceModel.find({userId : req.body.id}).sort([['_id', -1]]);
-                    var booking =  await bookingModel.findOne({userId : user.id}).sort([['_id', -1]]);
+                    var service = await serviceModel.find({userId : user.id}).sort([['_id', -1]]);
+                    var booking =  await bookingModel.find({userId : user.id}).sort([['_id', -1]]);
                     res.status(200).json({success : true, orders : myOrders.length , service : service.length , booking : booking.length})
                 }
             });
