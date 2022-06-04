@@ -55,7 +55,6 @@ router.route('/addphoto').post(userController.addPhoto);
 router.route('/addvideo').post(userController.addVideo);
 router.route('/getphoto').post(userController.getPhoto)
 router.route('/getvideo').post(userController.getVideo)
-router.route('/dharamguru').get(userController.getDharamguru)
 router.route('/vendor').post(userController.getTypeVendor)
 router.route('/getvendordetail').post(userController.vendorBiography)
 router.route('/updatevendorbio').post(userController.updateBiographyVendor)
