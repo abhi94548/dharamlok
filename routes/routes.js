@@ -222,6 +222,7 @@ router.route('/getorderdetail').post(orderController.orderDetailById);
 router.route('/pendingorder').get(orderController.orderPending);
 router.route('/allorder').get(orderController.orderApproved);
 router.route('/approveorder').post(orderController.approveOrder);
+router.route('/getcountdetail').get(orderController.getDetailsCount);
 
 
 //////////////////Temple Route///////////////

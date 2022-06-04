@@ -4,6 +4,7 @@ const productModel = require('../models/productModel');
 const balVidyaModel = require('../models/balVidyaModel');
 const eventModel = require('../models/eventModel');
 const customerModel = require('../models/customerModel');
+const bookingModel = require('../models/bookingModel');
 const serviceModel = require('../models/addServiceModel');
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
@@ -150,7 +151,7 @@ module.exports = {
                 if (err) res.status(400).json({success : false,message: err.message});
                 else{
                     var myOrders =  await orderModel.find({userId : user.id}).sort([['_id', -1]]);
-                    res.status(200).json({success : true,orders: myOrders, total : myOrders.length})
+                    res.status(200).json({success : true,message: myOrders, total : myOrders.length})
                 }
             });
             }
@@ -251,6 +252,21 @@ module.exports = {
         catch (error) {
             res.status(400).json({success : false,message: error.message})
         }
-    }
-    
+    },
+    getDetailsCount : function(req, res){
+        try{
+            jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+                if (err) res.status(400).json({success : false,message: err.message});
+                else{
+                    var myOrders =  await orderModel.find({userId : user.id}).sort([['_id', -1]]);
+                    var service = await serviceModel.find({userId : req.body.id}).sort([['_id', -1]]);
+                    var booking =  await bookingModel.findOne({userId : user.id}).sort([['_id', -1]]);
+                    res.status(200).json({success : true, orders : myOrders.length , service : service.length , booking : booking.length})
+                }
+            });
+            }
+        catch (error) {
+            res.status(400).json({success : false,message: error.message})
+        }
+    },
 }
