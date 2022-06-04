@@ -27,10 +27,17 @@ module.exports = {
         }
     },
     getAllEbook : async function(req, res) {
+        var ebook
         try{
-            const ebook =  await eBookModel.find({$and: [{category : req.body.category, type : req.body.type}]}).sort([['_id', -1]]);
-            res.status(200).json({success : true,message: ebook})
+            if(req.body.category == '' && req.body.type == ''){
+                ebook =  await eBookModel.find({}).sort([['_id', -1]]);
             }
+            else{
+                ebook =  await eBookModel.find({$and: [{category : req.body.category, type : req.body.type}]}).sort([['_id', -1]]);
+                
+            }
+            res.status(200).json({success : true,message: ebook})
+        }
         catch (error) {
             res.status(400).json({success : false,message: error.message})
         } 
