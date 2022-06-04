@@ -222,7 +222,7 @@ module.exports = {
             jwt.verify(req.headers.token, 'bootspider', async function(err, user){
                 if (err) res.status(400).json({success : false,message: err.message});
                 else{
-                    const users = await userModel.find({}).select("name").select("email").select("phone")
+                    const users = await userModel.find({userType : 'user'}).select("name").select("email").select("phone")
                     .select("profileImageUrl").select("description").select("coverImageUrl").select("category").select("userType").select("typeVendor")
                     .sort([['_id', -1]]);
                     res.status(200).json({success : true, message: users})
