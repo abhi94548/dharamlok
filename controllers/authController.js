@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken");
 module.exports = {
     signUp : async function(req, res){
         try {
-            const {name,phone,email,password,userType,typeVendor} = req.body;
+            const {name,phone,email,password,userType,typeVendor,category} = req.body;
            let user = await userModel.findOne({email});
            if (user) return res.status(400).json({ success : false, message: "user already exists"});
            user =  new userModel({name,phone,email,password,userType,typeVendor,category})
