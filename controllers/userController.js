@@ -106,18 +106,13 @@ module.exports = {
             res.status(400).json({success : false,message: error.message})
         }
     },
-    myBiography : function(req, res){ 
+    myBiography : async function(req, res){ 
         try{
-            jwt.verify(req.headers.token, 'bootspider', async function(err, user){
-                if (err) res.status(400).json({success : false,message: err.message});
-                else{
-                    let userDetail = await userModel.findOne({_id : user.id}).select("name").select("email").select("phone")
-                    .select("profileImageUrl").select("description").select("coverImageUrl").select("category").select("userType").select("typeVendor");
-                    const images = await addPhotoModel.find({userId : user.id});
-                    const videos = await addVideoModel.find({userId : user.id});
-                    res.status(200).json({success : true, biography: userDetail, photos : images.length, videos: videos.length})
-                }
-            });
+            let userDetail = await userModel.findOne({_id : req.body.id}).select("name").select("email").select("phone")
+            .select("profileImageUrl").select("description").select("coverImageUrl").select("category").select("userType").select("typeVendor");
+            const images = await addPhotoModel.find({userId : user.id});
+            const videos = await addVideoModel.find({userId : user.id});
+            res.status(200).json({success : true, biography: userDetail, photos : images.length, videos: videos.length})
             }
         catch (error) {
             res.status(400).json({success : false,message: error.message})
