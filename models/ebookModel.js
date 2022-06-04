@@ -18,11 +18,6 @@ const ebookSchema = new mongoose.Schema({
 		required: false,
 		type: String,
 	},
-	categorydetail : {
-		required: false,
-		type: String,
-		default:''
-	},
 	type : {
 		required: false,
 		type: String,
