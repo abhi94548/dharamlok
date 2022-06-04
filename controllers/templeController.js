@@ -33,7 +33,14 @@ module.exports = {
         res.status(200).json({success : true,message: temple}) 
     },
     getAllTemple : async function(req, res){
-        var temple = await templeModel.find({}).sort([['_id', 'desc']]);
+        var temple
+        if(req.body.category == ''){
+            temple = await templeModel.find({}).sort([['_id', 'desc']]);
+        }
+        else{
+            temple = await templeModel.find({$or : [{ category : req.body.category , city : req.body.city , country : req.body.country}]}).sort([['_id', 'desc']]);
+        }
+        
         res.status(200).json({success : true,message: temple})
     },
     updateTemple : function(req, res){

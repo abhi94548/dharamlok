@@ -232,7 +232,7 @@ router.route('/createtemple').post(templeController.addTemple);
 router.route('/gettempledetail').post(templeController.templeDetailById);
 router.route('/deletetemple').post(templeController.deleteTemple);
 router.route('/updatetemple').post(templeController.updateTemple);
-router.route('/getalltemples').get(templeController.getAllTemple);
+router.route('/getalltemples').post(templeController.getAllTemple);
 
 
 //////////////////EBook Route///////////////
