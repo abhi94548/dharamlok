@@ -13,9 +13,10 @@ module.exports = {
                         name : req.body.name,
                         description : req.body.description,
                         category : req.body.category,
+                        categoryDetail : req.body.categoryDetail,
                         type : req.body.type,
                         PDFuploadUrl : req.body.PDFuploadUrl,
-                        thumbNailImageUrl: req.body.thumbNailImageUrl
+                        thumbNailImageUrl: req.body.thumbNailImageUrl,
                     })
                     ebook.save();
                     res.status(200).json({success : true,message: ebook})
@@ -28,7 +29,7 @@ module.exports = {
     },
     getAllEbook : async function(req, res) {
         try{
-            const ebook =  await eBookModel.find({and: [{category : req.body.category, type : req.body.type}]}).sort([['_id', -1]]);
+            const ebook =  await eBookModel.find({$and: [{categoryDetail : req.body.category, type : req.body.type}]}).sort([['_id', -1]]);
             res.status(200).json({success : true,message: ebook})
             }
         catch (error) {
@@ -69,6 +70,7 @@ module.exports = {
                             name : req.body.name,
                             description : req.body.description,
                             category : req.body.category,
+                            categoryDetail : req.body.categoryDetail,
                             type : req.body.type,
                             PDFuploadUrl : req.body.PDFuploadUrl,
                         },{
