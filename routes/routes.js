@@ -20,6 +20,7 @@ const dharamshalaController = require("../controllers/dharamshalaController");
 const adController = require("../controllers/adController");
 const bookingController = require("../controllers/bookingController");
 const audioController = require("../controllers/audioController");
+const homeController = require("../controllers/homeController");
 
 const router = express.Router();
 
@@ -61,6 +62,7 @@ router.route('/updatevendorbio').post(userController.updateBiographyVendor)
 router.route('/updateserviceprovider').get(userController.updateBiographyServiceProvider)
 router.route('/users').get(userController.getallUsers)
 router.route('/searchvendor').get(userController.searchByVendorName)
+router.route('/userstatus').post(userController.changeUserStatus)
 
 //Upload Photos
 router.post('/uploadphoto',upload.single("file"), async (req, res) => {
@@ -223,6 +225,7 @@ router.route('/pendingorder').get(orderController.orderPending);
 router.route('/allorder').get(orderController.orderApproved);
 router.route('/approveorder').post(orderController.approveOrder);
 router.route('/getcountdetail').get(orderController.getDetailsCount);
+router.route('/serviceproviderorderdetail').get(orderController.getServiceOrderDetails);
 
 
 //////////////////Temple Route///////////////
@@ -249,3 +252,10 @@ router.route('/getallebook').post(ebookController.getAllEbook);
 
 router.route('/addcustomer').post(customerController.createCustomer); 
 router.route('/getallcustomer').get(customerController.getAllCustomer);
+
+//////////////////Home Route///////////////
+
+
+router.route('/addhomedetail').post(homeController.addHomePage); 
+router.route('/gethome').post(homeController.getHomePageDetails);
+router.route('/updatehome').post(homeController.updateHomePageDetails);

@@ -17,14 +17,24 @@ const orderSchema = new mongoose.Schema({
 		required: false,
 		type: String,
 	},
+	serviceProviderId : {
+		required: false,
+		type: String,
+		default: ''
+	},
     amount : {
 		required: true,
 		type: Number,
 	},
-	amount : {
+	quantity : {
 		required: false,
 		type: Number,
 		default:1
+	},
+	type : {
+		required: false,
+		type: String,
+		default:''
 	},
     paymentStatus : {
 		required: true,

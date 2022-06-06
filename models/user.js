@@ -63,6 +63,11 @@ const userSchema = new mongoose.Schema({
 		type: String,
 		default:''
 	},
+	active :{
+		required : false,
+		type: Number,
+		default:1
+	},
 	pincode : {
 		required: false,
 		type: String,

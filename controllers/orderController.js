@@ -38,7 +38,8 @@ module.exports = {
                                     amount : amount,
                                     title : title,
                                     customerId : req.body.customerId,
-                                    quantity : req.body.quantity
+                                    quantity : req.body.quantity,
+                                    type : 'product'
                                 })
                                 orderSave.save();
                                 await customerModel.findOneAndUpdate({_id : req.body.customerId, userId : user.id}, 
@@ -68,7 +69,8 @@ module.exports = {
                                     id : req.body.id,
                                     title : title,
                                     amount : amount,
-                                    customerId : req.body.customerId
+                                    customerId : req.body.customerId,
+                                    type : 'event'
                                 })
                                 orderSave.save();
                                 res.status(200).json({success : true, message: order})
@@ -79,9 +81,10 @@ module.exports = {
                         )
                     }
                     else if(orderType == 3){
-                        const service = await service.findOne({_id : req.body.id}).select("price").select("services");
+                        const service = await service.findOne({_id : req.body.id}).select("price").select("services").select('userId');
                         var amount = service.price * 100 * req.body.quantity;
                         var services = service.services
+                        var userId = service.userId
                         const currency = 'INR'
                         await razorpayInstance.orders.create({amount, currency}, 
                         (error, order)=>{
@@ -92,7 +95,9 @@ module.exports = {
                                     id : req.body.id,
                                     title : services,
                                     amount : amount,
-                                    customerId : req.body.customerId
+                                    customerId : req.body.customerId,
+                                    type : 'service',
+                                    serviceProviderId : userId
                                 })
                                 orderSave.save();
                                 res.status(200).json({success : true, message: service})
@@ -134,6 +139,20 @@ module.exports = {
                     else{
                         res.status(400).json({success : false,message: 'Transaction Failed'})
                     }
+                }
+            });
+            }
+        catch (error) {
+            res.status(400).json({success : false,message: error.message})
+        }
+    },
+    getServiceOrderDetails : function(req, res){
+        try{
+            jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+                if (err) res.status(400).json({success : false,message: err.message});
+                else{
+                    var serviceOrder =  await orderModel.find({serviceProviderId : user.id, type : 'service'}).sort([['_id', -1]]);
+                    res.status(200).json({success : true,message: myOrders, total : serviceOrder})
                 }
             });
             }

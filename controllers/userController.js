@@ -37,6 +37,24 @@ module.exports = {
             res.status(400).json({success : false,message: error.message})
         }
     },
+    changeUserStatus : function(req, res) {
+        try{
+            jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+                if (err) res.status(400).json({success : false,message: err.message});
+                else{
+                    let userStauts =  await userModel.findOneAndUpdate({_id : req.body.id}, {
+                        active : req.body.status
+                    },{
+                        new: true
+                    });
+                    res.status(200).json({success : true, message: userStauts})
+                }
+            });
+            }
+        catch (error) {
+            res.status(400).json({success : false,message: error.message})
+        }
+    },
     updateBiography : async function(req, res){
         let userDetails;
         try{
@@ -208,7 +226,7 @@ module.exports = {
     },
     getTypeVendor : async function(req, res){ 
         try{
-            const vendor = await userModel.find({typeVendor : req.body.typeVendor}).select("name").select("email").select("phone")
+            const vendor = await userModel.find({$or : [{typeVendor : req.body.typeVendor},{category : req.body.category}]}).select("name").select("email").select("phone")
                     .select("profileImageUrl").select("description").select("coverImageUrl").select("category").select('typeVendor').select('userType')
                     .sort([['_id', -1]]);
                     res.status(200).json({success : true, message: vendor})
