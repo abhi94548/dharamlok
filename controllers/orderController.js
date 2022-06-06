@@ -152,7 +152,7 @@ module.exports = {
                 if (err) res.status(400).json({success : false,message: err.message});
                 else{
                     var serviceOrder =  await orderModel.find({serviceProviderId : user.id, type : 'service'}).sort([['_id', -1]]);
-                    res.status(200).json({success : true,message: myOrders, total : serviceOrder})
+                    res.status(200).json({success : true,message: serviceOrder})
                 }
             });
             }
