@@ -13,7 +13,7 @@ module.exports = {
                 if (err) res.status(400).json({success : false,message: err.message});
                 else{
                     let userDetail = await userModel.find({_id : req.body.id}).select("name").select("email").select("phone")
-                    .select("profileImageUrl").select("description").select("coverImageUrl").select("category").select("userType").select("typeVendor");
+                    .select("profileImageUrl").select("description").select("coverImageUrl").select("category").select("userType").select("typeVendor").select("approved");
                     res.status(200).json({success : true,userDetails: userDetail})
                 }
             });
@@ -28,7 +28,7 @@ module.exports = {
                 if (err) res.status(400).json({success : false,message: err.message});
                 else{
                     let userDetail = await userModel.find({_id : user.id}).select("name").select("email").select("phone")
-                    .select("profileImageUrl").select("description").select("coverImageUrl").select("category").select("userType").select("typeVendor");
+                    .select("profileImageUrl").select("description").select("coverImageUrl").select("category").select("userType").select("typeVendor").select("approved");
                     res.status(200).json({success : true,message: userDetail})
                 }
             });
@@ -127,7 +127,7 @@ module.exports = {
     myBiography : async function(req, res){ 
         try{
             let userDetail = await userModel.findOne({_id : req.body.id}).select("name").select("email").select("phone")
-            .select("profileImageUrl").select("description").select("coverImageUrl").select("category").select("userType").select("typeVendor");
+            .select("profileImageUrl").select("description").select("coverImageUrl").select("category").select("userType").select("typeVendor").select("approved");
             const images = await addPhotoModel.find({userId : user.id});
             const videos = await addVideoModel.find({userId : user.id});
             res.status(200).json({success : true, biography: userDetail, photos : images.length, videos: videos.length})
@@ -139,7 +139,7 @@ module.exports = {
     vendorBiography : async function(req, res){ 
         try{
             let vendorDetails = await userModel.find({_id : req.body.id}).select("name").select("email").select("phone")
-                    .select("profileImageUrl").select("description").select("coverImageUrl").select("category").select("userType").select("typeVendor").select("address");
+                    .select("profileImageUrl").select("description").select("coverImageUrl").select("category").select("userType").select("typeVendor").select("address").select("approved");
             const images = await addPhotoModel.find({userId : req.body.id});
             const videos = await addVideoModel.find({userId : req.body.id});
             res.status(200).json({success : true, biography:vendorDetails, photos : images.length, videos: videos.length})
