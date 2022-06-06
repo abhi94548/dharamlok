@@ -26,19 +26,9 @@ module.exports = {
             res.status(400).json({success : false,message: error.message})
         }
     },
-    myService : function(req, res) {
-        try{
-            jwt.verify(req.headers.token, 'bootspider', async function(err, user){
-                if (err) res.status(400).json({success : false,message: err.message});
-                else{
-                    const service = await serviceModel.find({userId : req.body.id}).sort([['_id', -1]]);
-                    res.status(200).json({success : true, message : service})
-                }
-            });
-            }
-        catch (error) {
-            res.status(400).json({success : false,message: error.message})
-        }
+    myService : async function(req, res) {
+        const service = await serviceModel.find({userId : req.body.id}).sort([['_id', -1]]);
+        res.status(200).json({success : true, message : service})
     },
     getAllService : async function(req, res) {
         try{
