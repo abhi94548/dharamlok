@@ -43,7 +43,7 @@ module.exports = {
                 if (err) res.status(400).json({success : false,message: err.message});
                 else{
                     let userStauts =  await userModel.findOneAndUpdate({_id : req.body.id}, {
-                        active : req.body.status
+                        active : req.body.active
                     },{
                         new: true
                     });
