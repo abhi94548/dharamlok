@@ -150,11 +150,22 @@ module.exports = {
         }
     },
     getServiceOrderDetails : function(req, res){
+        var productDetails,customerDetail,serviceProviderDetail;
         try{
             jwt.verify(req.headers.token, 'bootspider', async function(err, user){
                 if (err) res.status(400).json({success : false,message: err.message});
                 else{
                     var serviceOrder =  await orderModel.find({providerId : user.id}).sort([['_id', -1]]);
+                    for(var x = 0; x < serviceOrder.length ; x++){
+                        customerDetail =  await customerModel.findOne({_id : serviceOrder[x].customerId});
+                        productDetails =  await productModel.findOne({_id : serviceOrder[x].id});
+                        providerDetail =  await userModel.findOne({_id : serviceOrder[x].providerId}).select("name").select("email").select("phone")
+                        .select("profileImageUrl").select("description").select("coverImageUrl").select("category").select('typeVendor').select('userType').select('active')
+                        .sort([['_id', -1]]);;
+                        serviceOrder[x].customer = customerDetail;
+                        serviceOrder[x].product = productDetails;
+                        serviceOrder[x].providerDetail = providerDetail;
+                    }
                     res.status(200).json({success : true,message: serviceOrder})
                 }
             });
@@ -191,8 +202,8 @@ module.exports = {
                     if(myOrders.length > 0){
                         for(var x = 0; x < myOrders.length ; x++){
                             customerDetail =  await customerModel.findOne({_id : myOrders[x].customerId});
-                            productDetails =  await productModel.findOne({id : myOrders[x].id});
-                            serviceProviderDetail =  await userModel.findOne({id : myOrders[x].providerId}).select("name").select("email").select("phone")
+                            productDetails =  await productModel.findOne({_id : myOrders[x].id});
+                            serviceProviderDetail =  await userModel.findOne({_id : myOrders[x].providerId}).select("name").select("email").select("phone")
                             .select("profileImageUrl").select("description").select("coverImageUrl").select("category").select('typeVendor').select('userType').select('active')
                             .sort([['_id', -1]]);;
                             myOrders[x].customer = customerDetail;
