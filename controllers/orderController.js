@@ -155,7 +155,7 @@ module.exports = {
             jwt.verify(req.headers.token, 'bootspider', async function(err, user){
                 if (err) res.status(400).json({success : false,message: err.message});
                 else{
-                    var serviceOrder =  await orderModel.find({providerId : user.id}).sort([['_id', -1]]);
+                    var serviceOrder =  await orderModel.find({providerId : user.id}).sort([['_id', -1]]).lean();
                     for(var x = 0; x < serviceOrder.length ; x++){
                         customerDetail =  await customerModel.findOne({_id : serviceOrder[x].customerId});
                         productDetails =  await productModel.findOne({_id : serviceOrder[x].id});
@@ -198,7 +198,7 @@ module.exports = {
             jwt.verify(req.headers.token, 'bootspider', async function(err, user){
                 if (err) res.status(400).json({success : false,message: err.message});
                 else{
-                    var myOrders =  await orderModel.find({userId : user.id}).sort([['_id', -1]]);
+                    var myOrders =  await orderModel.find({userId : user.id}).sort([['_id', -1]]).lean();
                     if(myOrders.length > 0){
                         for(var x = 0; x < myOrders.length ; x++){
                             customerDetail =  await customerModel.findOne({_id : myOrders[x].customerId});
