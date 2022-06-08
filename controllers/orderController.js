@@ -165,6 +165,7 @@ module.exports = {
                         serviceOrder[x].customer = customerDetail;
                         serviceOrder[x].product = productDetails;
                         serviceOrder[x].providerDetail = providerDetail;
+                        serviceOrder[x].hello = 'demo'
                     }
                     res.status(200).json({success : true,message: serviceOrder})
                 }
