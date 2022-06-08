@@ -204,7 +204,7 @@ module.exports = {
                             customerDetail =  await customerModel.findOne({_id : myOrders[x].customerId});
                             productDetails =  await productModel.findOne({_id : myOrders[x].id});
                             serviceProviderDetail =  await userModel.findOne({_id : myOrders[x].providerId}).select("name").select("email").select("phone")
-                            .select("profileImageUrl").select("description").select("coverImageUrl").select("category").select('typeVendor').select('userType').select('active')
+                            .select("profileImageUrl").select("description").select("coverImageUrl").select("category").select('typeVendor').select('userType').select('address')
                             .sort([['_id', -1]]);;
                             myOrders[x].customer = customerDetail;
                             myOrders[x].product = productDetails;
@@ -220,7 +220,7 @@ module.exports = {
         }
     },
     orderDetailById : function(req, res){
-        var customerDetail,productDetails;
+        var customerDetail,productDetails,serviceProviderDetail;
         try{
             jwt.verify(req.headers.token, 'bootspider', async function(err, user){
                 if (err) res.status(400).json({success : false,message: err.message});
@@ -229,8 +229,12 @@ module.exports = {
                     if(myOrders != null){
                         customerDetail =  await customerModel.findOne({_id : myOrders.customerId});
                         productDetails =  await productModel.findOne({id : myOrders.id});
+                        serviceProviderDetail =  await userModel.findOne({_id : myOrders[x].providerId}).select("name").select("email").select("phone")
+                            .select("profileImageUrl").select("description").select("coverImageUrl").select("category").select('typeVendor').select('userType').select('address')
+                            .sort([['_id', -1]]);;
                         myOrders.customer = customerDetail;
                         myOrders.product = productDetails;
+                        myOrders.providerDetail = serviceProviderDetail;
                     }
                     res.status(200).json({success : true, message: myOrders})
                 }
