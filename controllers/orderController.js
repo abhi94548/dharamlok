@@ -160,7 +160,7 @@ module.exports = {
                         customerDetail =  await customerModel.findOne({_id : serviceOrder[x].customerId});
                         productDetails =  await productModel.findOne({_id : serviceOrder[x].id});
                         providerDetail =  await userModel.findOne({_id : serviceOrder[x].providerId}).select("name").select("email").select("phone")
-                        .select("profileImageUrl").select("description").select("coverImageUrl").select("category").select('typeVendor').select('userType').select('active')
+                        .select("profileImageUrl").select("description").select("coverImageUrl").select("category").select('typeVendor').select('userType').select('address')
                         .sort([['_id', -1]]);;
                         serviceOrder[x].customer = customerDetail;
                         serviceOrder[x].product = productDetails;
