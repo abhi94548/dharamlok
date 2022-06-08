@@ -150,7 +150,7 @@ module.exports = {
         }
     },
     getServiceOrderDetails : function(req, res){
-        var productDetails,customerDetail,serviceProviderDetail;
+        var productDetails,customerDetail,providerDetail;
         try{
             jwt.verify(req.headers.token, 'bootspider', async function(err, user){
                 if (err) res.status(400).json({success : false,message: err.message});
