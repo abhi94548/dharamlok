@@ -84,7 +84,7 @@ module.exports = {
                         )
                     }
                     else if(orderType == 3){
-                        const service = await service.findOne({_id : req.body.id}).select("price").select("services").select('userId');
+                        const service = await serviceModel.findOne({_id : req.body.id}).select("price").select("services").select('userId');
                         var amount = service.price * 100 * req.body.quantity;
                         var services = service.services
                         var serviceProviderUserId = service.userId
