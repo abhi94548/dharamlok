@@ -7,21 +7,21 @@ const commentSchema = new mongoose.Schema({
 		type: String
 	},
 	userName : {
-		required: true,
+		required: false,
 		type: String
 	},
 	
 	userImage : {
-		required: true,
+		required: false,
 		type: String
 	},
 	
 	postId : {
-		required: true,
+		required: false,
 		type: String
 	},
 	comment : {
-		required: true,
+		required: false,
 		type: String,
 	},
 	approved:{
