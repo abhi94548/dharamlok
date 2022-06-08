@@ -6,6 +6,7 @@ const eventModel = require('../models/eventModel');
 const customerModel = require('../models/customerModel');
 const bookingModel = require('../models/bookingModel');
 const serviceModel = require('../models/addServiceModel');
+const userModel = require('../models/user');
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 
@@ -24,9 +25,10 @@ module.exports = {
                 else{
                     var orderType = req.body.type;
                     if(orderType == 0){
-                        const product = await productModel.findOne({_id : req.body.id}).select("price").select("title");
+                        const product = await productModel.findOne({_id : req.body.id}).select("price").select("title").select('userId');
                         var amount = product.price * 100 * req.body.quantity;
                         var title = product.title
+                        productUserId = product.userId
                         const currency = 'INR'
                         await razorpayInstance.orders.create({amount, currency}, 
                         async (error, order)=> {
@@ -39,6 +41,7 @@ module.exports = {
                                     title : title,
                                     customerId : req.body.customerId,
                                     quantity : req.body.quantity,
+                                    providerId : productUserId,
                                     type : 'product'
                                 })
                                 orderSave.save();
@@ -84,7 +87,7 @@ module.exports = {
                         const service = await service.findOne({_id : req.body.id}).select("price").select("services").select('userId');
                         var amount = service.price * 100 * req.body.quantity;
                         var services = service.services
-                        var userId = service.userId
+                        var serviceProviderUserId = service.userId
                         const currency = 'INR'
                         await razorpayInstance.orders.create({amount, currency}, 
                         (error, order)=>{
@@ -97,7 +100,7 @@ module.exports = {
                                     amount : amount,
                                     customerId : req.body.customerId,
                                     type : 'service',
-                                    serviceProviderId : userId
+                                    providerId : serviceProviderUserId
                                 })
                                 orderSave.save();
                                 res.status(200).json({success : true, message: service})
@@ -151,8 +154,22 @@ module.exports = {
             jwt.verify(req.headers.token, 'bootspider', async function(err, user){
                 if (err) res.status(400).json({success : false,message: err.message});
                 else{
-                    var serviceOrder =  await orderModel.find({serviceProviderId : user.id, type : 'service'}).sort([['_id', -1]]);
+                    var serviceOrder =  await orderModel.find({providerId : user.id}).sort([['_id', -1]]);
                     res.status(200).json({success : true,message: serviceOrder})
+                }
+            });
+            }
+        catch (error) {
+            res.status(400).json({success : false,message: error.message})
+        }
+    },
+    getAllOrder : function(req, res){
+        try{
+            jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+                if (err) res.status(400).json({success : false,message: err.message});
+                else{
+                    var orders =  await orderModel.find({}).sort([['_id', -1]]);
+                    res.status(200).json({success : true,message: orders})
                 }
             });
             }
@@ -165,12 +182,25 @@ module.exports = {
         res.status(200).json({success : true, message: result})
     },
     myOrders : function(req, res){
+        var productDetails,customerDetail,serviceProviderDetail;
         try{
             jwt.verify(req.headers.token, 'bootspider', async function(err, user){
                 if (err) res.status(400).json({success : false,message: err.message});
                 else{
                     var myOrders =  await orderModel.find({userId : user.id}).sort([['_id', -1]]);
-                    res.status(200).json({success : true,message: myOrders, total : myOrders.length})
+                    if(myOrders.length > 0){
+                        for(var x = 0; x < myOrders.length ; x++){
+                            customerDetail =  await customerModel.findOne({_id : myOrders[x].customerId});
+                            productDetails =  await productModel.findOne({id : myOrders[x].id});
+                            serviceProviderDetail =  await userModel.findOne({id : myOrders[x].providerId}).select("name").select("email").select("phone")
+                            .select("profileImageUrl").select("description").select("coverImageUrl").select("category").select('typeVendor').select('userType').select('active')
+                            .sort([['_id', -1]]);;
+                            myOrders[x].customer = customerDetail;
+                            myOrders[x].product = productDetails;
+                            myOrders[x].providerDetail = serviceProviderDetail;
+                        }
+                    }
+                    res.status(200).json({success : true, message: myOrders})
                 }
             });
             }
@@ -222,14 +252,14 @@ module.exports = {
             res.status(400).json({success : false,message: error.message})
         }
     },
-    orderApproved : function(req, res){
+    allOrders : function(req, res){
         
         try{
             jwt.verify(req.headers.token, 'bootspider', async function(err, user){
                 if (err) res.status(400).json({success : false,message: err.message});
                 else{
                     var cust,prod;
-                    var orderDetail =  await orderModel.find({approved : 1}).lean();
+                    var orderDetail =  await orderModel.find({}).lean();
                     if(orderDetail.length > 0){
                         for(var x = 0; x < orderDetail.length ; x++){
                             cust =  await customerModel.findOne({_id : orderDetail[x].customerId});

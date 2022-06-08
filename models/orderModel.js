@@ -17,10 +17,9 @@ const orderSchema = new mongoose.Schema({
 		required: false,
 		type: String,
 	},
-	serviceProviderId : {
+	providerId : {
 		required: false,
 		type: String,
-		default: ''
 	},
     amount : {
 		required: true,

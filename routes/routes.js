@@ -222,7 +222,7 @@ router.route('/deleteorder').post(orderController.deleteOrder);
 router.route('/myorder').get(orderController.myOrders);
 router.route('/getorderdetail').post(orderController.orderDetailById);
 router.route('/pendingorder').get(orderController.orderPending);
-router.route('/allorder').get(orderController.orderApproved);
+router.route('/allorder').get(orderController.allOrders);
 router.route('/approveorder').post(orderController.approveOrder);
 router.route('/getcountdetail').get(orderController.getDetailsCount);
 router.route('/serviceproviderorderdetail').get(orderController.getServiceOrderDetails);
