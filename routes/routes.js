@@ -109,7 +109,7 @@ router.route('/mostliked').get(postController.mostLikedPost);
 //////////////////Service Route///////////////
 router.route('/addservice').post(serviceController.addService);
 router.route('/myservice').post(serviceController.myService);
-router.route('/getservicedetail').get(serviceController.getServiceById);
+router.route('/getservicedetail').post(serviceController.getServiceById);
 router.route('/deleteservice').post(serviceController.deleteService);
 router.route('/updateservice').post(serviceController.updateService);
 router.route('/getallservice').post(serviceController.getAllService);
