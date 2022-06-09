@@ -261,3 +261,4 @@ router.route('/addhomedetail').post(homeController.addHomePage);
 router.route('/gethome').post(homeController.getHomePageDetails);
 router.route('/updatehome').post(homeController.updateHomePageDetails);
 router.route('/deletehome').post(homeController.deleteHome);
+router.route('/gethomedetail').post(homeController.getHomePageDetailsById);

@@ -37,6 +37,15 @@ module.exports = {
             res.status(400).json({success : false,message: error.message})
         } 
     },
+    getHomePageDetailsById : async function(req, res) {
+        try{
+            var homeDetail =  await homeModel.find({_id : req.body.id}).sort([['_id', -1]]);
+            res.status(200).json({success : true,message: homeDetail})
+        }
+        catch (error) {
+            res.status(400).json({success : false,message: error.message})
+        } 
+    },
     updateHomePageDetails : async function(req, res) {
         let homePage;
         try{
