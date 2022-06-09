@@ -138,10 +138,12 @@ module.exports = {
     },
     vendorBiography : async function(req, res){ 
         try{
-            let vendorDetails = await userModel.find({_id : req.body.id}).select("name").select("email").select("phone")
-                    .select("profileImageUrl").select("description").select("coverImageUrl").select("category").select("userType").select("typeVendor").select("address").select("active");
+            let vendorDetails = await userModel.findOne({_id : req.body.id}).select("name").select("email").select("phone")
+                    .select("profileImageUrl").select("description").select("coverImageUrl").select("category").select("userType").select("typeVendor").select("address").select("active").lean();
             const images = await addPhotoModel.find({userId : req.body.id});
             const videos = await addVideoModel.find({userId : req.body.id});
+            const providerDetails = await serviceProviderModel.find({userId : req.body.id});
+            vendorDetails.providerDetail = providerDetails
             res.status(200).json({success : true, biography:vendorDetails, photos : images.length, videos: videos.length})
             }
         catch (error) {
