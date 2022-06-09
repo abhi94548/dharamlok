@@ -10,12 +10,14 @@ module.exports = {
                 else{
                     let home = new homeModel({
                         userId : user.id,
-                        homeBanner : req.body.homeBanner,
-                        dharamGuruBanner : req.body.dharamGuruBanner,
-                        kathavachakBanner : req.body.kathavachakBanner,
-                        punditBanner : req.body.punditBanner,
-                        templeBanner : req.body.templeBanner,
-                        thoughts: req.body.thoughts,
+                        imageUrl : req.body.imageUrl,
+                        title : req.body.title,
+                        description : req.body.description,
+                        link : req.body.link,
+                        phone : req.body.phone,
+                        type: req.body.type,
+                        thoughtTitle: req.body.thoughtTitle,
+                        thoughtBody: req.body.thoughtBody,
                     })
                     home.save();
                     res.status(200).json({success : true,message: home})
@@ -41,14 +43,16 @@ module.exports = {
             jwt.verify(req.headers.token, 'bootspider', async function(err, user){
                 if (err) res.status(400).json({success : false,message: err.message});
                 else{
-                    homePage =  await homeModel.findOneAndUpdate({userId : user.id}, 
+                    homePage =  await homeModel.findOneAndUpdate({_id : req.body.id, userId : user.id}, 
                         {
-                            homeBanner : req.body.homeBanner,
-                            dharamGuruBanner : req.body.dharamGuruBanner,
-                            kathavachakBanner : req.body.kathavachakBanner,
-                            punditBanner : req.body.punditBanner,
-                            templeBanner : req.body.templeBanner,
-                            thoughts: req.body.thoughts,
+                            imageUrl : req.body.imageUrl,
+                            title : req.body.title,
+                            description : req.body.description,
+                            link : req.body.link,
+                            phone : req.body.phone,
+                            type: req.body.type,
+                            thoughtTitle: req.body.thoughtTitle,
+                            thoughtBody: req.body.thoughtBody,
                         },{
                         new: true
                     });

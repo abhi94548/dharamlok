@@ -5,32 +5,42 @@ const homeSchema = new mongoose.Schema({
 		required: true,
 		type: String
 	},
-	homeBanner : {
+	imageUrl : {
 		required: false,
 		type: String,
 		default : ''
 	},
-	dharamGuruBanner : {
+	title : {
 		required: false,
 		type: String,
 		default : ''
 	},
-	kathavachakBanner : {
+	description : {
 		required: false,
 		type: String,
 		default : ''
 	},
-	punditBanner : {
+	link : {
 		required: false,
 		type: String,
 		default : ''
 	},
-	templeBanner : {
+	phone : {
 		required: false,
 		type: String,
 		default : ''
 	},
-	thoughts : {
+	type : {
+		required: false,
+		type: String,
+		default : ''
+	},
+	thoughtTitle : {
+		required: false,
+		type: String,
+		default : ''
+	},
+	thoughtBody : {
 		required: false,
 		type: String,
 		default : ''
