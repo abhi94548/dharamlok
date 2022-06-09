@@ -30,7 +30,7 @@ module.exports = {
                         var amount = product.price * 100 * req.body.quantity;
                         var title = product.title
                         productUserId = product.userId
-                        const currency = 'INR'
+                        var currency = 'INR'
                         await razorpayInstance.orders.create({amount, currency}, 
                         async (error, order)=> {
                             if(!err){
@@ -63,7 +63,7 @@ module.exports = {
                         const event = await eventModel.findOne({_id : req.body.id}).select("cost").select('title');
                         var amount = event.cost * 100 * req.body.quantity;
                         var title = event.title
-                        const currency = 'INR'
+                        var currency = 'INR'
                         await razorpayInstance.orders.create({amount, currency}, 
                         async (error, order)=>{
                             if(!err){
@@ -89,7 +89,7 @@ module.exports = {
                         var amount = service.price * 100 * req.body.quantity;
                         var services = service.services
                         var serviceProviderUserId = service.userId
-                        const currency = 'INR'
+                        var currency = 'INR'
                         await razorpayInstance.orders.create({amount, currency}, 
                         async (error, odr)=>{
                             if(!err){
