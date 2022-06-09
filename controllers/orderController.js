@@ -89,7 +89,7 @@ module.exports = {
                         var services = service.services
                         var serviceProviderUserId = service.userId
                         const currency = 'INR'
-                        res.status(200).json({success : true, message: orderSave})
+                        res.status(200).json({success : true, message: service})
                         // await razorpayInstance.orders.create({amount, currency}, 
                         // (error, order)=>{
                         //     if(!err){
