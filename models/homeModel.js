@@ -35,6 +35,16 @@ const homeSchema = new mongoose.Schema({
 		type: String,
 		default : ''
 	},
+	thoughtTitle : {
+		required: false,
+		type: String,
+		default : ''
+	},
+	thoughtBody : {
+		required: false,
+		type: String,
+		default : ''
+	},
 	createdAt:{
 		type: Date,
 		default: Date.now()

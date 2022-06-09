@@ -16,6 +16,8 @@ module.exports = {
                         link : req.body.link,
                         phone : req.body.phone,
                         type: req.body.type,
+                        thoughtTitle : req.body.thoughtTitle,
+                        thoughtBody : req.body.thoughtBody
                     })
                     home.save();
                     res.status(200).json({success : true,message: home})
@@ -49,6 +51,8 @@ module.exports = {
                             link : req.body.link,
                             phone : req.body.phone,
                             type: req.body.type,
+                            thoughtTitle : req.body.thoughtTitle,
+                            thoughtBody : req.body.thoughtBody
                         },{
                         new: true
                     });
@@ -64,7 +68,7 @@ module.exports = {
         try{
             jwt.verify(req.headers.token, 'bootspider', async function(err, user){
                 if (err) res.status(400).json({success : false,message: err.message});
-                homeModel.findByIdAndDelete({_id : req.body.id } , function(errorDelete, response){
+                homeModel.findByIdAndDelete({_id : req.body.id, userId : user.id } , function(errorDelete, response){
                     if (errorDelete) res.status(400).json({success : false,message: errorDelete.message});
                     else res.status(200).json({success : true, message: 'Deleted Success'})
                 });
