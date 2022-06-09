@@ -16,8 +16,6 @@ module.exports = {
                         link : req.body.link,
                         phone : req.body.phone,
                         type: req.body.type,
-                        thoughtTitle: req.body.thoughtTitle,
-                        thoughtBody: req.body.thoughtBody,
                     })
                     home.save();
                     res.status(200).json({success : true,message: home})
@@ -30,7 +28,7 @@ module.exports = {
     },
     getHomePageDetails : async function(req, res) {
         try{
-            var home =  await homeModel.find({}).limit(1);
+            var home =  await homeModel.find({}).sort([['_id', -1]]);
             res.status(200).json({success : true,message: home})
         }
         catch (error) {
@@ -51,8 +49,6 @@ module.exports = {
                             link : req.body.link,
                             phone : req.body.phone,
                             type: req.body.type,
-                            thoughtTitle: req.body.thoughtTitle,
-                            thoughtBody: req.body.thoughtBody,
                         },{
                         new: true
                     });
@@ -63,5 +59,19 @@ module.exports = {
         catch (error) {
             res.status(400).json({success : false,message: error.message})
         } 
+    },
+    deleteHome : function(req, res){
+        try{
+            jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+                if (err) res.status(400).json({success : false,message: err.message});
+                homeModel.findByIdAndDelete({_id : req.body.id } , function(errorDelete, response){
+                    if (errorDelete) res.status(400).json({success : false,message: errorDelete.message});
+                    else res.status(200).json({success : true, message: 'Deleted Success'})
+                });
+            });
+            }
+        catch (error) {
+            res.status(400).json({success : false,message: error.message})
+        }
     },
 }

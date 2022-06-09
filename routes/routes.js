@@ -260,3 +260,4 @@ router.route('/getallcustomer').get(customerController.getAllCustomer);
 router.route('/addhomedetail').post(homeController.addHomePage); 
 router.route('/gethome').post(homeController.getHomePageDetails);
 router.route('/updatehome').post(homeController.updateHomePageDetails);
+router.route('/deletehome').post(homeController.deleteHome);
