@@ -16,6 +16,10 @@ const razorpayInstance = new Razorpay({
     key_secret: "4XgGfyyMkzYHV8QJdXHcCmBt"
 });
 
+const razorpayServiceInstance = new Razorpay({
+    key_id: "rzp_test_CjE6dleliI5tcb",
+    key_secret: "4XgGfyyMkzYHV8QJdXHcCmBt"
+});
 
 module.exports = {
     createOrder : async function(req, res){
@@ -89,7 +93,7 @@ module.exports = {
                         var services = service.services
                         var serviceProviderUserId = service.userId
                         const currency = 'INR'
-                        await razorpayInstance.orders.create({amount, currency}, 
+                        await razorpayServiceInstance.orders.create({amount, currency}, 
                         async (error, odr)=>{
                             if(!err){
                                 // let orderDet = new orderModel({
