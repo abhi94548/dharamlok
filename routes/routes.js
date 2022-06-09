@@ -217,6 +217,7 @@ router.route('/getdharshan').post(dharshanController.getDharshanById);
 
 ////////////////Order Route////////////////////
 router.route('/createorder').post(orderController.createOrder);
+router.route('/createserviceorder').post(orderController.createServiceOrder);
 router.route('/verifyorder').post(orderController.verifyOrder);
 router.route('/deleteorder').post(orderController.deleteOrder);
 router.route('/myorder').get(orderController.myOrders);

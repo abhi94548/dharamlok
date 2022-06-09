@@ -116,6 +116,41 @@ module.exports = {
             res.status(400).json({success : false,message: error.message})
         }
     },
+    createServiceOrder : async function(req, res){
+        try{
+            jwt.verify(req.headers.token, 'bootspider', async function(err, user){
+                if (err) res.status(400).json({success : false,message: err.message});
+                else{
+                    const service = await serviceModel.findOne({_id : req.body.id}).select("price").select("services").select('userId');
+                        var amount = service.price * 100 * req.body.quantity;
+                        var services = service.services
+                        var serviceProviderUserId = service.userId
+                        var currency = 'INR'
+                        await razorpayInstance.orders.create({amount, currency}, 
+                        async (error, odr)=>{
+                            if(!err){
+                                let orderDet = new orderModel({
+                                    userId : user.id,
+                                    orderId : odr.id,
+                                    id : req.body.id,
+                                    title : services,
+                                    amount : amount,
+                                    type : 'service',
+                                    providerId : serviceProviderUserId
+                                })
+                                orderDet.save();
+                                res.status(200).json({success : true, message: odr})
+                            }
+                            else res.status(400).json({success : false,message: error.message});
+                            }
+                       )
+                }
+            });
+            }
+        catch (error) {
+            res.status(400).json({success : false,message: error.message})
+        }
+    },
     verifyOrder : function(req, res){
         try{
             jwt.verify(req.headers.token, 'bootspider', async function(err, user){
