@@ -131,7 +131,7 @@ module.exports = {
                             if(!err){
                                 let orderDet = new orderModel({
                                     userId : user.id,
-                                    orderId : odr.id,
+                                    orderId : odr,
                                     id : req.body.id,
                                     title : services,
                                     amount : amount,
