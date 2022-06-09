@@ -11,7 +11,7 @@ const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 
 
-const razorpayInstance = new Razorpay({
+var razorpayInstance = new Razorpay({
     key_id: "rzp_test_CjE6dleliI5tcb",
     key_secret: "4XgGfyyMkzYHV8QJdXHcCmBt"
 });
