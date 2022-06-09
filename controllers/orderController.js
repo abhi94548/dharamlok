@@ -99,7 +99,6 @@ module.exports = {
                                     id : req.body.id,
                                     title : services,
                                     amount : amount,
-                                    customerId : req.body.customerId,
                                     type : 'service',
                                     providerId : serviceProviderUserId
                                 })
