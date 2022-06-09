@@ -92,18 +92,18 @@ module.exports = {
                         await razorpayInstance.orders.create({amount, currency}, 
                         async (error, odr)=>{
                             if(!err){
-                                let orderDet = new orderModel({
-                                    userId : user.id,
-                                    orderId : odr.id,
-                                    id : req.body.id,
-                                    title : services,
-                                    amount : amount,
-                                    customerId : req.body.customerId,
-                                    type : 'service',
-                                    providerId : serviceProviderUserId
-                                })
-                                orderDet.save();
-                                res.status(200).json({success : true, message: orderDet})
+                                // let orderDet = new orderModel({
+                                //     userId : user.id,
+                                //     orderId : odr.id,
+                                //     id : req.body.id,
+                                //     title : services,
+                                //     amount : amount,
+                                //     customerId : req.body.customerId,
+                                //     type : 'service',
+                                //     providerId : serviceProviderUserId
+                                // })
+                                // orderDet.save();
+                                res.status(200).json({success : true, message: odr})
                             }
                             else res.status(400).json({success : false,message: error.message});
                             }
