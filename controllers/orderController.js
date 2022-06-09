@@ -89,25 +89,26 @@ module.exports = {
                         var services = service.services
                         var serviceProviderUserId = service.userId
                         const currency = 'INR'
-                        await razorpayInstance.orders.create({amount, currency}, 
-                        (error, order)=>{
-                            if(!err){
-                                let orderSave = new orderModel({
-                                    userId : user.id,
-                                    orderId : order.id,
-                                    id : req.body.id,
-                                    title : services,
-                                    amount : amount,
-                                    customerId : req.body.customerId,
-                                    type : 'service',
-                                    providerId : serviceProviderUserId
-                                })
-                                orderSave.save();
-                                res.status(200).json({success : true, message: orderSave})
-                            }
-                            else
-                                res.status(400).json({success : false,message: error.message});
-                            }
+                        res.status(200).json({success : true, message: orderSave})
+                        // await razorpayInstance.orders.create({amount, currency}, 
+                        // (error, order)=>{
+                        //     if(!err){
+                        //         let orderSave = new orderModel({
+                        //             userId : user.id,
+                        //             orderId : order.id,
+                        //             id : req.body.id,
+                        //             title : services,
+                        //             amount : amount,
+                        //             customerId : req.body.customerId,
+                        //             type : 'service',
+                        //             providerId : serviceProviderUserId
+                        //         })
+                        //         orderSave.save();
+                        //         res.status(200).json({success : true, message: orderSave})
+                        //     }
+                        //     else
+                        //         res.status(400).json({success : false,message: error.message});
+                        //     }
                         )
                     }
                 }
