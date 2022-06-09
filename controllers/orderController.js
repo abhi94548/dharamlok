@@ -90,11 +90,11 @@ module.exports = {
                         var serviceProviderUserId = service.userId
                         const currency = 'INR'
                         await razorpayInstance.orders.create({amount, currency}, 
-                        async (error, order)=>{
+                        async (error, odr)=>{
                             if(!err){
-                                let orderSave = new orderModel({
+                                let orderDet = new orderModel({
                                     userId : user.id,
-                                    orderId : order.id,
+                                    orderId : odr.id,
                                     id : req.body.id,
                                     title : services,
                                     amount : amount,
@@ -102,11 +102,10 @@ module.exports = {
                                     type : 'service',
                                     providerId : serviceProviderUserId
                                 })
-                                orderSave.save();
-                                res.status(200).json({success : true, message: orderSave})
+                                orderDet.save();
+                                res.status(200).json({success : true, message: orderDet})
                             }
-                            else
-                                res.status(400).json({success : false,message: error.message});
+                            else res.status(400).json({success : false,message: error.message});
                             }
                        )
                     }
