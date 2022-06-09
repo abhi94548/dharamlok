@@ -64,7 +64,7 @@ module.exports = {
                         var title = event.title
                         const currency = 'INR'
                         await razorpayInstance.orders.create({amount, currency}, 
-                        (error, order)=>{
+                        async (error, order)=>{
                             if(!err){
                                 let orderSave = new orderModel({
                                     userId : user.id,
@@ -89,27 +89,26 @@ module.exports = {
                         var services = service.services
                         var serviceProviderUserId = service.userId
                         const currency = 'INR'
-                        res.status(200).json({success : true, message: service})
-                        // await razorpayInstance.orders.create({amount, currency}, 
-                        // (error, order)=>{
-                        //     if(!err){
-                        //         let orderSave = new orderModel({
-                        //             userId : user.id,
-                        //             orderId : order.id,
-                        //             id : req.body.id,
-                        //             title : services,
-                        //             amount : amount,
-                        //             customerId : req.body.customerId,
-                        //             type : 'service',
-                        //             providerId : serviceProviderUserId
-                        //         })
-                        //         orderSave.save();
-                        //         res.status(200).json({success : true, message: orderSave})
-                        //     }
-                        //     else
-                        //         res.status(400).json({success : false,message: error.message});
-                        //     }
-                    //    )
+                        await razorpayInstance.orders.create({amount, currency}, 
+                        async (error, order)=>{
+                            if(!err){
+                                let orderSave = new orderModel({
+                                    userId : user.id,
+                                    orderId : order.id,
+                                    id : req.body.id,
+                                    title : services,
+                                    amount : amount,
+                                    customerId : req.body.customerId,
+                                    type : 'service',
+                                    providerId : serviceProviderUserId
+                                })
+                                orderSave.save();
+                                res.status(200).json({success : true, message: orderSave})
+                            }
+                            else
+                                res.status(400).json({success : false,message: error.message});
+                            }
+                       )
                     }
                 }
             });
