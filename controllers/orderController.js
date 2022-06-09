@@ -139,7 +139,7 @@ module.exports = {
                                     providerId : serviceProviderUserId
                                 })
                                 orderDet.save();
-                                res.status(200).json({success : true, message: orderDet})
+                                res.status(200).json({success : true, message: odr})
                             }
                             else res.status(400).json({success : false,message: error.message});
                             }
