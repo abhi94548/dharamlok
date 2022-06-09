@@ -16,10 +16,7 @@ const razorpayInstance = new Razorpay({
     key_secret: "4XgGfyyMkzYHV8QJdXHcCmBt"
 });
 
-const razorpayServiceInstance = new Razorpay({
-    key_id: "rzp_test_CjE6dleliI5tcb",
-    key_secret: "4XgGfyyMkzYHV8QJdXHcCmBt"
-});
+
 
 module.exports = {
     createOrder : async function(req, res){
@@ -93,20 +90,20 @@ module.exports = {
                         var services = service.services
                         var serviceProviderUserId = service.userId
                         const currency = 'INR'
-                        await razorpayServiceInstance.orders.create({amount, currency}, 
+                        await razorpayInstance.orders.create({amount, currency}, 
                         async (error, odr)=>{
                             if(!err){
-                                // let orderDet = new orderModel({
-                                //     userId : user.id,
-                                //     orderId : odr.id,
-                                //     id : req.body.id,
-                                //     title : services,
-                                //     amount : amount,
-                                //     customerId : req.body.customerId,
-                                //     type : 'service',
-                                //     providerId : serviceProviderUserId
-                                // })
-                                // orderDet.save();
+                                let orderDet = new orderModel({
+                                    userId : user.id,
+                                    orderId : odr.id,
+                                    id : req.body.id,
+                                    title : services,
+                                    amount : amount,
+                                    customerId : req.body.customerId,
+                                    type : 'service',
+                                    providerId : serviceProviderUserId
+                                })
+                                orderDet.save();
                                 res.status(200).json({success : true, message: odr})
                             }
                             else res.status(400).json({success : false,message: error.message});
