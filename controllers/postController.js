@@ -60,7 +60,7 @@ module.exports = {
                 var isLiked = await likeModal.findOne({userId: user.id, postId : id});
                 if(!isLiked){
                     postModel.findOneAndUpdate({_id : id }, {$inc : {like : 1}}, function(err, response){
-                        if (err) throw err;
+                        if (err) res.status(400).json({success : false, message: 'Error posting comment'});
                         like = new likeModal({
                             userId : user.id,
                             postId : id,

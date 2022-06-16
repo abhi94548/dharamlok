@@ -4,21 +4,25 @@ const mongoose = require('mongoose');
 const commentSchema = new mongoose.Schema({
 	userId : {
 		required: true,
-		type: String
+		type: String,
+		unique:false
 	},
 	userName : {
 		required: false,
-		type: String
+		type: String,
+		unique:false
 	},
 
 	userImage : {
 		required: false,
-		type: String
+		type: String,
+		unique:false
 	},
 	
 	postId : {
 		required: false,
-		type: String
+		type: String,
+		unique:false
 	},
 	comment : {
 		required: false,
