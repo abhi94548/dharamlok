@@ -27,11 +27,13 @@ const commentSchema = new mongoose.Schema({
 	comment : {
 		required: false,
 		type: String,
+		unique:false
 	},
 	approved:{
 		required: false,
 		type: Number,
-		default:0
+		default:0,
+		unique:false
 	},
 	createdAt:{
 		type: Date,
