@@ -46,6 +46,7 @@ app.all('/api',function(req, res, next) {
 const routes = require('./routes/routes');
 
 app.use('/api', routes);
+app.use(express.limit('20M'));
 
 app.use('/view',express.static('assets/'))
 
