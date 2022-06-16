@@ -10,7 +10,7 @@ const commentSchema = new mongoose.Schema({
 		required: false,
 		type: String
 	},
-	
+
 	userImage : {
 		required: false,
 		type: String

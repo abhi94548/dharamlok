@@ -3,6 +3,7 @@ const biographyModel = require('../models/biographyModel');
 const likeModal = require('../models/likeModel');
 const userModel = require('../models/user');
 const jwt = require("jsonwebtoken");
+const commentModel = require('../models/commentModel');
 
 
 module.exports = {
@@ -41,24 +42,10 @@ module.exports = {
         }
     },
     getAllPost : async function(req, res){
-        //result = await postModel.deleteMany();
+        result = await commentModel.deleteMany();
         try{
-            var result = await postModel.find({}).sort([['_id', 'desc']]).lean();
-            var token = req.headers.token;
-            if(typeof token != 'undefined'){
-                // jwt.verify(req.headers.token, 'bootspider', async function(err, user){
-                //     if (err) res.status(400).json({success : false,message: err.message});
-                //     var userLikedPosts = await likeModal.find({userId : user.id});
-                //     for (var i = 0; i < userLikedPosts.length; i++){
-                //         for (var j = 0; j < result.length; j++){
-                //             if(userLikedPosts[i].postId == result[j]._id){
-                //                 result[j].isLiked = true
-                                
-                //             }
-                //         }
-                //     }
-                // }); 
-            }
+            //var result = await postModel.find({}).sort([['_id', 'desc']]);
+            var result = await commentModel.deleteMany();
             res.status(200).json({success : true,message: result}) 
         }
         catch (error) {
