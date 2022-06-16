@@ -36,7 +36,8 @@ var storage = multer.diskStorage({
 });
 
 const upload = multer({
-	storage: storage
+	storage: storage,
+	limits: { fileSize: 1024 * 1024 * 50 }
 }) 
 
 //////////////////Authentication Route///////////////
