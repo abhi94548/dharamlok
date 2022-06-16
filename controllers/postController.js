@@ -43,7 +43,7 @@ module.exports = {
     },
     getAllPost : async function(req, res){
         try{
-            var result = await postModel.find({}).sort([['_id', 'desc']]);
+            var result = await postModel.find({userType : req.body.userType}).sort([['_id', 'desc']]);
             //var result = await commentModel.deleteMany();
             res.status(200).json({success : true,message: result}) 
         }

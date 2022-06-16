@@ -44,7 +44,7 @@ const postSchema = new mongoose.Schema({
 	userType : {
 		required: false,
 		type: Number,
-		default:0
+		default:0 //0 for kathavachak and 1 for dharamguru
 	},
 	isLiked : {
 		required: false,
