@@ -10,18 +10,18 @@ module.exports = {
             jwt.verify(req.headers.token, 'bootspider', async function(err, user){
                 if (err) res.status(400).json({success : false,message: err.message});
                 else{
-                    var userDetails = await userModel.findOne({_id : user.id}).select("name").select("profileImageUrl");
+                    //var userDetails = await userModel.findOne({_id : user.id}).select("name").select("profileImageUrl");
                     let comment = new commentModel({
                         userId : user.id,
-                        userName: userDetails.name,
-                        userImage : userDetails.profileImageUrl,
+                        userName: '',
+                        userImage : '',
                         postId : req.body.postId,
                         comment : req.body.comment,
                     })
                     comment.save();
                     let id = req.body.postId
                     postModel.findOneAndUpdate({_id : id }, {$inc : {comment : 1}}, {new : true}, function(error, response){
-                        if (error) throw error;
+                        if (error) res.status(200).json({success : true,message: 'Something went wrong'});
                         else res.status(200).json({success : true,message: comment})
                     });
                 }
