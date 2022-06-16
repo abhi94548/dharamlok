@@ -13,6 +13,7 @@ module.exports = {
                         userId : user.id,
                         services : req.body.services,
                         type : req.body.type,
+                        description : req.body.description,
                         place : req.body.place,
                         price: req.body.price,
                         imageUrl : req.body.imageUrl,
@@ -72,6 +73,7 @@ module.exports = {
                         {
                             services : req.body.services,
                             type : req.body.type,
+                            description : req.body.description,
                             place : req.body.place,
                             price: req.body.price,
                             imageUrl : req.body.imageUrl,
