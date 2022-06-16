@@ -36,7 +36,7 @@ module.exports = {
         var product = await productModel.find({}).sort([['_id', 'desc']]);
         res.status(200).json({success : true,message: product})
     },
-    myProduct : function(req, res){
+    myProduct : async function(req, res){
         try{
             var product = await productModel.find({}).sort([['_id', 'desc']]);
             res.status(200).json({success : true,message: product})
