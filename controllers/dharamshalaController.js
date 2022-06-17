@@ -28,9 +28,15 @@ module.exports = {
         }
     },
     getAllDharamshala  : async function(req, res) {
+        var dharamshala 
         try{
-            const dharamshala =  await dharamshalaModel.find({}).sort([['_id', -1]]);
-            res.status(200).json({success : true,message: dharamshala})
+                if(req.body.state == ''){
+                dharamshala =  await dharamshalaModel.find({}).sort([['_id', -1]]);
+                }
+                else{
+                    dharamshala =  await dharamshalaModel.find({$or : [{state : req.body.state},{city : req.body.city}]}).sort([['_id', -1]]);
+                }
+                res.status(200).json({success : true,message: dharamshala})
             }
         catch (error) {
             res.status(400).json({success : false,message: error.message})

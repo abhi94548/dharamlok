@@ -227,11 +227,19 @@ module.exports = {
         }
     },
     getTypeVendor : async function(req, res){ 
+        var vendor;
         try{
-            const vendor = await userModel.find({typeVendor : req.body.typeVendor}).select("name").select("email").select("phone")
+             if(req.body.category == ''){
+                vendor = await userModel.find({typeVendor : req.body.typeVendor}).select("name").select("email").select("phone")
+                .select("profileImageUrl").select("description").select("coverImageUrl").select("category").select('typeVendor').select('userType').select('active')
+                .sort([['_id', -1]]);
+             }
+             else{
+                vendor = await userModel.find({$and : [{typeVendor : req.body.typeVendor},{category : req.body.category}]}).select("name").select("email").select("phone")
                     .select("profileImageUrl").select("description").select("coverImageUrl").select("category").select('typeVendor').select('userType').select('active')
                     .sort([['_id', -1]]);
-                    res.status(200).json({success : true, message: vendor})
+                }
+            res.status(200).json({success : true, message: vendor})
         }
         catch (error) {
             res.status(400).json({success : false,message: error.message})

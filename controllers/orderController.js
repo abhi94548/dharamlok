@@ -239,7 +239,7 @@ module.exports = {
                             productDetails =  await productModel.findOne({_id : myOrders[x].id});
                             serviceProviderDetail =  await userModel.findOne({_id : myOrders[x].providerId}).select("name").select("email").select("phone")
                             .select("profileImageUrl").select("description").select("coverImageUrl").select("category").select('typeVendor').select('userType').select('address')
-                            .sort([['_id', -1]]);;
+                            .sort([['_id', -1]]);
                             myOrders[x].customer = customerDetail;
                             myOrders[x].product = productDetails;
                             myOrders[x].providerDetail = serviceProviderDetail;
@@ -307,14 +307,18 @@ module.exports = {
             jwt.verify(req.headers.token, 'bootspider', async function(err, user){
                 if (err) res.status(400).json({success : false,message: err.message});
                 else{
-                    var cust,prod;
-                    var orderDetail =  await orderModel.find({}).lean();
+                    var cust,prod,serviceProviderDetail;
+                    var orderDetail =  await orderModel.find({type : req.body.type}).lean();
                     if(orderDetail.length > 0){
                         for(var x = 0; x < orderDetail.length ; x++){
                             cust =  await customerModel.findOne({_id : orderDetail[x].customerId});
                             prod =  await productModel.findOne({id : orderDetail[x].id});
+                            serviceProviderDetail =  await userModel.findOne({_id : myOrders[x].providerId}).select("name").select("email").select("phone")
+                            .select("profileImageUrl").select("description").select("coverImageUrl").select("category").select('typeVendor').select('userType').select('address')
+                            .sort([['_id', -1]]);
                             orderDetail[x].customer = cust;
                             orderDetail[x].product = prod;
+                            orderDetail[x].vendorDetail = serviceProviderDetail;
                         }
                     }
                     res.status(200).json({success : true, message: orderDetail})

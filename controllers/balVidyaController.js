@@ -28,7 +28,7 @@ module.exports = {
     },
     getAllBalVidya : async function(req, res) {
         try{
-            const bal =  await balVidyaModel.find({}).sort([['createdAt', -1]]);
+            const bal =  await balVidyaModel.find({name : req.body.name}).sort([['_id', -1]]);
             res.status(200).json({success : true,message: bal})
             }
         catch (error) {

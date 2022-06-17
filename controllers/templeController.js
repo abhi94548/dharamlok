@@ -38,7 +38,7 @@ module.exports = {
             temple = await templeModel.find({}).sort([['_id', 'desc']]);
         }
         else{
-            temple = await templeModel.find({$or : [{ category : req.body.category}]}).sort([['_id', 'desc']]);
+            temple = await templeModel.find({$or : [{ category : req.body.category},{state : req.body.state},{city : req.body.city}]}).sort([['_id', 'desc']]);
         }
         
         res.status(200).json({success : true,message: temple})

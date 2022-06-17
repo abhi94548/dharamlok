@@ -169,7 +169,7 @@ router.route('/mybooking').get(bookingController.myBooking);
 //////////////////Dharamshala Route///////////////
 
 router.route('/adddharamshala').post(dharamshalaController.createDharamshala);
-router.route('/getalldharamshala').get(dharamshalaController.getAllDharamshala);
+router.route('/getalldharamshala').post(dharamshalaController.getAllDharamshala);
 router.route('/deletedharamshala').post(dharamshalaController.deleteDharamshala);
 router.route('/updatedharamshala').post(dharamshalaController.updateDharamshala);
 router.route('/getdharamshala').post(dharamshalaController.getDharamshalaById);
@@ -190,7 +190,7 @@ router.route('/deleteaudiocategory').post(audioController.deleteCategory);
 
 
 router.route('/createbalvidya').post(balVidyaController.createBalVidya); 
-router.route('/getallbalvidya').get(balVidyaController.getAllBalVidya);
+router.route('/getallbalvidya').post(balVidyaController.getAllBalVidya);
 router.route('/deletebalvidya').post(balVidyaController.deleteBalVidya);
 router.route('/updatebalvidya').post(balVidyaController.updateBalVidya);
 router.route('/getbalvidya').post(balVidyaController.getBalVidyaById);
@@ -224,7 +224,7 @@ router.route('/deleteorder').post(orderController.deleteOrder);
 router.route('/myorder').get(orderController.myOrders);
 router.route('/getorderdetail').post(orderController.orderDetailById);
 router.route('/pendingorder').get(orderController.orderPending);
-router.route('/allorder').get(orderController.allOrders);
+router.route('/allorder').post(orderController.allOrders);
 router.route('/approveorder').post(orderController.approveOrder);
 router.route('/getcountdetail').get(orderController.getDetailsCount);
 router.route('/serviceproviderorderdetail').get(orderController.getServiceOrderDetails);
