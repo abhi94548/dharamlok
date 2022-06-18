@@ -313,7 +313,7 @@ module.exports = {
                         for(var x = 0; x < orderDetail.length ; x++){
                             cust =  await customerModel.findOne({_id : orderDetail[x].customerId});
                             prod =  await productModel.findOne({id : orderDetail[x].id});
-                            serviceProviderDetail =  await userModel.findOne({_id : myOrders[x].providerId}).select("name").select("email").select("phone")
+                            serviceProviderDetail =  await userModel.findOne({_id : orderDetail[x].providerId}).select("name").select("email").select("phone")
                             .select("profileImageUrl").select("description").select("coverImageUrl").select("category").select('typeVendor').select('userType').select('address')
                             .sort([['_id', -1]]);
                             orderDetail[x].customer = cust;
