@@ -4,6 +4,7 @@ const addPhotoModel = require('../models/addPhotoModel');
 const addVideoModel = require('../models/addVideoModel');
 const serviceProviderModel = require('../models/serviceProviderModel');
 const jwt = require("jsonwebtoken");
+var request = require('request');
 
 
 module.exports = {
@@ -269,5 +270,29 @@ module.exports = {
         catch (error) {
             res.status(400).json({success : false,message: error.message})
         }
-    }
+    },
+    getPanchang : async function(req, res){
+        try{
+            var date_ob = new Date();
+            var day = ("0" + date_ob.getDate()).slice(-2);
+            var month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+            var year = date_ob.getFullYear();  
+            var date = day + "/" + month + "/" + year;
+            var hours = date_ob.getHours();
+            var minutes = date_ob.getMinutes();
+            var seconds = date_ob.getSeconds();
+            var time = hours + ":" + minutes + ":" + seconds;
+            request.get('http://api.panchang.click/v0.4/panchangapi?date='+date+'&time='+time+'&tz=5.5&userid=jinendr&authcode=aa34cab0326e2ef1221ce1f959b5b9ee', function (error, response, body) {
+                if(!error){
+                    res.status(200).json({success : true, message: body})
+                }
+                else{
+                    res.status(200).json({success : true, message: error})
+                }
+            });
+        }
+        catch (error) {
+            res.status(400).json({success : false,message: error.message})
+        }
+    },
 }

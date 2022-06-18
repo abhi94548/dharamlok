@@ -64,6 +64,7 @@ router.route('/updateserviceprovider').get(userController.updateBiographyService
 router.route('/users').get(userController.getallUsers)
 router.route('/searchvendor').get(userController.searchByVendorName)
 router.route('/userstatus').post(userController.changeUserStatus)
+router.route('/getpanchang').get(userController.getPanchang)
 
 //Upload Photos
 router.post('/uploadphoto',upload.single("file"), async (req, res) => {
