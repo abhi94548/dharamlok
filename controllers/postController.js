@@ -84,7 +84,7 @@ module.exports = {
                 if (err) res.status(400).json({success : false,message: err.message});
                 let id = req.body.postId
                 postModel.findOneAndUpdate({_id : id }, {$inc : {like : -1}}, function(err, response){
-                    if (err) throw err;
+                    if (err) res.status(200).json({success : false , message: 'Something went wrong'});
                     likeModal.findByIdAndDelete({_id : id } , function(errorDelete, response){
                         if (errorDelete) throw errorDelete;
                         else res.status(200).json({success : true, message: 'post unliked'})
